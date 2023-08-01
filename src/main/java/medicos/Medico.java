@@ -1,7 +1,7 @@
 package medicos;
 
 public class Medico {
-
+    private int idMedico;
     private String apellidoMedico;
     private String nombreMedico;
     private String telefonoMedico;
@@ -18,6 +18,14 @@ public class Medico {
         this.telefonoMedico = telefonoMedico;
         this.DNI = DNI;
         this.usuario = usuario;
+    }
+
+    public int getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(int idMedico) {
+        this.idMedico = idMedico;
     }
 
     public String getApellidoMedico() {

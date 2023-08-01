@@ -2,6 +2,7 @@
 package medicos;
 
 public class Usuario {
+    private int idUsuario;
     private String usuario;
     private String clave;
     private boolean estado;
@@ -15,6 +16,14 @@ public class Usuario {
         this.clave = clave;
         this.estado = estado;
         this.rol = rol;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getUsuario() {
@@ -48,6 +57,4 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
-    
-    
 }
