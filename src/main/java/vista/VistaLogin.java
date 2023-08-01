@@ -64,7 +64,7 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener, Ke
             }
             if (pGeneral.getpLogin().isHabilitado()) {
                 this.dispose();
-                if (pGeneral.getpLogin().getUsuarioRolBD().equals("Admin")) {
+                if (pGeneral.getpLogin().getRol().equals("Admin")) {
                     pGeneral.mostrarVistaInterfazAdmin();
                 } else {
                     pGeneral.mostrarVistaInterfazMedico();

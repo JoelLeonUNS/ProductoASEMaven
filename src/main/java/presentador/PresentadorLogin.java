@@ -27,8 +27,8 @@ public class PresentadorLogin {
         else return "";
     }
     
-    public String getUsuarioRolBD() {
-        return mUsuario.getUsuarioBD().getRol();
+    public String getRol() {
+        return mUsuario.getUsuario().getRol();
     }
 
     public void iniciarSesion() {

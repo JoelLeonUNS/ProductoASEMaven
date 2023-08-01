@@ -1,6 +1,6 @@
 package App;
 
-import BaseDeDatos.SqlServerConexion;
+import conexiones.SqlServerConexion;
 import modelo.ModeloConsulta;
 import modelo.ModeloExamen;
 import modelo.ModeloHistoriaClinica;
@@ -28,9 +28,7 @@ public class GestionHistorial {
         PresentadorGeneral.getInstancia().setModeloPresentadorHistoriaClinica(mHistoriaClinica);
         PresentadorGeneral.getInstancia().setModeloPresentadorExamen(new ModeloExamen(), new ModeloConsulta(), mHistoriaClinica);
         
-        SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "02122002");
-        SqlServerConexion.getInstance(); // obtener el conector (generar la conexión)
-        
+        SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "02122002");        
         VistaLogin vLogin = new VistaLogin(PresentadorGeneral.getInstancia()); 
         vLogin.iniciar();
     }

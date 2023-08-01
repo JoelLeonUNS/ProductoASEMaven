@@ -1,24 +1,21 @@
 package modelo;
 
-import BaseDeDatos.UsuarioDAO;
+import factoryDAO.DAOFactory;
+import factoryDAO.SqlServerDAOFactory;
+import java.util.List;
 import medicos.Usuario;
 
 public class ModeloUsuario {
-    
-    private final Usuario usuario;
+    private DAOFactory dao;
+    private Usuario usuario;
     private int numeroIntentos;
     private boolean datosValido = false;
-    private int idUsuario;
     private final CareTaker careTaker = new CareTaker();
     private String recuerdoSesion; // usuario;clave
 
     public ModeloUsuario() {
         usuario = new Usuario();
-    }
-
-    public Usuario getUsuarioBD() {
-        UsuarioDAO uDAO = new UsuarioDAO();     
-        return uDAO.read(idUsuario);
+        this.dao = new SqlServerDAOFactory(); // o MySql
     }
  
     public Usuario getUsuario() {
@@ -50,22 +47,19 @@ public class ModeloUsuario {
     }
     
     public boolean isHabilitado() {
-        return getUsuarioBD().isEstado();
+        return usuario.isEstado();
     }
 
     public void iniciarSesion() {
-        UsuarioDAO uDAO = new UsuarioDAO();
-        for (int i = 0; i < uDAO.count(); i++) {
-            if (uDAO.read(i).getUsuario().equals(usuario.getUsuario())
-                && uDAO.read(i).getClave().equals(usuario.getClave())) {
+        for(Usuario usuarioBD: (List<Usuario>)dao.getUsuario().listed()) {
+            if (usuarioBD.getUsuario().equals(usuario.getUsuario())
+                && usuarioBD.getClave().equals(usuario.getClave())) {
                 datosValido = true;
-                idUsuario = i;
+                usuario = usuarioBD;
                 break;
-            } else {
-                datosValido = false;
             }
         }
-        if (!datosValido) numeroIntentos++;
+        if (!datosValido) numeroIntentos++;  
     }
     
     public void recordarSesion() {

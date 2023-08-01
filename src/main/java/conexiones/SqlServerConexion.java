@@ -29,7 +29,7 @@ public class SqlServerConexion {
         conexion = url + nombreServidor + ":" + numeroPuerto + ";" + "databaseName=" + nombreBaseDato;
         try {
             conector = DriverManager.getConnection(conexion, nombreUsuario, clave);          
-            conector.setAutoCommit(false);   
+            conector.setAutoCommit(false);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error de nombre de usuario y/o clave: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
         }
