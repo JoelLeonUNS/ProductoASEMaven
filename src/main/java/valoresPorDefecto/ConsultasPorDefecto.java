@@ -5,11 +5,6 @@ import BaseDeDatos.ExamenDAO;
 import BaseDeDatos.HistoriaClinicaDAO;
 import BaseDeDatos.MedicoDAO;
 import consultas.ConsultaMedica;
-import examenesClinico.ExamenClinico;
-import examenesFisico.ExamenFisico;
-import historias.HistoriaClinica;
-import modelo.Enfermedad;
-import pacientes.*;
 
 /**
  *
