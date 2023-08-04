@@ -14,13 +14,14 @@ public class SqlServerMedicoDAO extends MedicoDAO<Medico> {
     @Override
     public Medico create(Medico obj) {
         try {
-            setSql("INSERT INTO Medico (idMedico, idUsuario, apellido, nombre, telefono) VALUES (?, ?, ?, ?, ?)");
+            setSql("INSERT INTO Medico (idMedico, idUsuario, dni, apellido, nombre, telefono) VALUES (?, ?, ?, ?, ?, ?)");
             setPs(getConector().prepareStatement(getSql()));
             getPs().setInt(1, obj.getIdMedico());
             getPs().setInt(2, obj.getUsuario().getIdUsuario());
-            getPs().setString(3, obj.getApellidoMedico());
-            getPs().setString(4, obj.getNombreMedico());
-            getPs().setString(5, obj.getTelefonoMedico());
+            getPs().setString(3, obj.getDNI());
+            getPs().setString(4, obj.getApellidoMedico());
+            getPs().setString(5, obj.getNombreMedico());
+            getPs().setString(6, obj.getTelefonoMedico());
 
             if (!exeUpdate()) {
                 obj = null;
@@ -62,6 +63,7 @@ public class SqlServerMedicoDAO extends MedicoDAO<Medico> {
                 DAOFactory dao = new SqlServerDAOFactory();
                 medico.setUsuario((Usuario) dao.getUsuario().read(getRs().getInt("idUsuario")));
                 
+                medico.setDNI(getRs().getString("dni"));
                 medico.setApellidoMedico(getRs().getString("apellido"));
                 medico.setNombreMedico(getRs().getString("nombre"));
                 medico.setTelefonoMedico(getRs().getString("telefono"));
