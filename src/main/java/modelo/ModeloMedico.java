@@ -3,16 +3,20 @@ package modelo;
 
 import BaseDeDatos.MedicoDAO;
 import BaseDeDatos.UsuarioDAO;
+import factoryDAO.DAOFactory;
+import factoryDAO.SqlServerDAOFactory;
 import java.util.ArrayList;
 import medicos.Medico;
 import medicos.Usuario;
 
 public class ModeloMedico {
+    private DAOFactory dao;
     private Medico medico;
     private int idMedico;
     private ArrayList<Integer> idMedicos;
 
     public ModeloMedico() {
+        this.dao = new SqlServerDAOFactory();
         this.medico = new Medico();
         medico.setUsuario(new Usuario());
     }

@@ -35,17 +35,62 @@ public class SqlServerMedicoDAO extends MedicoDAO<Medico> {
 
     @Override
     public Medico delete(Medico obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            setSql("DELETE FROM Medico WHERE idMedico = ?");
+            setPs(getConector().prepareStatement(getSql()));
+            getPs().setInt(1, obj.getIdMedico());
+
+            if (!exeUpdate()) obj = null;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return obj;
     }
 
     @Override
     public Medico update(Medico obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            setSql("UPDATE Medico SET apellido = ?, nombre = ?, telefono = ? WHERE idMedico = ?");
+            setPs(getConector().prepareStatement(getSql()));
+            getPs().setString(1, obj.getApellidoMedico());
+            getPs().setString(2, obj.getNombreMedico());
+            getPs().setString(3, obj.getTelefonoMedico());
+            getPs().setInt(4, obj.getIdMedico());
+
+            if (!exeUpdate()) {
+                obj = null;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return obj;
     }
 
     @Override
     public Medico read(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        setSql("SELECT * FROM Medico WHERE idMedico = ?");
+        Medico medico = null;
+        try {
+            setPs(getConector().prepareStatement(getSql()));
+            getPs().setInt(1, id);
+            setRs(getPs().executeQuery());
+
+            if (getRs().next()) {
+                medico = new Medico();
+                medico.setIdMedico(getRs().getInt("idMedico"));
+                
+                DAOFactory dao = new SqlServerDAOFactory();
+                medico.setUsuario((Usuario) dao.getUsuario().read(getRs().getInt("idUsuario")));
+                
+                medico.setApellidoMedico(getRs().getString("apellido"));
+                medico.setNombreMedico(getRs().getString("nombre"));
+                medico.setTelefonoMedico(getRs().getString("telefono"));
+                medico.setDNI(getRs().getString("dni"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return medico;
     }
 
     @Override

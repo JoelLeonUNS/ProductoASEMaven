@@ -123,8 +123,6 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener, Ke
         pnl_header.setBackground(new java.awt.Color(255, 255, 255));
         pnl_header.setPreferredSize(new java.awt.Dimension(1220, 70));
         pnl_header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lbl_unsLogo.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\OneDrive\\ESTUDIO\\UNS\\6° Ciclo\\ARQUITECTURA DE SOFTWARE EMPRESARIAL\\Semana 06\\GestionHistorial\\src\\imagenes\\Mi proyecto.png")); // NOI18N
         pnl_header.add(lbl_unsLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 13, 110, 45));
 
         lbl_unidadMedica.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -138,7 +136,6 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener, Ke
         pnl_login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_fotoSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_fotoSesion.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\OneDrive\\ESTUDIO\\UNS\\6° Ciclo\\ARQUITECTURA DE SOFTWARE EMPRESARIAL\\Semana 06\\GestionHistorial\\src\\imagenes\\usuario.png")); // NOI18N
         pnl_login.add(lbl_fotoSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 310, 150));
 
         lbl_usuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -166,8 +163,6 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener, Ke
         pnl_login.add(chckBox_recordarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
 
         getContentPane().add(pnl_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 130, 450, 540));
-
-        lbl_foto.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\OneDrive\\ESTUDIO\\UNS\\6° Ciclo\\ARQUITECTURA DE SOFTWARE EMPRESARIAL\\Semana 06\\GestionHistorial\\src\\imagenes\\unidadMedica.jpg")); // NOI18N
         getContentPane().add(lbl_foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 700, 540));
 
         pack();
