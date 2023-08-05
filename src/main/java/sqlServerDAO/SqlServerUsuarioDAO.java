@@ -115,7 +115,7 @@ public class SqlServerUsuarioDAO extends UsuarioDAO<Usuario> {
     public int lastId() {
         int lastId = 0;
         try {
-            setSql("SELECT idUsuario FROM Usuario ORDER BY idUsuario DESC LIMIT 1");
+            setSql("SELECT TOP 1 idUsuario FROM Usuario ORDER BY idUsuario DESC");
             setPs(getConector().prepareStatement(getSql()));
             setRs(getPs().executeQuery());
             if (getRs().next()) {
