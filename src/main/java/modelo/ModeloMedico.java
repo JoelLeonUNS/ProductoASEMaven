@@ -6,6 +6,7 @@ import BaseDeDatos.UsuarioDAO;
 import factoryDAO.DAOFactory;
 import factoryDAO.SqlServerDAOFactory;
 import java.util.ArrayList;
+import java.util.List;
 import medicos.Medico;
 import medicos.Usuario;
 
@@ -40,53 +41,52 @@ public class ModeloMedico {
     }
  
     public Medico buscarMedicoDNI(String dni){
-        MedicoDAO medicoDao = new MedicoDAO();
-        for (int i = 0; i < medicoDao.count(); i++) {
-            if (medicoDao.read(i).getDNI().equals(dni)) {
-                idMedico = i;
-                return medicoDao.read(i);
-            } 
+        for(Medico medicoBD: (List<Medico>)dao.getMedico().listed()) {
+            if (medicoBD.getDNI().equals(dni)) {
+                idMedico = medicoBD.getIdMedico();
+                return medicoBD;
+            }
         }
         return null;
     }
     
     public void buscarMedicoCoincidente(String cadena) {
-        MedicoDAO medicoDao = new MedicoDAO();
-        idMedicos = new ArrayList<>();   
-        for (int i = 0; i < medicoDao.count(); i++) {
-            if (medicoDao.read(i).getNombreMedico().toUpperCase().contains(cadena.toUpperCase()) || medicoDao.read(i).getApellidoMedico().toUpperCase().contains(cadena.toUpperCase())) {
-                idMedicos.add(i);
+        idMedicos = new ArrayList<>();
+        for(Medico medicoBD: (List<Medico>)dao.getMedico().listed()) {
+            if (medicoBD.getNombreMedico().toUpperCase().contains(cadena.toUpperCase()) || medicoBD.getApellidoMedico().toUpperCase().contains(cadena.toUpperCase())) {
+                idMedicos.add(medicoBD.getIdMedico());
             }
         }
     }
     
     public ArrayList<Medico> getMedicosCoincidentesBD() {
         ArrayList<Medico> medicos = new ArrayList<>();
-        MedicoDAO medicoDao = new MedicoDAO();
         for (Integer idMed : idMedicos) {
-            medicos.add(medicoDao.read(idMed));
+            medicos.add((Medico)dao.getMedico().read(idMed));
         }
         return medicos;
     }
     
     public void registrar(){
-        MedicoDAO medicoDao = new MedicoDAO();
-        UsuarioDAO uDAO = new UsuarioDAO();
-        medicoDao.create(medico);
-        uDAO.create(medico.getUsuario());
+        //MedicoDAO medicoDao = new MedicoDAO();
+        //UsuarioDAO uDAO = new UsuarioDAO();
+        dao.getUsuario().create((Usuario)medico.getUsuario());
+        dao.getMedico().create((Medico)medico);
     }
     
     public void editar(){
-        MedicoDAO medicoDao = new MedicoDAO();
-        medicoDao.update(medico, idMedico);
+        //MedicoDAO medicoDao = new MedicoDAO();
+        dao.getMedico().update(medico);
     }
     
     public void darDeBaja(){
-        getMedicoBD().getUsuario().setEstado(false);
+        medico = getMedicoBD();
+        medico.getUsuario().setEstado(false);
+        dao.getUsuario().update(medico.getUsuario());
     }
     
     public Medico getMedicoBD(){
-        MedicoDAO medicoDao = new MedicoDAO();
-        return idMedico!=-1 ? medicoDao.read(idMedico) : null;
+        //MedicoDAO medicoDao = new MedicoDAO();
+        return idMedico!=-1 ? (Medico)dao.getMedico().read(idMedico) : null;
     }
 }

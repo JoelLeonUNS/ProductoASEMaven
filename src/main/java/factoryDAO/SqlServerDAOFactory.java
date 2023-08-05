@@ -10,6 +10,7 @@ import DAO.ExamenMedicoDAO;
 import DAO.FamiliarDAO;
 import DAO.PacienteDAO;
 import conexiones.SqlServerConexion;
+import sqlServerDAO.SqlServerMedicoDAO;
 import sqlServerDAO.SqlServerUsuarioDAO;
 
 public class SqlServerDAOFactory extends DAOFactory {
@@ -23,7 +24,9 @@ public class SqlServerDAOFactory extends DAOFactory {
 
     @Override
     public MedicoDAO getMedico() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SqlServerMedicoDAO medicoDAO = new SqlServerMedicoDAO();
+        medicoDAO.setConector(SqlServerConexion.getInstance());
+        return medicoDAO;
     }
 
     @Override

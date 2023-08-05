@@ -50,12 +50,13 @@ public class SqlServerMedicoDAO extends MedicoDAO<Medico> {
     @Override
     public Medico update(Medico obj) {
         try {
-            setSql("UPDATE Medico SET apellido = ?, nombre = ?, telefono = ? WHERE idMedico = ?");
+            setSql("UPDATE Medico SET apellido = ?, nombre = ?, telefono = ?, dni = ? WHERE idMedico = ?");
             setPs(getConector().prepareStatement(getSql()));
             getPs().setString(1, obj.getApellidoMedico());
             getPs().setString(2, obj.getNombreMedico());
             getPs().setString(3, obj.getTelefonoMedico());
-            getPs().setInt(4, obj.getIdMedico());
+            getPs().setString(4, obj.getDNI());
+            getPs().setInt(5, obj.getIdMedico());
 
             if (!exeUpdate()) {
                 obj = null;
@@ -133,6 +134,10 @@ public class SqlServerMedicoDAO extends MedicoDAO<Medico> {
             getConector().rollback();
             exito = false;
             System.out.println("Transacciónn NO exitosa");
+            System.out.println("Transacción NO exitosa. Motivo: " + ex.getMessage());
+            System.out.println("Código de error: " + ex.getErrorCode());
+            System.out.println("Causa raíz: " + ex.getCause());
+            ex.printStackTrace();
         } finally {
             if (getPs() != null) {
                 getPs().close();
