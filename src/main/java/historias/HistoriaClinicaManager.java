@@ -1,5 +1,6 @@
 package historias;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 import pacientes.Paciente;
 
@@ -27,7 +28,7 @@ public abstract class HistoriaClinicaManager {
     
     public void setDatos(HistoriaClinica historia){
         System.out.print("DNI: ");
-        historia.getPaciente().setDNI(input.next());
+        historia.getPaciente().setDni(input.next());
         System.out.print("Nombre: ");
         historia.getPaciente().setNombre(input.next());
         System.out.print("Apellido: ");
@@ -35,7 +36,7 @@ public abstract class HistoriaClinicaManager {
         System.out.print("Sexo: ");
         historia.getPaciente().setSexo(input.next());
         System.out.print("Fecha de Nacimiento: ");
-        historia.getPaciente().setFechaNac(input.next());
+        historia.getPaciente().setFechaNac(LocalDate.parse(input.next()));
         System.out.print("Lugar de Nacimiento: ");
         historia.getPaciente().setLugarNac(input.next());
         System.out.print("Distrito: ");

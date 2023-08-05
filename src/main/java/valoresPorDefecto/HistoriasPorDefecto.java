@@ -3,6 +3,8 @@ package valoresPorDefecto;
 import BaseDeDatos.ConsultaDAO;
 import BaseDeDatos.HistoriaClinicaDAO;
 import historias.HistoriaClinica;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import modelo.Enfermedad;
 import modelo.Escuela;
 import pacientes.Familiar;
@@ -14,83 +16,83 @@ public class HistoriasPorDefecto {
         HistoriaClinicaDAO hDAO = new HistoriaClinicaDAO();
         ConsultaDAO cDAO = new ConsultaDAO();
 
-        Paciente paciente1 = new Alumno(Escuela.INGENIERIA_SISTEMAS_E_INFORMATICA, "12345678", "Juan", "Pérez", "M", "01/01/2000", "Lima", "Lima", "Lima", "Av. Principal 123", "987654321", "Soltero");
+        Paciente paciente1 = new Alumno(Escuela.INGENIERIA_SISTEMAS_E_INFORMATICA, "12345678", "Juan", "Pérez", "M", LocalDate.parse("01/01/2000", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Lima", "Lima", "Lima", "Av. Principal 123", "987654321", "Soltero");
         Familiar familiar1 = new Familiar("María", "Madre", "Av. Los Álamos 456", "987654321", "");
         paciente1.agregarFamiliar(familiar1);
 
-        Paciente paciente2 = new Alumno(Escuela.DERECHO_Y_CIENCIAS_POLITICAS, "87654321", "Ana", "García", "F", "15/05/1998", "Arequipa", "Arequipa", "Arequipa", "Calle Pizarro 789", "987654321", "Soltera");
+        Paciente paciente2 = new Alumno(Escuela.DERECHO_Y_CIENCIAS_POLITICAS, "87654321", "Ana", "García", "F", LocalDate.parse("15/05/1998", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Arequipa", "Arequipa", "Arequipa", "Calle Pizarro 789", "987654321", "Soltera");
         Familiar familiar2 = new Familiar("Pedro", "Padre", "Jr. Las Rosas 789", "987654321", "");
         paciente2.agregarFamiliar(familiar2);
 
-        Paciente paciente3 = new Alumno(Escuela.MEDICINA_HUMANA, "45678912", "Luis", "Torres", "M", "10/10/1999", "Trujillo", "La Libertad", "La Libertad", "Av. Los Pinos 456", "987654321", "Soltero");
+        Paciente paciente3 = new Alumno(Escuela.MEDICINA_HUMANA, "45678912", "Luis", "Torres", "M", LocalDate.parse("10/10/1999", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Trujillo", "La Libertad", "La Libertad", "Av. Los Pinos 456", "987654321", "Soltero");
         Familiar familiar3 = new Familiar("Laura", "Hermana", "Calle Principal 456", "987654321", "");
         paciente3.agregarFamiliar(familiar3);
 
-        Paciente paciente4 = new Alumno(Escuela.INGENIERIA_SISTEMAS_E_INFORMATICA, "98765432", "Carla", "López", "F", "20/03/1997", "Lima", "Lima", "Lima", "Jr. Los Olivos 123", "987654321", "Soltera");
+        Paciente paciente4 = new Alumno(Escuela.INGENIERIA_SISTEMAS_E_INFORMATICA, "98765432", "Carla", "López", "F", LocalDate.parse("20/03/1997", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Lima", "Lima", "Lima", "Jr. Los Olivos 123", "987654321", "Soltera");
         Familiar familiar4 = new Familiar("Carlos", "Padre", "Av. Los Cerezos 123", "987654321", "");
         paciente4.agregarFamiliar(familiar4);
 
-        Paciente paciente5 = new Alumno(Escuela.ENFERMERIA, "23456789", "Pedro", "Gómez", "M", "05/09/1996", "Cusco", "Cusco", "Cusco", "Av. Los Jazmines 789", "987654321", "Soltero");
+        Paciente paciente5 = new Alumno(Escuela.ENFERMERIA, "23456789", "Pedro", "Gómez", "M", LocalDate.parse("05/09/1996", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Cusco", "Cusco", "Cusco", "Av. Los Jazmines 789", "987654321", "Soltero");
         Familiar familiar5 = new Familiar("Martha", "Madre", "Jr. Las Flores 789", "987654321", "");
         paciente5.agregarFamiliar(familiar5);
 
-        Paciente paciente6 = new Alumno(Escuela.DERECHO_Y_CIENCIAS_POLITICAS, "56789123", "Lucía", "Hernández", "F", "12/12/1995", "Piura", "Piura", "Piura", "Calle Principal 789", "987654321", "Soltera");
+        Paciente paciente6 = new Alumno(Escuela.DERECHO_Y_CIENCIAS_POLITICAS, "56789123", "Lucía", "Hernández", "F", LocalDate.parse("12/12/1995", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Piura", "Piura", "Piura", "Calle Principal 789", "987654321", "Soltera");
         Familiar familiar6 = new Familiar("Juan", "Padre", "Av. Las Palmeras 789", "987654321", "");
         paciente6.agregarFamiliar(familiar6);
 
-        Paciente paciente7 = new Alumno(Escuela.ENFERMERIA, "89123456", "María", "Rodríguez", "F", "25/07/1999", "Lima", "Lima", "Lima", "Jr. Los Lirios 123", "987654321", "Soltera");
+        Paciente paciente7 = new Alumno(Escuela.ENFERMERIA, "89123456", "María", "Rodríguez", "F", LocalDate.parse("25/07/1999", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Lima", "Lima", "Lima", "Jr. Los Lirios 123", "987654321", "Soltera");
         Familiar familiar7 = new Familiar("Luis", "Hermano", "Calle Los Pinos 123", "987654321", "");
         paciente7.agregarFamiliar(familiar7);
 
-        Paciente paciente8 = new Alumno(Escuela.INGENIERIA_SISTEMAS_E_INFORMATICA, "34567891", "Diego", "Martínez", "M", "08/08/1997", "Chiclayo", "Lambayeque", "Lambayeque", "Av. Los Cipreses 456", "987654321", "Soltero");
+        Paciente paciente8 = new Alumno(Escuela.INGENIERIA_SISTEMAS_E_INFORMATICA, "34567891", "Diego", "Martínez", "M", LocalDate.parse("08/08/1997", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Chiclayo", "Lambayeque", "Lambayeque", "Av. Los Cipreses 456", "987654321", "Soltero");
         Familiar familiar8 = new Familiar("Rosa", "Madre", "Jr. Las Orquídeas 456", "987654321", "");
         paciente8.agregarFamiliar(familiar8);
 
-        Paciente paciente9 = new Alumno(Escuela.MEDICINA_HUMANA, "67891234", "Laura", "Sánchez", "F", "03/04/1996", "Lima", "Lima", "Lima", "Calle Los Girasoles 789", "987654321", "Soltera");
+        Paciente paciente9 = new Alumno(Escuela.MEDICINA_HUMANA, "67891234", "Laura", "Sánchez", "F", LocalDate.parse("03/04/1996", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Lima", "Lima", "Lima", "Calle Los Girasoles 789", "987654321", "Soltera");
         Familiar familiar9 = new Familiar("Miguel", "Padre", "Av. Las Violetas 789", "987654321", "");
         paciente9.agregarFamiliar(familiar9);
 
-        Paciente paciente10 = new Alumno(Escuela.ENFERMERIA, "91234567", "Martín", "Rojas", "M", "17/09/1998", "Arequipa", "Arequipa", "Arequipa", "Jr. Los Narcisos 123", "987654321", "Soltero");
+        Paciente paciente10 = new Alumno(Escuela.ENFERMERIA, "91234567", "Martín", "Rojas", "M", LocalDate.parse("17/09/1998", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Arequipa", "Arequipa", "Arequipa", "Jr. Los Narcisos 123", "987654321", "Soltero");
         Familiar familiar10 = new Familiar("Sandra", "Madre", "Calle Los Lirios 123", "987654321", "");
         paciente10.agregarFamiliar(familiar10);
 
-        Paciente paciente11 = new Trabajador("Medicina", true, "123456789", "Mariana", "López", "F", "15/08/2001", "Lima", "Lima", "Lima", "Av. Principal 456", "987654321", "Soltera");
+        Paciente paciente11 = new Trabajador("Medicina", true, "123456789", "Mariana", "López", "F", LocalDate.parse("15/08/2001", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Lima", "Lima", "Lima", "Av. Principal 456", "987654321", "Soltera");
         Familiar familiar11 = new Familiar("Juan", "Padre", "Av. Los Álamos 456", "987654321", "");
         paciente11.agregarFamiliar(familiar11);
 
-        Paciente paciente12 = new Trabajador("Sistemas", true, "234567890", "Carlos", "Vega", "M", "20/12/1999", "Arequipa", "Arequipa", "Arequipa", "Calle Pizarro 789", "987654321", "Soltero");
+        Paciente paciente12 = new Trabajador("Sistemas", true, "234567890", "Carlos", "Vega", "M", LocalDate.parse("20/12/1999", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Arequipa", "Arequipa", "Arequipa", "Calle Pizarro 789", "987654321", "Soltero");
         Familiar familiar12 = new Familiar("Laura", "Madre", "Jr. Las Rosas 789", "987654321", "");
         paciente12.agregarFamiliar(familiar12);
 
-        Paciente paciente13 = new Trabajador("Recursos Humanos", false, "345678901", "Julia", "Mendoza", "F", "05/06/1998", "Trujillo", "La Libertad", "La Libertad", "Av. Los Pinos 456", "987654321", "Soltera");
+        Paciente paciente13 = new Trabajador("Recursos Humanos", false, "345678901", "Julia", "Mendoza", "F", LocalDate.parse("05/06/1998", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Trujillo", "La Libertad", "La Libertad", "Av. Los Pinos 456", "987654321", "Soltera");
         Familiar familiar13 = new Familiar("Pedro", "Hermano", "Calle Principal 456", "987654321", "");
         paciente13.agregarFamiliar(familiar13);
 
-        Paciente paciente14 = new Trabajador("Biotecnologia", true, "456789012", "Diego", "Ramírez", "M", "10/10/1997", "Lima", "Lima", "Lima", "Jr. Los Olivos 123", "987654321", "Soltero");
+        Paciente paciente14 = new Trabajador("Biotecnologia", true, "456789012", "Diego", "Ramírez", "M", LocalDate.parse("10/10/1997", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Lima", "Lima", "Lima", "Jr. Los Olivos 123", "987654321", "Soltero");
         Familiar familiar14 = new Familiar("Rosa", "Madre", "Av. Los Cerezos 123", "987654321", "");
         paciente14.agregarFamiliar(familiar14);
 
-        Paciente paciente15 = new Trabajador("Seguridad", false, "567890123", "Ana", "Gómez", "F", "25/09/1996", "Cusco", "Cusco", "Cusco", "Av. Los Jazmines 789", "987654321", "Soltera");
+        Paciente paciente15 = new Trabajador("Seguridad", false, "567890123", "Ana", "Gómez", "F", LocalDate.parse("25/09/1996", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Cusco", "Cusco", "Cusco", "Av. Los Jazmines 789", "987654321", "Soltera");
         Familiar familiar15 = new Familiar("Martha", "Madre", "Jr. Las Flores 789", "987654321", "");
         paciente15.agregarFamiliar(familiar15);
 
-        Paciente paciente16 = new Trabajador("Administrativo", false, "678901234", "Luis", "Herrera", "M", "12/12/1995", "Piura", "Piura", "Piura", "Calle Principal 789", "987654321", "Soltero");
+        Paciente paciente16 = new Trabajador("Administrativo", false, "678901234", "Luis", "Herrera", "M", LocalDate.parse("12/12/1995", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Piura", "Piura", "Piura", "Calle Principal 789", "987654321", "Soltero");
         Familiar familiar16 = new Familiar("Juan", "Padre", "Av. Las Palmeras 789", "987654321", "");
         paciente16.agregarFamiliar(familiar16);
 
-        Paciente paciente17 = new Trabajador("Mantenimiento", false, "789012345", "María", "Pérez", "F", "20/07/1999", "Lima", "Lima", "Lima", "Jr. Los Lirios 123", "987654321", "Soltera");
+        Paciente paciente17 = new Trabajador("Mantenimiento", false, "789012345", "María", "Pérez", "F", LocalDate.parse("20/07/1999", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Lima", "Lima", "Lima", "Jr. Los Lirios 123", "987654321", "Soltera");
         Familiar familiar17 = new Familiar("Luis", "Hermano", "Calle Los Pinos 123", "987654321", "");
         paciente17.agregarFamiliar(familiar17);
 
-        Paciente paciente18 = new Trabajador("Sistemas", true, "890123456", "Pedro", "Pulido", "M", "08/08/1997", "Chiclayo", "Lambayeque", "Lambayeque", "Av. Los Cipreses 456", "987654321", "Soltero");
+        Paciente paciente18 = new Trabajador("Sistemas", true, "890123456", "Pedro", "Pulido", "M", LocalDate.parse("08/08/1997", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Chiclayo", "Lambayeque", "Lambayeque", "Av. Los Cipreses 456", "987654321", "Soltero");
         Familiar familiar18 = new Familiar("Rosa", "Madre", "Jr. Las Orquídeas 456", "987654321", "");
         paciente18.agregarFamiliar(familiar18);
 
-        Paciente paciente19 = new Trabajador("Limpieza", false, "901234567", "Laura", "Torres", "F", "03/04/1996", "Lima", "Lima", "Lima", "Calle Los Girasoles 789", "987654321", "Soltera");
+        Paciente paciente19 = new Trabajador("Limpieza", false, "901234567", "Laura", "Torres", "F", LocalDate.parse("03/04/1996", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Lima", "Lima", "Lima", "Calle Los Girasoles 789", "987654321", "Soltera");
         Familiar familiar19 = new Familiar("Miguel", "Padre", "Av. Las Violetas 789", "987654321", "");
         paciente19.agregarFamiliar(familiar19);
 
-        Paciente paciente20 = new Trabajador("Sistemas", true, "012345678", "Carlos", "Corpus", "M", "17/09/1998", "Arequipa", "Arequipa", "Arequipa", "Jr. Los Narcisos 123", "987654321", "Soltero");
+        Paciente paciente20 = new Trabajador("Sistemas", true, "012345678", "Carlos", "Corpus", "M", LocalDate.parse("17/09/1998", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Arequipa", "Arequipa", "Arequipa", "Jr. Los Narcisos 123", "987654321", "Soltero");
         Familiar familiar20 = new Familiar("Sandra", "Madre", "Calle Los Lirios 123", "987654321", "");
         paciente20.agregarFamiliar(familiar20);
 

@@ -28,7 +28,7 @@ public class ModeloInforme2 {
             if (historiaClinica.getPaciente() instanceof Alumno) {
                 Alumno alumno = (Alumno) historiaClinica.getPaciente();
 
-                String carrera = alumno.getEscuela();
+                String carrera = alumno.getEscuela().getNombre();
                 String sexo = alumno.getSexo();
 
                 contadorCarreras.put(carrera, contadorCarreras.getOrDefault(carrera, 0) + 1);

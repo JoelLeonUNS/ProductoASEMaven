@@ -2,6 +2,8 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -115,12 +117,12 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
     }
     
     public void guardarPaciente() {
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setDNI(getInputText(txtFld_dni));
+        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setDni(getInputText(txtFld_dni));
         pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getTrabajador().setApellido(getInputText(txtFld_apellidos));
         pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getTrabajador().setNombre(getInputText(txtFld_nombres));
         pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getTrabajador().setTelefono(getInputText(txtFld_telefono));
         pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getTrabajador().setSexo(getRadioButtonSexo());
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getTrabajador().setFechaNac(getInputText(txtFld_fechaNac));
+        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getTrabajador().setFechaNac(LocalDate.parse(getInputText(txtFld_fechaNac), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getTrabajador().setLugarNac(getInputText(txtFld_lugarNac));
         pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getTrabajador().setDistrito(getInputText(txtFld_distrito));
         pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getTrabajador().setDepartamento(getInputText(txtFld_departamento));
@@ -174,14 +176,14 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
     public void mostrarHistoriaClinicaTrabajador() {
         int indiceCheck = 0;
         int indiceEnf = 0;
-        lbl_nroHistoriaClinica.setText("Historia Clínica: N° " + pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getNumeroHistoriaClinica());
-        setInputText(txtFld_dni, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getDNI());
+        lbl_nroHistoriaClinica.setText("Historia Clínica: N° " + pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getIdHistoriaClinica());
+        setInputText(txtFld_dni, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getDni());
         setInputText(txtFld_apellidos, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getApellido());
         setInputText(txtFld_nombres, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getNombre());
         setInputText(txtFld_telefono, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getTelefono());
         rdBttn_m.setSelected(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getSexo().equals("M"));
         rdBttn_f.setSelected(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getSexo().equals("M"));
-        setInputText(txtFld_fechaNac, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getFechaNac());
+        setInputText(txtFld_fechaNac, String.valueOf(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getFechaNac()));
         setInputText(txtFld_lugarNac, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getLugarNac());
         setInputText(txtFld_distrito, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getDistrito());
         setInputText(txtFld_departamento, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getDepartamento());

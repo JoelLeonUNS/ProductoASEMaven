@@ -104,6 +104,22 @@ public class SqlServerHistoriaClinicaDAO extends ConsultaDAO<HistoriaClinica> {
         }
         return listaHistoriasClinicas;
     }
+    
+    public int lastId() {
+        int lastId = 0;
+        try {
+            setSql("SELECT TOP 1 idHistoriaClinica FROM HistoriaClinica ORDER BY idHistoriaClinica DESC");
+            setPs(getConector().prepareStatement(getSql()));
+            setRs(getPs().executeQuery());
+            if (getRs().next()) {
+                lastId = getRs().getInt("idHistoriaClinica");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lastId;
+    }
+
 
     @Override
     public boolean exeUpdate() throws SQLException {
