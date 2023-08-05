@@ -19,7 +19,9 @@ public class SqlServerUsuarioDAO extends UsuarioDAO<Usuario> {
             getPs().setString(4, obj.getRol());
             getPs().setBoolean(5, obj.isEstado());
 
-            if (!exeUpdate()) obj = null;
+            if (!exeUpdate()) {
+                obj = null;
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -34,7 +36,9 @@ public class SqlServerUsuarioDAO extends UsuarioDAO<Usuario> {
             setPs(getConector().prepareStatement(getSql()));
             getPs().setInt(1, obj.getIdUsuario());
 
-            if (!exeUpdate()) obj = null;
+            if (!exeUpdate()) {
+                obj = null;
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -62,12 +66,12 @@ public class SqlServerUsuarioDAO extends UsuarioDAO<Usuario> {
     }
 
     @Override
-    public Usuario read(int idUsuario) {
+    public Usuario read(int id) {
         setSql("SELECT * FROM Usuario WHERE idUsuario = ?");
         Usuario usuario = null;
         try {
             setPs(getConector().prepareStatement(getSql()));
-            getPs().setInt(1, idUsuario);
+            getPs().setInt(1, id);
             setRs(getPs().executeQuery());
 
             if (getRs().next()) {
@@ -106,6 +110,21 @@ public class SqlServerUsuarioDAO extends UsuarioDAO<Usuario> {
             System.out.println(e.getMessage());
         }
         return listaUsuarios;
+    }
+
+    public int lastId() {
+        int lastId = 0;
+        try {
+            setSql("SELECT idUsuario FROM Usuario ORDER BY idUsuario DESC LIMIT 1");
+            setPs(getConector().prepareStatement(getSql()));
+            setRs(getPs().executeQuery());
+            if (getRs().next()) {
+                lastId = getRs().getInt("idUsuario");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lastId;
     }
 
     @Override

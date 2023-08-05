@@ -7,11 +7,12 @@ import java.util.ArrayList;
 
 public class Paciente {
 
-    private String DNI;
+    private int idPaciente;
+    private String dni;
     private String nombre;
     private String apellido;
     private String sexo;
-    private String fechaNac;
+    private LocalDate fechaNac;
     private String lugarNac;
     private String distrito;
     private String departamento;
@@ -19,13 +20,13 @@ public class Paciente {
     private String telefono;
     private String estadoCivil;
     protected String tipoPaciente;
-    private ArrayList<Familiar> familiares = new  ArrayList<>();
+    private ArrayList<Familiar> familiares = new ArrayList<>();
 
     public Paciente() {
     }
 
-    public Paciente(String DNI, String nombre, String apellido, String sexo, String fechaNac, String lugarNac, String distrito, String departamento, String direccion, String telefono, String estadoCivil) {
-        this.DNI = DNI;
+    public Paciente(String dni, String nombre, String apellido, String sexo, LocalDate fechaNac, String lugarNac, String distrito, String departamento, String direccion, String telefono, String estadoCivil) {
+        this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.sexo = sexo;
@@ -38,12 +39,20 @@ public class Paciente {
         this.estadoCivil = estadoCivil;
     }
 
-    public String getDNI() {
-        return DNI;
+    public int getIdPaciente() {
+        return idPaciente;
     }
 
-    public void setDNI(String DNI) {
-        this.DNI = DNI;
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getNombre() {
@@ -70,11 +79,11 @@ public class Paciente {
         this.sexo = sexo;
     }
 
-    public String getFechaNac() {
+    public LocalDate getFechaNac() {
         return fechaNac;
     }
 
-    public void setFechaNac(String fechaNac) {
+    public void setFechaNac(LocalDate fechaNac) {
         this.fechaNac = fechaNac;
     }
 
@@ -133,21 +142,19 @@ public class Paciente {
     public void setFamiliares(ArrayList<Familiar> familiares) {
         this.familiares = familiares;
     }
-    
+
     public String getTipoPaciente() {
         return tipoPaciente;
     }
 
     @Override
     public String toString() {
-        return "\nDNI: " + DNI + "\nNombre: " + nombre + "\nApellido: " + apellido + "\nSexo: " + sexo + "\nFecha de Nac.: " + fechaNac + "\nLugar de Nac.: " + lugarNac + "\nDistrito: " + distrito + "\nDepartamento: " + departamento + "\nDireccion: " + direccion + "\nTelefono: " + telefono + "\nEstado Civil: " + estadoCivil + "\nNombre Familiar: ";
+        return "\nDNI: " + dni + "\nNombre: " + nombre + "\nApellido: " + apellido + "\nSexo: " + sexo + "\nFecha de Nac.: " + fechaNac + "\nLugar de Nac.: " + lugarNac + "\nDistrito: " + distrito + "\nDepartamento: " + departamento + "\nDireccion: " + direccion + "\nTelefono: " + telefono + "\nEstado Civil: " + estadoCivil + "\nNombre Familiar: ";
     }
-    
-        
-        public int calcularEdad() {
-        LocalDate fechaNacimiento = LocalDate.parse(this.fechaNac, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+    public int calcularEdad() {
         LocalDate fechaActual = LocalDate.now();
-        Period periodo = Period.between(fechaNacimiento, fechaActual);
+        Period periodo = Period.between(this.fechaNac, fechaActual);
         return periodo.getYears();
     }
 }

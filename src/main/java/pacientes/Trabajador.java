@@ -1,5 +1,7 @@
 package pacientes;
 
+import java.time.LocalDate;
+
 public class Trabajador extends Paciente {
 
     private String areaTrabajo;
@@ -7,8 +9,8 @@ public class Trabajador extends Paciente {
     
     // Solo para valores por defecto.
 
-    public Trabajador(String areaTrabajo, boolean docente, String DNI, String nombre, String apellido, String sexo, String fechaNac, String lugarNac, String distrito, String departamento, String direccion, String telefono, String estadoCivil) {
-        super(DNI, nombre, apellido, sexo, fechaNac, lugarNac, distrito, departamento, direccion, telefono, estadoCivil);
+    public Trabajador(String areaTrabajo, boolean docente, String dni, String nombre, String apellido, String sexo, LocalDate fechaNac, String lugarNac, String distrito, String departamento, String direccion, String telefono, String estadoCivil) {
+        super(dni, nombre, apellido, sexo, fechaNac, lugarNac, distrito, departamento, direccion, telefono, estadoCivil);
         this.areaTrabajo = areaTrabajo;
         this.docente = docente;
         super.tipoPaciente = "TRABAJADOR";
@@ -34,8 +36,6 @@ public class Trabajador extends Paciente {
         this.docente = docente;
     }
     
-    
-
     @Override
     public String toString() {
         return super.toString() + "\nArea de Trabajo: " + areaTrabajo + "\nDocente: " + docente;

@@ -1,14 +1,15 @@
 package historias;
 
 import consultas.ConsultaMedica;
+import factoryDAO.DAOFactory;
+import factoryDAO.SqlServerDAOFactory;
 import java.util.ArrayList;
 import modelo.Enfermedad;
 import pacientes.Paciente;
 
 public class HistoriaClinica {
-    
     private static int nroStaticHistoria;
-    private int numeroHistoriaClinica;
+    private int idHistoriaClinica;
     private Paciente paciente;
     private String otrosAntecedentesPatologicos;
     private ArrayList<Enfermedad> antecedentesPatologicos = new ArrayList<>();
@@ -19,7 +20,7 @@ public class HistoriaClinica {
 
     // solo para los valores por defecto.
     public HistoriaClinica(Paciente paciente, String otrosAntecedentesPatologicos) {
-        this.numeroHistoriaClinica = HistoriaClinica.masNroStaticHistoria();
+        this.idHistoriaClinica = HistoriaClinica.masNroStaticHistoria();
         this.paciente = paciente;
         this.otrosAntecedentesPatologicos = otrosAntecedentesPatologicos;
     }
@@ -32,12 +33,12 @@ public class HistoriaClinica {
         return nroStaticHistoria;
     }
 
-    public int getNumeroHistoriaClinica() {
-        return numeroHistoriaClinica;
+    public int getIdHistoriaClinica() {
+        return idHistoriaClinica;
     }
 
-    public void setNumeroHistoriaClinica(int numeroHistoriaClinica) {
-        this.numeroHistoriaClinica = numeroHistoriaClinica;
+    public void setIdHistoriaClinica(int numeroHistoriaClinica) {
+        this.idHistoriaClinica = numeroHistoriaClinica;
     }
 
     public Paciente getPaciente() {
@@ -82,6 +83,6 @@ public class HistoriaClinica {
 
     @Override
     public String toString() {
-        return this.paciente.getDNI();
+        return this.paciente.getDni();
     }
 }

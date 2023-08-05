@@ -4,6 +4,7 @@ import BaseDeDatos.ConsultaDAO;
 import BaseDeDatos.HistoriaClinicaDAO;
 import historias.HistoriaClinica;
 import modelo.Enfermedad;
+import modelo.Escuela;
 import pacientes.Familiar;
 import pacientes.*;
 
@@ -13,43 +14,43 @@ public class HistoriasPorDefecto {
         HistoriaClinicaDAO hDAO = new HistoriaClinicaDAO();
         ConsultaDAO cDAO = new ConsultaDAO();
 
-        Paciente paciente1 = new Alumno("Sistemas", "12345678", "Juan", "Pérez", "M", "01/01/2000", "Lima", "Lima", "Lima", "Av. Principal 123", "987654321", "Soltero");
+        Paciente paciente1 = new Alumno(Escuela.INGENIERIA_SISTEMAS_E_INFORMATICA, "12345678", "Juan", "Pérez", "M", "01/01/2000", "Lima", "Lima", "Lima", "Av. Principal 123", "987654321", "Soltero");
         Familiar familiar1 = new Familiar("María", "Madre", "Av. Los Álamos 456", "987654321", "");
         paciente1.agregarFamiliar(familiar1);
 
-        Paciente paciente2 = new Alumno("Derecho", "87654321", "Ana", "García", "F", "15/05/1998", "Arequipa", "Arequipa", "Arequipa", "Calle Pizarro 789", "987654321", "Soltera");
+        Paciente paciente2 = new Alumno(Escuela.DERECHO_Y_CIENCIAS_POLITICAS, "87654321", "Ana", "García", "F", "15/05/1998", "Arequipa", "Arequipa", "Arequipa", "Calle Pizarro 789", "987654321", "Soltera");
         Familiar familiar2 = new Familiar("Pedro", "Padre", "Jr. Las Rosas 789", "987654321", "");
         paciente2.agregarFamiliar(familiar2);
 
-        Paciente paciente3 = new Alumno("Medicina", "45678912", "Luis", "Torres", "M", "10/10/1999", "Trujillo", "La Libertad", "La Libertad", "Av. Los Pinos 456", "987654321", "Soltero");
+        Paciente paciente3 = new Alumno(Escuela.MEDICINA_HUMANA, "45678912", "Luis", "Torres", "M", "10/10/1999", "Trujillo", "La Libertad", "La Libertad", "Av. Los Pinos 456", "987654321", "Soltero");
         Familiar familiar3 = new Familiar("Laura", "Hermana", "Calle Principal 456", "987654321", "");
         paciente3.agregarFamiliar(familiar3);
 
-        Paciente paciente4 = new Alumno("Sistemas", "98765432", "Carla", "López", "F", "20/03/1997", "Lima", "Lima", "Lima", "Jr. Los Olivos 123", "987654321", "Soltera");
+        Paciente paciente4 = new Alumno(Escuela.INGENIERIA_SISTEMAS_E_INFORMATICA, "98765432", "Carla", "López", "F", "20/03/1997", "Lima", "Lima", "Lima", "Jr. Los Olivos 123", "987654321", "Soltera");
         Familiar familiar4 = new Familiar("Carlos", "Padre", "Av. Los Cerezos 123", "987654321", "");
         paciente4.agregarFamiliar(familiar4);
 
-        Paciente paciente5 = new Alumno("Enfermeria", "23456789", "Pedro", "Gómez", "M", "05/09/1996", "Cusco", "Cusco", "Cusco", "Av. Los Jazmines 789", "987654321", "Soltero");
+        Paciente paciente5 = new Alumno(Escuela.ENFERMERIA, "23456789", "Pedro", "Gómez", "M", "05/09/1996", "Cusco", "Cusco", "Cusco", "Av. Los Jazmines 789", "987654321", "Soltero");
         Familiar familiar5 = new Familiar("Martha", "Madre", "Jr. Las Flores 789", "987654321", "");
         paciente5.agregarFamiliar(familiar5);
 
-        Paciente paciente6 = new Alumno("Derecho", "56789123", "Lucía", "Hernández", "F", "12/12/1995", "Piura", "Piura", "Piura", "Calle Principal 789", "987654321", "Soltera");
+        Paciente paciente6 = new Alumno(Escuela.DERECHO_Y_CIENCIAS_POLITICAS, "56789123", "Lucía", "Hernández", "F", "12/12/1995", "Piura", "Piura", "Piura", "Calle Principal 789", "987654321", "Soltera");
         Familiar familiar6 = new Familiar("Juan", "Padre", "Av. Las Palmeras 789", "987654321", "");
         paciente6.agregarFamiliar(familiar6);
 
-        Paciente paciente7 = new Alumno("Enfermeria", "89123456", "María", "Rodríguez", "F", "25/07/1999", "Lima", "Lima", "Lima", "Jr. Los Lirios 123", "987654321", "Soltera");
+        Paciente paciente7 = new Alumno(Escuela.ENFERMERIA, "89123456", "María", "Rodríguez", "F", "25/07/1999", "Lima", "Lima", "Lima", "Jr. Los Lirios 123", "987654321", "Soltera");
         Familiar familiar7 = new Familiar("Luis", "Hermano", "Calle Los Pinos 123", "987654321", "");
         paciente7.agregarFamiliar(familiar7);
 
-        Paciente paciente8 = new Alumno("Sistemas", "34567891", "Diego", "Martínez", "M", "08/08/1997", "Chiclayo", "Lambayeque", "Lambayeque", "Av. Los Cipreses 456", "987654321", "Soltero");
+        Paciente paciente8 = new Alumno(Escuela.INGENIERIA_SISTEMAS_E_INFORMATICA, "34567891", "Diego", "Martínez", "M", "08/08/1997", "Chiclayo", "Lambayeque", "Lambayeque", "Av. Los Cipreses 456", "987654321", "Soltero");
         Familiar familiar8 = new Familiar("Rosa", "Madre", "Jr. Las Orquídeas 456", "987654321", "");
         paciente8.agregarFamiliar(familiar8);
 
-        Paciente paciente9 = new Alumno("Medicina", "67891234", "Laura", "Sánchez", "F", "03/04/1996", "Lima", "Lima", "Lima", "Calle Los Girasoles 789", "987654321", "Soltera");
+        Paciente paciente9 = new Alumno(Escuela.MEDICINA_HUMANA, "67891234", "Laura", "Sánchez", "F", "03/04/1996", "Lima", "Lima", "Lima", "Calle Los Girasoles 789", "987654321", "Soltera");
         Familiar familiar9 = new Familiar("Miguel", "Padre", "Av. Las Violetas 789", "987654321", "");
         paciente9.agregarFamiliar(familiar9);
 
-        Paciente paciente10 = new Alumno("Enfermeria", "91234567", "Martín", "Rojas", "M", "17/09/1998", "Arequipa", "Arequipa", "Arequipa", "Jr. Los Narcisos 123", "987654321", "Soltero");
+        Paciente paciente10 = new Alumno(Escuela.ENFERMERIA, "91234567", "Martín", "Rojas", "M", "17/09/1998", "Arequipa", "Arequipa", "Arequipa", "Jr. Los Narcisos 123", "987654321", "Soltero");
         Familiar familiar10 = new Familiar("Sandra", "Madre", "Calle Los Lirios 123", "987654321", "");
         paciente10.agregarFamiliar(familiar10);
 

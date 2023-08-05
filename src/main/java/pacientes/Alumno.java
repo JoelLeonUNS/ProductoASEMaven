@@ -1,14 +1,17 @@
 package pacientes;
 
+import java.time.LocalDate;
+import modelo.Escuela;
+
 public class Alumno extends Paciente {
 
-    private String escuela;
+    private Escuela escuela;
 
     
     
     // Solo para valores por defecto.
-    public Alumno(String escuela, String DNI, String nombre, String apellido, String sexo, String fechaNac, String lugarNac, String distrito, String departamento, String direccion, String telefono, String estadoCivil) {
-        super(DNI, nombre, apellido, sexo, fechaNac, lugarNac, distrito, departamento, direccion, telefono, estadoCivil);
+    public Alumno(Escuela escuela, String dni, String nombre, String apellido, String sexo, LocalDate fechaNac, String lugarNac, String distrito, String departamento, String direccion, String telefono, String estadoCivil) {
+        super(dni, nombre, apellido, sexo, fechaNac, lugarNac, distrito, departamento, direccion, telefono, estadoCivil);
         this.escuela = escuela;
         super.tipoPaciente = "ESTUDIANTE";
     }
@@ -17,11 +20,11 @@ public class Alumno extends Paciente {
         super.tipoPaciente = "ESTUDIANTE";
     }
     
-    public String getEscuela() {
+    public Escuela getEscuela() {
         return escuela;
     }
 
-    public void setEscuela(String escuela) {
+    public void setEscuela(Escuela escuela) {
         this.escuela = escuela;
     }
     

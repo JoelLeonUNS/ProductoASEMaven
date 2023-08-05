@@ -49,7 +49,8 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener, Ke
     }
     
     public void actionIniciarSesion() {
-        pGeneral.getpLogin().setDatosUsuario(this.getUsuario(), this.getClave());
+        pGeneral.getpLogin().setUsuario(this.getUsuario());
+        pGeneral.getpLogin().setClave(this.getClave());
         pGeneral.getpLogin().iniciarSesion();
         mensaje(pGeneral.getpLogin().showMensaje());
         if (pGeneral.getpLogin().isAcceso()) {

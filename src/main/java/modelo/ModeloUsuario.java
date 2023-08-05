@@ -6,7 +6,7 @@ import java.util.List;
 import medicos.Usuario;
 
 public class ModeloUsuario {
-    private DAOFactory dao;
+    private final DAOFactory dao;
     private Usuario usuario;
     private int numeroIntentos;
     private boolean datosValido = false;
@@ -47,7 +47,7 @@ public class ModeloUsuario {
     }
     
     public boolean isHabilitado() {
-        return usuario.isEstado();
+        return usuario.isEstado(); //
     }
 
     public void iniciarSesion() {

@@ -11,10 +11,45 @@ public class PresentadorLogin {
     public void setModelo(ModeloUsuario mUsuario) {
         this.mUsuario = mUsuario;
     }
+    
+    public int getIdUsuario() {
+        return mUsuario.getUsuario().getIdUsuario();
+    }
 
-    public void setDatosUsuario(String usuario, String clave) {
-        mUsuario.getUsuario().setUsuario(usuario);
-        mUsuario.getUsuario().setClave(clave);
+    public void setIdUsuario(int idUsuario) {
+        this.mUsuario.getUsuario().setIdUsuario(idUsuario);
+    }
+
+    public String getUsuario() {
+        return mUsuario.getUsuario().getUsuario();
+    }
+
+    public void setUsuario(String usuario) {
+        this.mUsuario.getUsuario().setUsuario(usuario);
+    }
+
+    public String getClave() {
+        return mUsuario.getUsuario().getClave();
+    }
+
+    public void setClave(String clave) {
+        this.mUsuario.getUsuario().setClave(clave);
+    }
+
+    public boolean isEstado() {
+        return mUsuario.getUsuario().isEstado();
+    }
+
+    public void setEstado(boolean estado) {
+        this.mUsuario.getUsuario().setEstado(estado);
+    }
+
+    public String getRol() {
+        return mUsuario.getUsuario().getRol();
+    }
+
+    public void setRol(String rol) {
+        this.mUsuario.getUsuario().setRol(rol);
     }
 
     public String getUsuarioRecordado() {
@@ -27,10 +62,6 @@ public class PresentadorLogin {
         else return "";
     }
     
-    public String getRol() {
-        return mUsuario.getUsuario().getRol();
-    }
-
     public void iniciarSesion() {
         mUsuario.iniciarSesion();
     }

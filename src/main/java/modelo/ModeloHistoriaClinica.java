@@ -1,6 +1,8 @@
 package modelo;
 
 import BaseDeDatos.HistoriaClinicaDAO;
+import factoryDAO.DAOFactory;
+import factoryDAO.SqlServerDAOFactory;
 import historias.HistoriaClinica;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import pacientes.Familiar;
 import pacientes.Trabajador;
 
 public class ModeloHistoriaClinica {
+    private final DAOFactory dao;
     private int idHistoriaBuscadaDNI;
     private HistoriaClinica historiaSeleccionada;
     private ArrayList<Integer> idHistoriasCoincidentes;
@@ -31,12 +34,13 @@ public class ModeloHistoriaClinica {
         this.familiaresEstudiante = new HashMap<>();
         this.familiaresTrabajador = new HashMap<>();
         this.antecedentesPatologicos = new ArrayList<>();
+        this.dao = new SqlServerDAOFactory(); // o MySql
     }
     
     public HistoriaClinica buscarHistoriaClinicaDNI(String dni){
         HistoriaClinicaDAO hcDAO = new HistoriaClinicaDAO();
         for (int i = 0; i < hcDAO.count(); i++) {
-            if (hcDAO.read(i).getPaciente().getDNI().equals(dni)) {
+            if (hcDAO.read(i).getPaciente().getDni().equals(dni)) {
                 idHistoriaBuscadaDNI = i;
                 return hcDAO.read(i);
             } 
@@ -69,7 +73,7 @@ public class ModeloHistoriaClinica {
         historiaClinicaEstudiante.setPaciente(estudiante);
         historiaClinicaEstudiante.agregarAntecedentesPatologicos(antecedentesPatologicos);
         HistoriaClinica.masNroStaticHistoria();
-        historiaClinicaEstudiante.setNumeroHistoriaClinica(HistoriaClinica.getNroStaticHistoria());
+        historiaClinicaEstudiante.setIdHistoriaClinica(HistoriaClinica.getNroStaticHistoria());
         hcDAO.create(historiaClinicaEstudiante);
     }
     
@@ -87,7 +91,7 @@ public class ModeloHistoriaClinica {
         historiaClinicaTrabajador.setPaciente(trabajador);
         historiaClinicaTrabajador.agregarAntecedentesPatologicos(antecedentesPatologicos);
         HistoriaClinica.masNroStaticHistoria();
-        historiaClinicaTrabajador.setNumeroHistoriaClinica(HistoriaClinica.getNroStaticHistoria());
+        historiaClinicaTrabajador.setIdHistoriaClinica(HistoriaClinica.getNroStaticHistoria());
         hcDAO.create(historiaClinicaTrabajador);
     }
     
