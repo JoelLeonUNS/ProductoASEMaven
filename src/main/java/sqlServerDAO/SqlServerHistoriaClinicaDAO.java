@@ -1,6 +1,6 @@
 package sqlServerDAO;
 
-import DAO.ConsultaDAO;
+import DAO.HistoriaClinicaDAO;
 import factoryDAO.DAOFactory;
 import factoryDAO.SqlServerDAOFactory;
 import historias.HistoriaClinica;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import pacientes.Paciente;
 
-public class SqlServerHistoriaClinicaDAO extends ConsultaDAO<HistoriaClinica> {
+public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClinica> {
 
     @Override
     public HistoriaClinica create(HistoriaClinica obj) {

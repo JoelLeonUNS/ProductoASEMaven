@@ -1,6 +1,6 @@
 package sqlServerDAO;
 
-import DAO.ConsultaDAO;
+import DAO.PacienteDAO;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import pacientes.Alumno;
 import pacientes.Paciente;
 import pacientes.Trabajador;
 
-public class SqlServerPacienteDAO extends ConsultaDAO<Paciente> {
+public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
 
     @Override
     public Paciente create(Paciente obj) {

@@ -1,6 +1,6 @@
 package factoryDAO;
 
-import BaseDeDatos.HistoriaClinicaDAO;
+import DAO.HistoriaClinicaDAO;
 import DAO.UsuarioDAO;
 import DAO.MedicoDAO;
 import DAO.ConsultaDAO;

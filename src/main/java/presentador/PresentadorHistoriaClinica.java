@@ -41,7 +41,7 @@ public class PresentadorHistoriaClinica {
     
     public ArrayList<HistoriaClinica> buscarHistoriaClinicaCoincidente(String cadena){
         modeloHistoriaClinica.buscarHistoriaCoincidente(cadena);
-        return modeloHistoriaClinica.getHistoriasCoincidentesBD();
+        return modeloHistoriaClinica.getHistoriasCoincidentes();
     }
 
     public void setHistoriaEditable(boolean editable) {

@@ -1,6 +1,6 @@
 package factoryDAO;
 
-import BaseDeDatos.HistoriaClinicaDAO;
+import DAO.HistoriaClinicaDAO;
 import DAO.UsuarioDAO;
 import DAO.MedicoDAO;
 import DAO.ConsultaDAO;
@@ -10,7 +10,9 @@ import DAO.ExamenMedicoDAO;
 import DAO.FamiliarDAO;
 import DAO.PacienteDAO;
 import conexiones.SqlServerConexion;
+import sqlServerDAO.SqlServerHistoriaClinicaDAO;
 import sqlServerDAO.SqlServerMedicoDAO;
+import sqlServerDAO.SqlServerPacienteDAO;
 import sqlServerDAO.SqlServerUsuarioDAO;
 
 public class SqlServerDAOFactory extends DAOFactory {
@@ -31,17 +33,21 @@ public class SqlServerDAOFactory extends DAOFactory {
 
     @Override
     public PacienteDAO getPaciente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SqlServerPacienteDAO pacienteDAO = new SqlServerPacienteDAO();
+        pacienteDAO.setConector(SqlServerConexion.getInstance());
+        return pacienteDAO;
     }
 
     @Override
     public FamiliarDAO getFamiliar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     @Override
     public HistoriaClinicaDAO getHistoriaClinica() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SqlServerHistoriaClinicaDAO historiaClinicaDAO = new SqlServerHistoriaClinicaDAO();
+        historiaClinicaDAO.setConector(SqlServerConexion.getInstance());
+        return historiaClinicaDAO;
     }
 
     @Override

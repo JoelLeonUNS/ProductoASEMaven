@@ -1,8 +1,6 @@
 package historias;
 
 import consultas.ConsultaMedica;
-import factoryDAO.DAOFactory;
-import factoryDAO.SqlServerDAOFactory;
 import java.util.ArrayList;
 import modelo.Enfermedad;
 import pacientes.Paciente;

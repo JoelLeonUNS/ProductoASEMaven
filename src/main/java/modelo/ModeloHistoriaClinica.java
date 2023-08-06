@@ -6,6 +6,7 @@ import factoryDAO.SqlServerDAOFactory;
 import historias.HistoriaClinica;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import pacientes.Alumno;
 import pacientes.Familiar;
@@ -13,9 +14,9 @@ import pacientes.Trabajador;
 
 public class ModeloHistoriaClinica {
     private final DAOFactory dao;
-    private int idHistoriaBuscadaDNI;
+    private int idHistoriaClinica;
     private HistoriaClinica historiaSeleccionada;
-    private ArrayList<Integer> idHistoriasCoincidentes;
+    private ArrayList<Integer> idHistorias;
     private HistoriaClinica historiaClinicaEstudiante;
     private HistoriaClinica historiaClinicaTrabajador;
     private Alumno estudiante;
@@ -38,31 +39,28 @@ public class ModeloHistoriaClinica {
     }
     
     public HistoriaClinica buscarHistoriaClinicaDNI(String dni){
-        HistoriaClinicaDAO hcDAO = new HistoriaClinicaDAO();
-        for (int i = 0; i < hcDAO.count(); i++) {
-            if (hcDAO.read(i).getPaciente().getDni().equals(dni)) {
-                idHistoriaBuscadaDNI = i;
-                return hcDAO.read(i);
+        for (HistoriaClinica historiaClinica: (List<HistoriaClinica>)dao.getHistoriaClinica().listed()) {
+            if (historiaClinica.getPaciente().getDni().equals(dni)) {
+                idHistoriaClinica = historiaClinica.getIdHistoriaClinica();
+                return historiaClinica;
             } 
         }
         return null;
     }
     
     public void buscarHistoriaCoincidente(String cadena) {
-        HistoriaClinicaDAO hcDAO = new HistoriaClinicaDAO();
-        idHistoriasCoincidentes = new ArrayList<>();   
-        for (int i = 0; i < hcDAO.count(); i++) {
-            if (hcDAO.read(i).getPaciente().getNombre().toUpperCase().contains(cadena.toUpperCase()) || hcDAO.read(i).getPaciente().getApellido().toUpperCase().contains(cadena.toUpperCase())) {
-                idHistoriasCoincidentes.add(i);
-            }
+        idHistorias = new ArrayList<>();
+        for (HistoriaClinica historiaClinica: (List<HistoriaClinica>)dao.getHistoriaClinica().listed()) {
+            if (historiaClinica.getPaciente().getNombre().toUpperCase().contains(cadena.toUpperCase()) || historiaClinica.getPaciente().getApellido().toUpperCase().contains(cadena.toUpperCase())) {
+                idHistorias.add(historiaClinica.getIdHistoriaClinica());
+            } 
         }
     }
     
-    public ArrayList<HistoriaClinica> getHistoriasCoincidentesBD() {
+    public ArrayList<HistoriaClinica> getHistoriasCoincidentes() {
         ArrayList<HistoriaClinica> historiaClinicas = new ArrayList<>();
-        HistoriaClinicaDAO hcDAO = new HistoriaClinicaDAO();
-        for (Integer idHistoria : idHistoriasCoincidentes) {
-            historiaClinicas.add(hcDAO.read(idHistoria));
+        for (Integer idHistoria : idHistorias) {
+            historiaClinicas.add((HistoriaClinica)dao.getHistoriaClinica().read(idHistoria));
         }
         return historiaClinicas;
     }
