@@ -11,6 +11,9 @@ import DAO.FamiliarDAO;
 import DAO.PacienteDAO;
 import conexiones.SqlServerConexion;
 import sqlServerDAO.SqlServerConsultaDAO;
+import sqlServerDAO.SqlServerExamenClinicoDAO;
+import sqlServerDAO.SqlServerExamenFisicoDAO;
+import sqlServerDAO.SqlServerExamenMedicoDAO;
 import sqlServerDAO.SqlServerHistoriaClinicaDAO;
 import sqlServerDAO.SqlServerMedicoDAO;
 import sqlServerDAO.SqlServerPacienteDAO;
@@ -60,17 +63,23 @@ public class SqlServerDAOFactory extends DAOFactory {
 
     @Override
     public ExamenFisicoDAO getExamenFisico() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SqlServerExamenFisicoDAO examenFisicoDAO = new SqlServerExamenFisicoDAO();
+        examenFisicoDAO.setConector(SqlServerConexion.getInstance());
+        return examenFisicoDAO;
     }
 
     @Override
     public ExamenMedicoDAO getExamenMedico() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SqlServerExamenMedicoDAO examenMedicoDAO = new SqlServerExamenMedicoDAO();
+        examenMedicoDAO.setConector(SqlServerConexion.getInstance());
+        return examenMedicoDAO;
     }
 
     @Override
     public ExamenClinicoDAO getExamenClinico() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SqlServerExamenClinicoDAO examenClinicoDAO = new SqlServerExamenClinicoDAO();
+        examenClinicoDAO.setConector(SqlServerConexion.getInstance());
+        return examenClinicoDAO;
     }
 
     

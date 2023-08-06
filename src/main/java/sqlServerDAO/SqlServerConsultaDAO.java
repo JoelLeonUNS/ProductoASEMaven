@@ -100,8 +100,22 @@ public class SqlServerConsultaDAO extends ConsultaDAO<ConsultaMedica>{
             setRs(getPs().executeQuery());
 
             while (getRs().next()) {
-                ConsultaMedica consultaMedica = read(getRs().getInt("idConsulta"));
-                listaConsultasMedicas.add(consultaMedica);
+                ConsultaMedica consulta = new ConsultaMedica();
+                consulta.setIdConsulta(getRs().getInt("idConsulta"));
+                consulta.setIdHistoria(getRs().getInt("idHistoriaClinica"));
+                
+                DAOFactory dao = new SqlServerDAOFactory();
+                consulta.setAtendidoPor((Medico) dao.getMedico().read(getRs().getInt("idMedico")));
+                consulta.setFecha(getRs().getDate("fecha").toLocalDate());
+                consulta.setHora(getRs().getTime("hora").toLocalTime());
+                consulta.setMotivo(getRs().getString("motivo"));
+                consulta.setTiempoEnfermedad(getRs().getString("tiempoEnfermedad"));
+                consulta.setApetito(getRs().getString("apetito"));
+                consulta.setSueño(getRs().getString("sueño"));
+                consulta.setSed(getRs().getString("sed"));
+                consulta.setEstadoAnimo(getRs().getString("estadoAnimo"));
+                
+                listaConsultasMedicas.add(consulta);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

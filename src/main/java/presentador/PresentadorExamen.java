@@ -10,9 +10,9 @@ import modelo.ModeloExamen;
 import modelo.ModeloHistoriaClinica;
 
 public class PresentadorExamen {
-    private ModeloExamen modeloExamen = new ModeloExamen();
-    private ModeloConsulta modeloConsulta = new ModeloConsulta();
-    private ModeloHistoriaClinica modeloHistoriaClinica = new ModeloHistoriaClinica();
+    private ModeloExamen modeloExamen;
+    private ModeloConsulta modeloConsulta;
+    private ModeloHistoriaClinica modeloHistoriaClinica;
 
     public PresentadorExamen() {
     }
