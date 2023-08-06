@@ -68,15 +68,18 @@ public class ModeloMedico {
     }
     
     public void registrar(){
-        //MedicoDAO medicoDao = new MedicoDAO();
-        //UsuarioDAO uDAO = new UsuarioDAO();
-        dao.getUsuario().create((Usuario)medico.getUsuario());
-        dao.getMedico().create((Medico)medico);
+        try {
+            dao.getUsuario().create((Usuario)medico.getUsuario());
+            dao.getMedico().create((Medico)medico);
+        } catch (Exception e) {}
+        
     }
     
     public void editar(){
-        //MedicoDAO medicoDao = new MedicoDAO();
+        medico.setIdMedico(idMedico);
+        medico.getUsuario().setIdUsuario(getMedicoBD().getUsuario().getIdUsuario());
         dao.getMedico().update(medico);
+        dao.getUsuario().update(medico.getUsuario());
     }
     
     public void darDeBaja(){

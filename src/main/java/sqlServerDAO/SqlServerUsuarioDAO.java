@@ -10,15 +10,17 @@ public class SqlServerUsuarioDAO extends UsuarioDAO<Usuario> {
 
     @Override
     public Usuario create(Usuario obj) {
+        obj.setIdUsuario(lastId());
         try {
             setSql("INSERT INTO Usuario (idUsuario, usuario, clave, rol, estado) VALUES (?, ?, ?, ?, ?)");
             setPs(getConector().prepareStatement(getSql()));
+                        
             getPs().setInt(1, obj.getIdUsuario());
             getPs().setString(2, obj.getUsuario());
             getPs().setString(3, obj.getClave());
             getPs().setString(4, obj.getRol());
             getPs().setBoolean(5, obj.isEstado());
-
+            
             if (!exeUpdate()) {
                 obj = null;
             }
@@ -124,7 +126,7 @@ public class SqlServerUsuarioDAO extends UsuarioDAO<Usuario> {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return lastId;
+        return lastId+1;
     }
 
     @Override

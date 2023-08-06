@@ -13,9 +13,11 @@ public class SqlServerMedicoDAO extends MedicoDAO<Medico> {
 
     @Override
     public Medico create(Medico obj) {
+        obj.setIdMedico(lastId());
         try {
             setSql("INSERT INTO Medico (idMedico, idUsuario, dni, apellido, nombre, telefono) VALUES (?, ?, ?, ?, ?, ?)");
             setPs(getConector().prepareStatement(getSql()));
+                        
             getPs().setInt(1, obj.getIdMedico());
             getPs().setInt(2, obj.getUsuario().getIdUsuario());
             getPs().setString(3, obj.getDNI());
@@ -50,13 +52,12 @@ public class SqlServerMedicoDAO extends MedicoDAO<Medico> {
     @Override
     public Medico update(Medico obj) {
         try {
-            setSql("UPDATE Medico SET apellido = ?, nombre = ?, telefono = ?, dni = ? WHERE idMedico = ?");
+            setSql("UPDATE Medico SET apellido = ?, nombre = ?, telefono = ? WHERE idMedico = ?");
             setPs(getConector().prepareStatement(getSql()));
             getPs().setString(1, obj.getApellidoMedico());
             getPs().setString(2, obj.getNombreMedico());
             getPs().setString(3, obj.getTelefonoMedico());
-            getPs().setString(4, obj.getDNI());
-            getPs().setInt(5, obj.getIdMedico());
+            getPs().setInt(4, obj.getIdMedico());
 
             if (!exeUpdate()) {
                 obj = null;
@@ -120,6 +121,25 @@ public class SqlServerMedicoDAO extends MedicoDAO<Medico> {
             System.out.println(e.getMessage());
         }
         return listaMedicos;
+    }
+    
+    public int lastId(){
+        int lastId = 0;
+        
+        try{
+            setSql("SELECT TOP 1 idMedico FROM Medico order by idMedico desc");
+            setPs(getConector().prepareStatement(getSql()));
+            setRs(getPs().executeQuery());
+            
+            if(getRs().next()){
+                lastId = getRs().getInt("idMedico");
+            }
+            
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        return lastId+1;
     }
 
     @Override
