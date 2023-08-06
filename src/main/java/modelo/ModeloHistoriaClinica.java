@@ -102,13 +102,7 @@ public class ModeloHistoriaClinica {
     }
     
     public int getIdHistoriaBD() {
-        HistoriaClinicaDAO hcDAO = new HistoriaClinicaDAO();  
-        for (int i = 0; i < hcDAO.count(); i++) {
-            if (hcDAO.read(i).equals(historiaSeleccionada)) {
-                return i;
-            }
-        }
-        return 0;
+        return historiaSeleccionada.getIdHistoriaClinica();
     }
 
     public HistoriaClinica getHistoriaSeleccionada() {
