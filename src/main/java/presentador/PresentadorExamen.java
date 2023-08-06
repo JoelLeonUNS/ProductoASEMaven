@@ -2,6 +2,8 @@ package presentador;
 
 import examenes.Examen;
 import java.awt.BorderLayout;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javax.swing.JPanel;
 import modelo.ModeloConsulta;
 import modelo.ModeloExamen;
@@ -64,7 +66,7 @@ public class PresentadorExamen {
         modeloExamen.setDatosExamenFisico(temp, PA, FR, SPO2, peso, talla, IMC, FC, perAbdominal);
     }
     
-    public void setDatosConculta(String fecha, String hora, int edad, int tiempoEnfermedad, String apetito, String sueño, String sed, String estadoAnimo, String motivo){
+    public void setDatosConculta(LocalDate fecha, LocalTime hora, int edad, String tiempoEnfermedad, String apetito, String sueño, String sed, String estadoAnimo, String motivo){
         modeloConsulta.setDatosConsulta(fecha, hora, edad, tiempoEnfermedad, apetito, sueño, sed, estadoAnimo, motivo);
     }
     
@@ -74,6 +76,10 @@ public class PresentadorExamen {
     
     public void iniciarExamen(){
         modeloExamen.setExamen(new Examen());
+    }
+    
+    public void setConsultasAHistoria(){
+        modeloHistoriaClinica.getHistoriaSeleccionada().setConsultasMedicas(modeloConsulta.obtenerConsultas(modeloHistoriaClinica.getHistoriaSeleccionada().getIdHistoriaClinica()));
     }
     
 }

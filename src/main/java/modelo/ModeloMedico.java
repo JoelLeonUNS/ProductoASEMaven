@@ -1,8 +1,6 @@
 
 package modelo;
 
-import BaseDeDatos.MedicoDAO;
-import BaseDeDatos.UsuarioDAO;
 import factoryDAO.DAOFactory;
 import factoryDAO.SqlServerDAOFactory;
 import java.util.ArrayList;
@@ -89,7 +87,6 @@ public class ModeloMedico {
     }
     
     public Medico getMedicoBD(){
-        //MedicoDAO medicoDao = new MedicoDAO();
         return idMedico!=-1 ? (Medico)dao.getMedico().read(idMedico) : null;
     }
 }

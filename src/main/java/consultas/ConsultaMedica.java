@@ -1,16 +1,20 @@
 package consultas;
 
 import examenes.Examen;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import medicos.Medico;
 
 public class ConsultaMedica {
 
-    private String fecha;
-    private String hora;
+    private int idConsulta;
+    private int idHistoria;
+    private LocalDate fecha;
+    private LocalTime hora;
     private int edad;
     private String motivo;
-    private int tiempoEnfermedad;
+    private String tiempoEnfermedad;
     private String apetito;
     private String sueño;
     private String sed;
@@ -22,7 +26,7 @@ public class ConsultaMedica {
     }
     
     // solo para los valores por defecto.
-    public ConsultaMedica(String fecha, String hora, int edad, String motivo, int tiempoEnfermedad, String apetito, String sueño, String sed, String estadoAnimo, Medico atendidoPor) {
+    public ConsultaMedica(LocalDate fecha, LocalTime hora, int edad, String motivo, String tiempoEnfermedad, String apetito, String sueño, String sed, String estadoAnimo, Medico atendidoPor) {
         this.fecha = fecha;
         this.hora = hora;
         this.edad = edad;
@@ -35,19 +39,19 @@ public class ConsultaMedica {
         this.atendidoPor = atendidoPor;
     }
 
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public String getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 
@@ -67,11 +71,11 @@ public class ConsultaMedica {
         this.motivo = motivo;
     }
 
-    public int getTiempoEnfermedad() {
+    public String getTiempoEnfermedad() {
         return tiempoEnfermedad;
     }
 
-    public void setTiempoEnfermedad(int tiempoEnfermedad) {
+    public void setTiempoEnfermedad(String tiempoEnfermedad) {
         this.tiempoEnfermedad = tiempoEnfermedad;
     }
 
@@ -127,6 +131,22 @@ public class ConsultaMedica {
     public void agregarExamen(Examen examen) {
         examenes.add(examen);
     }
+
+    public int getIdConsulta() {
+        return idConsulta;
+    }
+
+    public void setIdConsulta(int idConsulta) {
+        this.idConsulta = idConsulta;
+    }
+
+    public int getIdHistoria() {
+        return idHistoria;
+    }
+
+    public void setIdHistoria(int idHistoria) {
+        this.idHistoria = idHistoria;
+    }    
 
     @Override
     public String toString() {

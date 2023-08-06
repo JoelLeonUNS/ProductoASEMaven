@@ -1,17 +1,24 @@
 package modelo;
 
 import consultas.ConsultaMedica;
+import factoryDAO.DAOFactory;
+import factoryDAO.SqlServerDAOFactory;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModeloConsulta {
-
+    private DAOFactory dao;
     private ConsultaMedica consulta;
     private int idConsulta;
 
     public ModeloConsulta() {
         this.consulta = new ConsultaMedica();
+        this.dao = new SqlServerDAOFactory();
     }
 
-    public void setDatosConsulta(String fecha, String hora, int edad, int tiempoEnfermedad, String apetito, String sueño, String sed, String estadoAnimo, String motivo) {
+    public void setDatosConsulta(LocalDate fecha, LocalTime hora, int edad, String tiempoEnfermedad, String apetito, String sueño, String sed, String estadoAnimo, String motivo) {
         consulta.setFecha(fecha);
         consulta.setHora(hora);
         consulta.setEdad(edad);
@@ -41,6 +48,16 @@ public class ModeloConsulta {
     
     public void tipoExamen(ConsultaMedica consulta){
         
+    }
+    
+    public ArrayList<ConsultaMedica> obtenerConsultas(int idHistoria){
+        ArrayList<ConsultaMedica> consultas = new ArrayList();
+        for(ConsultaMedica consultaBD: (List<ConsultaMedica>)dao.getConsulta().listed()) {
+            if (consultaBD.getIdHistoria()==idHistoria) {
+                consultas.add(consultaBD);
+            }
+        }
+        return consultas;
     }
 
 }

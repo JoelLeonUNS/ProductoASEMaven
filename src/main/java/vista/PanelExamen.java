@@ -5,6 +5,8 @@ import consultas.ConsultaMedica;
 import historias.HistoriaClinica;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -347,10 +349,10 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
     }
     
     public void setDatosConsulta(){
-        pGeneral.getpExamen().getModeloConsulta().getConsulta().setFecha(txtFldFecha.getText());
-        pGeneral.getpExamen().getModeloConsulta().getConsulta().setHora(txtFldHora.getText());
+        pGeneral.getpExamen().getModeloConsulta().getConsulta().setFecha(LocalDate.parse(txtFldFecha.getText()));
+        pGeneral.getpExamen().getModeloConsulta().getConsulta().setHora(LocalTime.parse(txtFldHora.getText()));
         pGeneral.getpExamen().getModeloConsulta().getConsulta().setEdad(Integer.parseInt(txtFldEdad.getText()));
-        pGeneral.getpExamen().getModeloConsulta().getConsulta().setTiempoEnfermedad(Integer.parseInt(txtFldTiempoEferm.getText()));
+        pGeneral.getpExamen().getModeloConsulta().getConsulta().setTiempoEnfermedad(txtFldTiempoEferm.getText());
         pGeneral.getpExamen().getModeloConsulta().getConsulta().setApetito(txtFldApetito.getText());
         pGeneral.getpExamen().getModeloConsulta().getConsulta().setSueño(txtFldSueño.getText());
         pGeneral.getpExamen().getModeloConsulta().getConsulta().setEstadoAnimo(txtFldEstadoAnimo.getText());
@@ -490,6 +492,7 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
                 int selectedRow = jTableHistorias.getSelectedRow();
                 if (selectedRow != -1) {
                     pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaSeleccionada((HistoriaClinica) jTableHistorias.getValueAt(selectedRow, 0));
+                    pGeneral.getpExamen().setConsultasAHistoria();
                     //String dni = jTableHistorias.getValueAt(selectedRow, 0).toString();
                     mostrarConsultas(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getConsultasMedicas());
                 }
@@ -526,8 +529,8 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
     }
     
     public void mostrarDatosConsulta(){
-        txtFldFecha.setText(pGeneral.getpExamen().getModeloConsulta().getConsulta().getFecha());
-        txtFldHora.setText(pGeneral.getpExamen().getModeloConsulta().getConsulta().getHora());
+        txtFldFecha.setText(String.valueOf(pGeneral.getpExamen().getModeloConsulta().getConsulta().getFecha()));
+        txtFldHora.setText(String.valueOf(pGeneral.getpExamen().getModeloConsulta().getConsulta().getHora()));
         txtFldEdad.setText(String.valueOf(pGeneral.getpExamen().getModeloConsulta().getConsulta().getEdad()));
         txtFldTiempoEferm.setText(String.valueOf(pGeneral.getpExamen().getModeloConsulta().getConsulta().getTiempoEnfermedad()));
         txtFldApetito.setText(pGeneral.getpExamen().getModeloConsulta().getConsulta().getApetito());
