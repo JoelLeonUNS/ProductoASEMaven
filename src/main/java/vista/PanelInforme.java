@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import presentador.PresentadorGeneral;
@@ -28,6 +29,7 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
         pInforme5 = new PanelInforme5();
         llenarComboBoxTipoInforme();
         CmbBx_tipoInforme.addActionListener(this);
+        //pInforme1.cargarDatosEnTabla();
     }
 
     private void llenarComboBoxTipoInforme() {
@@ -50,6 +52,8 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
                 String tipoInforme = (String) CmbBx_tipoInforme.getSelectedItem();
                 switch (tipoInforme) {
                     case "Atenciones Realizadas" -> {
+                        List<Object[]> informes = pGeneral.getpInforme().obtenerInformes();
+                        pInforme1.cargarInformesEnTabla(informes);
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme1);
                     }
                     case "Alumnos de Pregraso segun escuela" -> {
@@ -58,7 +62,7 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
                     case "Pacientes segun el sexo" -> {
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme3);
                     }
-                    case "Triaje de signos vitales de los pacientes"-> {
+                    case "Triaje de signos vitales de los pacientes" -> {
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme4);
                     }
                     case "Triaje de medida de los pacientes" -> {

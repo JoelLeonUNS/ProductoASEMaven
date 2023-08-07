@@ -3,8 +3,10 @@ package presentador;
 import modelo.ModeloConsulta;
 import modelo.ModeloExamen;
 import modelo.ModeloHistoriaClinica;
+import modelo.ModeloInforme;
 import modelo.ModeloMedico;
 import modelo.ModeloUsuario;
+import vista.PanelInforme;
 import vista.VistaInterfazAdmin;
 import vista.VistaLogin;
 import vista.VistaInterfazMedico;
@@ -52,6 +54,7 @@ public class PresentadorGeneral {
         vistaLogin.iniciar();
     }
     
+    
     //
     public void setModeloPresentadorLogin(ModeloUsuario mUsuario) {
         pLogin.setModelo(mUsuario);
@@ -69,6 +72,10 @@ public class PresentadorGeneral {
         pExamen.setModeloConsulta(mConsulta);
         pExamen.setModeloExamen(mExamen);
         pExamen.setModeloHistoriaClinica(mHistoriClinica);
+    }
+    
+    public void setModeloPresentadorInforme(ModeloInforme mInforme){
+        pInforme.setModeloInforme(mInforme);
     }
     
     
@@ -102,6 +109,10 @@ public class PresentadorGeneral {
 
     public PresentadorInforme getpInforme() {
         return pInforme;
+    }
+
+    public void setpInforme(PresentadorInforme pInforme) {
+        this.pInforme = pInforme;
     }
     
 }

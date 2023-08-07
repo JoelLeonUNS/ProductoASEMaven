@@ -4,17 +4,21 @@
  */
 package vista;
 
-import javax.swing.JFrame;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import modelo.ModeloInforme;
 import presentador.PresentadorGeneral;
 
 /**
  *
  * @author PC1
  */
-public class PanelInforme1 extends javax.swing.JPanel {
+public final class PanelInforme1 extends javax.swing.JPanel {
 
     private PresentadorGeneral pGeneral;
+    private DefaultTableModel model;
 
     /**
      * Creates new form PanelInforme1
@@ -22,13 +26,14 @@ public class PanelInforme1 extends javax.swing.JPanel {
     public PanelInforme1(PresentadorGeneral pGeneral) {
         initComponents();
         this.pGeneral = pGeneral;
+         model = (DefaultTableModel) jTable1.getModel();
     }
-    
-    public JTable getTablaInformes1() {
-    return jTable1;
-}
 
-    
+    public JTable getTablaInformes1() {
+        return jTable1;
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,9 +91,14 @@ public class PanelInforme1 extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 105, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+    public void cargarInformesEnTabla(List<Object[]> informes) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
 
-    
-
+        for (Object[] informe : informes) {
+            model.addRow(informe);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
