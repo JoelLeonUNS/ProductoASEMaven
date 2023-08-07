@@ -4,6 +4,7 @@ import conexiones.SqlServerConexion;
 import modelo.ModeloConsulta;
 import modelo.ModeloExamen;
 import modelo.ModeloHistoriaClinica;
+import modelo.ModeloInforme;
 import modelo.ModeloMedico;
 import modelo.ModeloUsuario;
 import presentador.PresentadorGeneral;
@@ -27,8 +28,9 @@ public class GestionHistorial {
         PresentadorGeneral.getInstancia().setModeloPresentadorInterfazAdmin(new ModeloMedico());
         PresentadorGeneral.getInstancia().setModeloPresentadorHistoriaClinica(mHistoriaClinica);
         PresentadorGeneral.getInstancia().setModeloPresentadorExamen(new ModeloExamen(), new ModeloConsulta(), mHistoriaClinica);
+        PresentadorGeneral.getInstancia().setModeloPresentadorInforme(new ModeloInforme());
         
-        SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "02122002");        
+        SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "castillo");        
         VistaLogin vLogin = new VistaLogin(PresentadorGeneral.getInstancia()); 
         vLogin.iniciar();
     }
