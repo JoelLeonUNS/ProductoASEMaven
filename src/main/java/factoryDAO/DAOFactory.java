@@ -8,6 +8,7 @@ import DAO.ExamenClinicoDAO;
 import DAO.ExamenFisicoDAO;
 import DAO.ExamenMedicoDAO;
 import DAO.FamiliarDAO;
+import DAO.HistoriaClinicaEnfermedadDAO;
 import DAO.PacienteDAO;
 
 public abstract class DAOFactory {
@@ -16,6 +17,7 @@ public abstract class DAOFactory {
     public abstract PacienteDAO getPaciente();
     public abstract FamiliarDAO getFamiliar();
     public abstract HistoriaClinicaDAO getHistoriaClinica();
+    public abstract HistoriaClinicaEnfermedadDAO getHistoriaClinicaEnfermedad();
     public abstract ConsultaDAO getConsulta();
     public abstract ExamenFisicoDAO getExamenFisico();
     public abstract ExamenMedicoDAO getExamenMedico();

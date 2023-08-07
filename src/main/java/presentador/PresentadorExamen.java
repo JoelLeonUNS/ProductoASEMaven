@@ -79,7 +79,7 @@ public class PresentadorExamen {
     }
     
     public void setConsultasAHistoria(){
-        modeloHistoriaClinica.getHistoriaSeleccionada().setConsultasMedicas(modeloConsulta.obtenerConsultas(modeloHistoriaClinica.getHistoriaSeleccionada().getIdHistoriaClinica()));
+        modeloHistoriaClinica.getHistoriaClinica().setConsultasMedicas(modeloConsulta.obtenerConsultas(modeloHistoriaClinica.getHistoriaClinica().getIdHistoriaClinica()));
     }
     
 }

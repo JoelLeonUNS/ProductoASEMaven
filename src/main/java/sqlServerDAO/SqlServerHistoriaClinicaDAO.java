@@ -7,6 +7,7 @@ import historias.HistoriaClinica;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Enfermedad;
 import pacientes.Paciente;
 
 public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClinica> {
@@ -73,10 +74,11 @@ public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClin
 
                 DAOFactory dao = new SqlServerDAOFactory();
                 historiaClinica.setPaciente((Paciente) dao.getPaciente().read(getRs().getInt("idPaciente")));
+                historiaClinica.setAntecedentesPatologicos((ArrayList<Enfermedad>)dao.getHistoriaClinicaEnfermedad().listed(getRs().getInt("idHistoriaClinica")));
                 historiaClinica.setOtrosAntecedentesPatologicos(getRs().getString("otrosAntecedentes"));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("[SqlServerHistoriaClinicaDAO - read()]" + e.getMessage());
         }
         return historiaClinica;
     }
@@ -93,6 +95,7 @@ public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClin
                 HistoriaClinica historiaClinica = new HistoriaClinica();
                 historiaClinica.setIdHistoriaClinica(getRs().getInt("idHistoriaClinica"));
                 
+                // falta los antecedentes patológicos
                 DAOFactory dao = new SqlServerDAOFactory();
                 historiaClinica.setPaciente((Paciente) dao.getPaciente().read(getRs().getInt("idPaciente")));
                 historiaClinica.setOtrosAntecedentesPatologicos(getRs().getString("otrosAntecedentes"));
@@ -105,6 +108,7 @@ public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClin
         return listaHistoriasClinicas;
     }
     
+    @Override
     public int lastId() {
         int lastId = 0;
         try {

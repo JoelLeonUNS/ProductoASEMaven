@@ -6,27 +6,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class HistoriaClinicaDAO<T> {
+public abstract class HistoriaClinicaEnfermedadDAO<T> {
 
     public Connection conector;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
 
-    public abstract T create(T obj);
+    public abstract T create(int id, T obj);
 
-    public abstract T delete(T obj);
+    public abstract T delete(int id, T obj);
 
-    public abstract T update(T obj);
+    public abstract T update(int id, T obj);
 
-    public abstract T read(int id);
+    public abstract T read(int id, int idSec);
 
-    public abstract List<T> listed();
+    public abstract List<T> listed(int id);
 
     public abstract boolean exeUpdate() throws SQLException;
     
-    public abstract int lastId();
-
     public Connection getConector() {
         return conector;
     }

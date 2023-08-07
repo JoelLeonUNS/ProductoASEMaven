@@ -8,6 +8,7 @@ import DAO.ExamenClinicoDAO;
 import DAO.ExamenFisicoDAO;
 import DAO.ExamenMedicoDAO;
 import DAO.FamiliarDAO;
+import DAO.HistoriaClinicaEnfermedadDAO;
 import DAO.PacienteDAO;
 
 public class MySqlDAOFactory extends DAOFactory {
@@ -34,6 +35,11 @@ public class MySqlDAOFactory extends DAOFactory {
 
     @Override
     public HistoriaClinicaDAO getHistoriaClinica() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    @Override
+    public HistoriaClinicaEnfermedadDAO getHistoriaClinicaEnfermedad() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -11,29 +13,37 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import modelo.Enfermedad;
-import pacientes.Alumno;
+import modelo.Escuela;
 import presentador.PresentadorGeneral;
 
 public class PanelHistoriaEstudiante extends javax.swing.JPanel implements ActionListener {
 
-    private final PresentadorGeneral pGeneral;
-    private JCheckBox[] checkBoxes;
+    private final PresentadorGeneral pg;
+    private List<JCheckBox> checkBoxes;
     ButtonGroup buttonGroupSexo = new ButtonGroup();
     private DefaultComboBoxModel comboBoxEstaoCivil = new DefaultComboBoxModel();
+    private DefaultComboBoxModel comboBoxEscuela = new DefaultComboBoxModel();
     private DefaultComboBoxModel comboBoxParentesco = new DefaultComboBoxModel();
 
-    public PanelHistoriaEstudiante(PresentadorGeneral pGeneral) {
+    public PanelHistoriaEstudiante(PresentadorGeneral pg) {
         initComponents();
-        this.pGeneral = pGeneral;
-        checkBoxes = arrayCheckBox();
+        this.pg = pg;
+        checkBoxes = listCheckBox();
         buttonGroupSexo.add(rdBttn_m);
         buttonGroupSexo.add(rdBttn_f);
-        pGeneral.getpHistoriaClinica().setTipoHistoria("ESTUDIANTE");
-        pGeneral.getpHistoriaClinica().setHistoriaEditable(false);
+        llenarComboBoxEscuela();
+        pg.getpHistoriaClinica().setTipoHistoria("ESTUDIANTE");
+        pg.getpHistoriaClinica().setHistoriaEditable(false);
 
         cmbBx_parentesco.addActionListener(this);
         bttn_guardarFamiliar.addActionListener(this);
         setEnableBotones();
+    }
+
+    private void llenarComboBoxEscuela() {
+        for (Escuela escuela : Escuela.values()) {
+            comboBoxEscuela.addElement(escuela);
+        }
     }
 
     public String getInputText(JTextField txtFld) {
@@ -55,145 +65,139 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
     public String getComboBoxText(JComboBox cmbBx) {
         return (String) cmbBx.getSelectedItem();
     }
-    
+
     public String getRadioButtonSexo() {
         return (rdBttn_m.isSelected() ? rdBttn_m.getText() : "F");
     }
-    
-    private JCheckBox[] arrayCheckBox() {
-        JCheckBox[] chckBxs = {
-            jCheckBox1, jCheckBox2, jCheckBox3, jCheckBox4, jCheckBox5, jCheckBox6,
-            jCheckBox7, jCheckBox8, jCheckBox9, jCheckBox10, jCheckBox11, jCheckBox12,
-            jCheckBox13, jCheckBox14, jCheckBox15, jCheckBox16, jCheckBox17, jCheckBox18,
-            jCheckBox19, jCheckBox20, jCheckBox21, jCheckBox22, jCheckBox23, jCheckBox24
-        };
-        return chckBxs;
+
+    private List<JCheckBox> listCheckBox() {
+        List<JCheckBox> listChcBxs = new ArrayList<>();
+        listChcBxs.add(jCheckBox1);
+        listChcBxs.add(jCheckBox2);
+        listChcBxs.add(jCheckBox3);
+        listChcBxs.add(jCheckBox4);
+        listChcBxs.add(jCheckBox5);
+        listChcBxs.add(jCheckBox6);
+        listChcBxs.add(jCheckBox7);
+        listChcBxs.add(jCheckBox8);
+        listChcBxs.add(jCheckBox9);
+        listChcBxs.add(jCheckBox10);
+        listChcBxs.add(jCheckBox11);
+        listChcBxs.add(jCheckBox12);
+        listChcBxs.add(jCheckBox13);
+        listChcBxs.add(jCheckBox14);
+        listChcBxs.add(jCheckBox15);
+        listChcBxs.add(jCheckBox16);
+        listChcBxs.add(jCheckBox17);
+        listChcBxs.add(jCheckBox18);
+        listChcBxs.add(jCheckBox19);
+        listChcBxs.add(jCheckBox20);
+        listChcBxs.add(jCheckBox21);
+        listChcBxs.add(jCheckBox22);
+        listChcBxs.add(jCheckBox23);
+        listChcBxs.add(jCheckBox24);
+        return listChcBxs;
     }
 
     public void setEnableBotones() {
-        txtFld_apellidos.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_nombres.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        rdBttn_m.setEnabled(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        rdBttn_f.setEnabled(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_fechaNac.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_lugarNac.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_distrito.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_departamento.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_direccion.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_escuela.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_telefono.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        cmbBx_estadoCivil.setEnabled(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        jCheckBox1.setEnabled(pGeneral.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_apellidos.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_nombres.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        rdBttn_m.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
+        rdBttn_f.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_fechaNac.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_lugarNac.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_distrito.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_departamento.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_direccion.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        cmbBx_escuela.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_telefono.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        cmbBx_estadoCivil.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
         for (JCheckBox checkBox : checkBoxes) {
-            checkBox.setEnabled(pGeneral.getpHistoriaClinica().isHistoriaEditable());
+            checkBox.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
         }
-        cmbBx_parentesco.setEnabled(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_nombreFamiliar.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_direccionFamiliar.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtAr_antecedentes.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_telefonoFamiliar.setEditable(pGeneral.getpHistoriaClinica().isHistoriaEditable());
-        bttn_guardarFamiliar.setEnabled(pGeneral.getpHistoriaClinica().isHistoriaEditable());
+        cmbBx_parentesco.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_nombreFamiliar.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_direccionFamiliar.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtAr_antecedentes.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        txtFld_telefonoFamiliar.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
+        bttn_guardarFamiliar.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
     }
 
     public void guardarEnfermedades() {
-        int i = 0;
         for (JCheckBox checkBox : checkBoxes) {
             if (checkBox.isSelected()) {
-                pGeneral.getpHistoriaClinica().agregarEnfermedad(Enfermedad.values()[i]);
+                pg.getpHistoriaClinica().agregarEnfermedad(Enfermedad.getPorId(checkBoxes.indexOf(checkBox)));
             }
-            i++;
         }
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaClinicaEstudiante().setOtrosAntecedentesPatologicos(getInputText(txtFld_otros));
+        pg.getpHistoriaClinica().setOtrosAntecedentesPatologicos(getInputText(txtFld_otros));
     }
-    
+
     public void guardarPaciente() {
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setDni(getInputText(txtFld_dni));
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setApellido(getInputText(txtFld_apellidos));
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setNombre(getInputText(txtFld_nombres));
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setTelefono(getInputText(txtFld_telefono));
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setSexo(getRadioButtonSexo());
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setFechaNac(LocalDate.parse(getInputText(txtFld_fechaNac), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setLugarNac(getInputText(txtFld_lugarNac));
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setDistrito(getInputText(txtFld_distrito));
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setDepartamento(getInputText(txtFld_departamento));
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setDireccion(getInputText(txtFld_direccion));
-        //pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setEscuela(getInputText(txtFld_escuela));
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getEstudiante().setEstadoCivil(getComboBoxText(cmbBx_estadoCivil));
+        pg.getpHistoriaClinica().setDni(getInputText(txtFld_dni));
+        pg.getpHistoriaClinica().setApellido(getInputText(txtFld_apellidos));
+        pg.getpHistoriaClinica().setNombre(getInputText(txtFld_nombres));
+        pg.getpHistoriaClinica().setTelefono(getInputText(txtFld_telefono));
+        pg.getpHistoriaClinica().setSexo(getRadioButtonSexo());
+        pg.getpHistoriaClinica().setFechaNac(LocalDate.parse(getInputText(txtFld_fechaNac), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        pg.getpHistoriaClinica().setLugarNac(getInputText(txtFld_lugarNac));
+        pg.getpHistoriaClinica().setDistrito(getInputText(txtFld_distrito));
+        pg.getpHistoriaClinica().setDepartamento(getInputText(txtFld_departamento));
+        pg.getpHistoriaClinica().setDireccion(getInputText(txtFld_direccion));
+        pg.getpHistoriaClinica().setEscuela((Escuela) cmbBx_escuela.getSelectedItem());
+        pg.getpHistoriaClinica().setEstadoCivil(getComboBoxText(cmbBx_estadoCivil));
+    }
+
+    public void guardarFamiliar() {
+        pg.getpHistoriaClinica().setNombreFamiliar(getInputText(txtFld_nombreFamiliar));
+        pg.getpHistoriaClinica().setParentesco(getComboBoxText(cmbBx_parentesco));
+        pg.getpHistoriaClinica().setDireccionFamiliar(getInputText(txtFld_direccionFamiliar));
+        pg.getpHistoriaClinica().setTelefonoFamiliar(getInputText(txtFld_telefonoFamiliar));
+        pg.getpHistoriaClinica().setAntecedentesPatologicosFamiliar(getInputTextAr(txtAr_antecedentes));
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int intParentesco = cmbBx_parentesco.getSelectedIndex();
         switch (e.getActionCommand()) {
             case "Guardar" -> {
-                pGeneral.getpHistoriaClinica().setDatosFamiliar(getInputText(txtFld_nombreFamiliar), getComboBoxText(cmbBx_parentesco), getInputText(txtFld_direccionFamiliar), getInputText(txtFld_telefonoFamiliar), getInputTextAr(txtAr_antecedentes));
-                switch (intParentesco) {
-                    case 0 -> { // Padre
-                        pGeneral.getpHistoriaClinica().agregarFamiliar(0);
-                    }
-                    case 1 -> { // Madre
-                        pGeneral.getpHistoriaClinica().agregarFamiliar(1);
-                    }
-                    case 2 -> { // Hermano(a)
-                        pGeneral.getpHistoriaClinica().agregarFamiliar(2);
-                    }
-                }
+                guardarFamiliar();
+                pg.getpHistoriaClinica().agregarFamiliar();
             }
             case "Parentesco" -> {
-                switch (intParentesco) {
-                    case 0 -> { // Padre
-                        mostrarFamiliar(0);
-                    }
-                    case 1 -> { // Madre
-                        mostrarFamiliar(1);
-                    }
-                    case 2 -> { // Hermano(a)
-                        mostrarFamiliar(2);
-                    }
-                }
+                mostrarFamiliar(cmbBx_parentesco.getSelectedIndex());
             }
         }
     }
 
     public void mostrarFamiliar(int indice) {
-        setInputText(txtFld_nombreFamiliar, pGeneral.getpHistoriaClinica().getFamiliar(indice) == null ? "" : pGeneral.getpHistoriaClinica().getFamiliar(indice).getNombreFamiliar());
-        setInputText(txtFld_direccionFamiliar, pGeneral.getpHistoriaClinica().getFamiliar(indice)  == null ? "" : pGeneral.getpHistoriaClinica().getFamiliar(indice).getDireccionFamiliar());
-        setInputText(txtFld_telefonoFamiliar, pGeneral.getpHistoriaClinica().getFamiliar(indice)  == null ? "" : pGeneral.getpHistoriaClinica().getFamiliar(indice).getTelefonoFamiliar());
-        setInputTextAr(txtAr_antecedentes, pGeneral.getpHistoriaClinica().getFamiliar(indice)  == null ? "" : pGeneral.getpHistoriaClinica().getFamiliar(indice).getAntecedentesPatologicos());
+        setInputText(txtFld_nombreFamiliar, pg.getpHistoriaClinica().getFamiliar(indice) == null ? "" : pg.getpHistoriaClinica().getFamiliar(indice).getNombreFamiliar());
+        setInputText(txtFld_direccionFamiliar, pg.getpHistoriaClinica().getFamiliar(indice) == null ? "" : pg.getpHistoriaClinica().getFamiliar(indice).getDireccionFamiliar());
+        setInputText(txtFld_telefonoFamiliar, pg.getpHistoriaClinica().getFamiliar(indice) == null ? "" : pg.getpHistoriaClinica().getFamiliar(indice).getTelefonoFamiliar());
+        setInputTextAr(txtAr_antecedentes, pg.getpHistoriaClinica().getFamiliar(indice) == null ? "" : pg.getpHistoriaClinica().getFamiliar(indice).getAntecedentesPatologicos());
     }
-    
+
     public void mostrarHistoriaClinicaEstudiante() {
-        int indiceCheck = 0;
-        int indiceEnf = 0;
-        lbl_nroHistoriaClinica.setText("Historia Clínica: N° " + pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getIdHistoriaClinica());
-        setInputText(txtFld_dni, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getDni());
-        setInputText(txtFld_apellidos, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getApellido());
-        setInputText(txtFld_nombres, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getNombre());
-        setInputText(txtFld_telefono, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getTelefono());
-        rdBttn_m.setSelected(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getSexo().equals("M"));
-        rdBttn_f.setSelected(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getSexo().equals("M"));
-        setInputText(txtFld_fechaNac, String.valueOf(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getFechaNac()));
-        setInputText(txtFld_lugarNac, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getLugarNac());
-        setInputText(txtFld_distrito, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getDistrito());
-        setInputText(txtFld_departamento, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getDepartamento());
-        setInputText(txtFld_direccion, pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getDireccion());
-        setInputText(txtFld_escuela, ((Alumno) pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente()).getEscuela().getNombre());
-        cmbBx_estadoCivil.setSelectedItem(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getEstadoCivil());
-        
-        
-        try {
-            for (JCheckBox checkBox : checkBoxes) {
-            checkBox.setSelected((pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getAntecedentesPatologicos().get(indiceEnf).getIdEnfermedad() -1) == indiceCheck);
-            if (checkBox.isSelected()) {
-                indiceEnf++;
+        lbl_nroHistoriaClinica.setText("Historia Clínica: N° " + pg.getpHistoriaClinica().getIdHistoriaClinica());
+        setInputText(txtFld_dni, pg.getpHistoriaClinica().getDni());
+        setInputText(txtFld_apellidos, pg.getpHistoriaClinica().getApellido());
+        setInputText(txtFld_nombres, pg.getpHistoriaClinica().getNombre());
+        setInputText(txtFld_telefono, pg.getpHistoriaClinica().getTelefono());
+        rdBttn_m.setSelected(pg.getpHistoriaClinica().getSexo().equals("M"));
+        rdBttn_f.setSelected(pg.getpHistoriaClinica().getSexo().equals("M"));
+        setInputText(txtFld_fechaNac, String.valueOf(pg.getpHistoriaClinica().getFechaNac()));
+        setInputText(txtFld_lugarNac, pg.getpHistoriaClinica().getLugarNac());
+        setInputText(txtFld_distrito, pg.getpHistoriaClinica().getDistrito());
+        setInputText(txtFld_departamento, pg.getpHistoriaClinica().getDepartamento());
+        setInputText(txtFld_direccion, pg.getpHistoriaClinica().getDireccion());
+        cmbBx_escuela.setSelectedIndex(pg.getpHistoriaClinica().getEscuela().getIdEscuela() - 1);
+        cmbBx_estadoCivil.setSelectedItem(pg.getpHistoriaClinica().getEstadoCivil());
+
+        for (Enfermedad enfermedad : pg.getpHistoriaClinica().getAntecedentesPatologicos()) {
+            if (enfermedad.getIdEnfermedad() >= 0 && enfermedad.getIdEnfermedad() < checkBoxes.size()) {
+                checkBoxes.get(enfermedad.getIdEnfermedad()).setSelected(true);
             }
-            indiceCheck++;
-        }
-        } catch (Exception e) {
         }
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -222,7 +226,6 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         txtFld_departamento = new javax.swing.JTextField();
         lbl_lugarNac = new javax.swing.JLabel();
         lbl_distrito = new javax.swing.JLabel();
-        txtFld_escuela = new javax.swing.JTextField();
         cmbBx_estadoCivil = new javax.swing.JComboBox<>();
         lbl_nombreFamiliar = new javax.swing.JLabel();
         lbl_escuela = new javax.swing.JLabel();
@@ -265,6 +268,7 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         lbl_telefono = new javax.swing.JLabel();
         txtFld_dni = new javax.swing.JTextField();
         lbl_dni = new javax.swing.JLabel();
+        cmbBx_escuela = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(217, 217, 217));
         setPreferredSize(new java.awt.Dimension(755, 495));
@@ -365,10 +369,6 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         lbl_distrito.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_distrito.setText("Distrito");
         add(lbl_distrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 105, -1, -1));
-
-        txtFld_escuela.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFld_escuela.setPreferredSize(new java.awt.Dimension(270, 30));
-        add(txtFld_escuela, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 180, 270, -1));
 
         cmbBx_estadoCivil.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbBx_estadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soltero", "Casado", "Viudo", "Divorciado" }));
@@ -541,11 +541,15 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         lbl_dni.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_dni.setText("DNI");
         add(lbl_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 50, -1, -1));
+
+        cmbBx_escuela.setModel(comboBoxEscuela);
+        add(cmbBx_escuela, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 180, 270, 30));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttn_guardarFamiliar;
+    public javax.swing.JComboBox<Escuela> cmbBx_escuela;
     private javax.swing.JComboBox<String> cmbBx_estadoCivil;
     private javax.swing.JComboBox<String> cmbBx_parentesco;
     private javax.swing.JCheckBox jCheckBox1;
@@ -604,7 +608,6 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
     private javax.swing.JTextField txtFld_direccionFamiliar;
     private javax.swing.JTextField txtFld_distrito;
     private javax.swing.JTextField txtFld_dni;
-    private javax.swing.JTextField txtFld_escuela;
     private javax.swing.JTextField txtFld_fechaNac;
     private javax.swing.JTextField txtFld_lugarNac;
     private javax.swing.JTextField txtFld_nombreFamiliar;

@@ -6,7 +6,6 @@ import modelo.ModeloHistoriaClinica;
 import modelo.ModeloInforme;
 import modelo.ModeloMedico;
 import modelo.ModeloUsuario;
-import vista.PanelInforme;
 import vista.VistaInterfazAdmin;
 import vista.VistaLogin;
 import vista.VistaInterfazMedico;
@@ -65,7 +64,7 @@ public class PresentadorGeneral {
     }
 
     public void setModeloPresentadorHistoriaClinica(ModeloHistoriaClinica mHistoriClinica) {
-        pHistoriaClinica.setModelo(mHistoriClinica);
+        pHistoriaClinica.setModeloHistoriaClinica(mHistoriClinica);
     }
     
     public void setModeloPresentadorExamen(ModeloExamen mExamen, ModeloConsulta mConsulta, ModeloHistoriaClinica mHistoriClinica) {

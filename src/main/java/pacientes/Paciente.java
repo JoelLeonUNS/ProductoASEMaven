@@ -2,11 +2,9 @@ package pacientes;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Paciente {
-
     private int idPaciente;
     private String dni;
     private String nombre;
@@ -135,12 +133,16 @@ public class Paciente {
         this.estadoCivil = estadoCivil;
     }
 
-    public void agregarFamiliar(Familiar familiar) {
-        familiares.add(familiar);
+    public ArrayList<Familiar> getFamiliares() {
+        return familiares;
     }
-
+    
     public void setFamiliares(ArrayList<Familiar> familiares) {
         this.familiares = familiares;
+    }
+    
+    public void agregarFamiliar(Familiar familiar) {
+        familiares.add(familiar);
     }
 
     public String getTipoPaciente() {

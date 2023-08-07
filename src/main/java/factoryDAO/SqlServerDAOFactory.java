@@ -8,6 +8,7 @@ import DAO.ExamenClinicoDAO;
 import DAO.ExamenFisicoDAO;
 import DAO.ExamenMedicoDAO;
 import DAO.FamiliarDAO;
+import DAO.HistoriaClinicaEnfermedadDAO;
 import DAO.PacienteDAO;
 import conexiones.SqlServerConexion;
 import sqlServerDAO.SqlServerConsultaDAO;
@@ -15,6 +16,7 @@ import sqlServerDAO.SqlServerExamenClinicoDAO;
 import sqlServerDAO.SqlServerExamenFisicoDAO;
 import sqlServerDAO.SqlServerExamenMedicoDAO;
 import sqlServerDAO.SqlServerHistoriaClinicaDAO;
+import sqlServerDAO.SqlServerHistoriaClinicaEnfermedadDAO;
 import sqlServerDAO.SqlServerMedicoDAO;
 import sqlServerDAO.SqlServerPacienteDAO;
 import sqlServerDAO.SqlServerUsuarioDAO;
@@ -52,6 +54,13 @@ public class SqlServerDAOFactory extends DAOFactory {
         SqlServerHistoriaClinicaDAO historiaClinicaDAO = new SqlServerHistoriaClinicaDAO();
         historiaClinicaDAO.setConector(SqlServerConexion.getInstance());
         return historiaClinicaDAO;
+    }
+    
+    @Override
+    public HistoriaClinicaEnfermedadDAO getHistoriaClinicaEnfermedad() {
+        SqlServerHistoriaClinicaEnfermedadDAO historiaClinicaEnfermedadDAO = new SqlServerHistoriaClinicaEnfermedadDAO();
+        historiaClinicaEnfermedadDAO.setConector(SqlServerConexion.getInstance());
+        return historiaClinicaEnfermedadDAO;
     }
 
     @Override

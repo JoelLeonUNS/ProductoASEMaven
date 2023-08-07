@@ -1,134 +1,90 @@
 package modelo;
 
-import BaseDeDatos.HistoriaClinicaDAO;
 import factoryDAO.DAOFactory;
 import factoryDAO.SqlServerDAOFactory;
 import historias.HistoriaClinica;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import pacientes.Alumno;
 import pacientes.Familiar;
-import pacientes.Trabajador;
+import pacientes.Paciente;
 
 public class ModeloHistoriaClinica {
+
     private final DAOFactory dao;
-    private int idHistoriaClinica;
-    private HistoriaClinica historiaSeleccionada;
+    private HistoriaClinica historiaClinica;
     private ArrayList<Integer> idHistorias;
-    private HistoriaClinica historiaClinicaEstudiante;
-    private HistoriaClinica historiaClinicaTrabajador;
-    private Alumno estudiante;
-    private Trabajador trabajador;
-    private Familiar familiar;
-    private Map<Integer, Familiar> familiaresEstudiante;
-    private Map<Integer, Familiar> familiaresTrabajador;
-    private ArrayList<Enfermedad> antecedentesPatologicos;
 
     public ModeloHistoriaClinica() {
-        this.historiaClinicaEstudiante = new HistoriaClinica();
-        this.historiaClinicaTrabajador = new HistoriaClinica();
-        this.estudiante = new Alumno();
-        this.trabajador = new Trabajador();
-        this.familiar = new Familiar();
-        this.familiaresEstudiante = new HashMap<>();
-        this.familiaresTrabajador = new HashMap<>();
-        this.antecedentesPatologicos = new ArrayList<>();
+        this.historiaClinica = new HistoriaClinica();
+        this.historiaClinica.setPaciente(new Paciente());
         this.dao = new SqlServerDAOFactory(); // o MySql
     }
-    
-    public HistoriaClinica buscarHistoriaClinicaDNI(String dni){
-        for (HistoriaClinica historiaClinica: (List<HistoriaClinica>)dao.getHistoriaClinica().listed()) {
-            if (historiaClinica.getPaciente().getDni().equals(dni)) {
-                idHistoriaClinica = historiaClinica.getIdHistoriaClinica();
-                return historiaClinica;
-            } 
+
+    public HistoriaClinica getHistoriaClinica() {
+        return historiaClinica;
+    }
+
+    public void setHistoriaClinica(HistoriaClinica historiaClinica) {
+        this.historiaClinica = historiaClinica;
+    }
+
+    public HistoriaClinica buscarHistoriaClinicaDNI(String dni) {
+        for (HistoriaClinica historia : (List<HistoriaClinica>) dao.getHistoriaClinica().listed()) {
+            if (historia.getPaciente().getDni().equals(dni)) {
+                return historia;
+            }
         }
         return null;
     }
-    
+
     public void buscarHistoriaCoincidente(String cadena) {
         idHistorias = new ArrayList<>();
-        for (HistoriaClinica historiaClinica: (List<HistoriaClinica>)dao.getHistoriaClinica().listed()) {
-            if (historiaClinica.getPaciente().getNombre().toUpperCase().contains(cadena.toUpperCase()) || historiaClinica.getPaciente().getApellido().toUpperCase().contains(cadena.toUpperCase())) {
-                idHistorias.add(historiaClinica.getIdHistoriaClinica());
-            } 
+        for (HistoriaClinica historia : (List<HistoriaClinica>) dao.getHistoriaClinica().listed()) {
+            if (historia.getPaciente().getNombre().toUpperCase().contains(cadena.toUpperCase()) || historia.getPaciente().getApellido().toUpperCase().contains(cadena.toUpperCase())) {
+                idHistorias.add(historia.getIdHistoriaClinica());
+            }
         }
     }
-    
+
     public ArrayList<HistoriaClinica> getHistoriasCoincidentes() {
         ArrayList<HistoriaClinica> historiaClinicas = new ArrayList<>();
         for (Integer idHistoria : idHistorias) {
-            historiaClinicas.add((HistoriaClinica)dao.getHistoriaClinica().read(idHistoria));
+            historiaClinicas.add((HistoriaClinica) dao.getHistoriaClinica().read(idHistoria));
         }
         return historiaClinicas;
     }
 
-    public void registrarHistoriaEstudiante() {
-        HistoriaClinicaDAO hcDAO = new HistoriaClinicaDAO();
-        estudiante.setFamiliares(new ArrayList<>(familiaresEstudiante.values()));
-        historiaClinicaEstudiante.setPaciente(estudiante);
-        historiaClinicaEstudiante.agregarAntecedentesPatologicos(antecedentesPatologicos);
-        HistoriaClinica.masNroStaticHistoria();
-        historiaClinicaEstudiante.setIdHistoriaClinica(HistoriaClinica.getNroStaticHistoria());
-        hcDAO.create(historiaClinicaEstudiante);
+    public void registrarHistoriaClinica() {
+        historiaClinica.setIdHistoriaClinica(dao.getHistoriaClinica().lastId() + 1);
+        dao.getHistoriaClinica().create(historiaClinica);
+    }
+
+    public void editarHistoriaClinica() {
+        dao.getHistoriaClinica().update(historiaClinica);
+    }
+
+    public void agregarFamiliar(Familiar familiar) {
+        Integer indiceFamiliar = null;
+        for (Familiar familiarExiste : historiaClinica.getPaciente().getFamiliares()) {
+            if (familiarExiste.getParentesco().equalsIgnoreCase(familiar.getParentesco())) {
+                indiceFamiliar = historiaClinica.getPaciente().getFamiliares().indexOf(familiarExiste);
+                break;
+            }
+        }
+        if (indiceFamiliar != null) {
+            historiaClinica.getPaciente().getFamiliares().set(indiceFamiliar, familiar);
+        } else {
+            historiaClinica.getPaciente().agregarFamiliar(familiar);
+        }
     }
     
-    public void editarHistoriaEstudiante() {
-        HistoriaClinicaDAO hcDAO = new HistoriaClinicaDAO();
-        estudiante.setFamiliares(new ArrayList<>(familiaresEstudiante.values()));
-        historiaClinicaEstudiante.setPaciente(estudiante);
-        historiaClinicaEstudiante.agregarAntecedentesPatologicos(antecedentesPatologicos);
-        hcDAO.update(historiaClinicaEstudiante, getIdHistoriaBD());
+    public void agregarEnfermedad(Enfermedad enfermedad) {
+        
     }
     
-    public void registrarHistoriaTrabajador() {
-        HistoriaClinicaDAO hcDAO = new HistoriaClinicaDAO();
-        trabajador.setFamiliares(new ArrayList<>(familiaresTrabajador.values()));
-        historiaClinicaTrabajador.setPaciente(trabajador);
-        historiaClinicaTrabajador.agregarAntecedentesPatologicos(antecedentesPatologicos);
-        HistoriaClinica.masNroStaticHistoria();
-        historiaClinicaTrabajador.setIdHistoriaClinica(HistoriaClinica.getNroStaticHistoria());
-        hcDAO.create(historiaClinicaTrabajador);
-    }
-    
-    public void editarHistoriaTrabajador() {
-        HistoriaClinicaDAO hcDAO = new HistoriaClinicaDAO();
-        trabajador.setFamiliares(new ArrayList<>(familiaresTrabajador.values()));
-        historiaClinicaTrabajador.setPaciente(trabajador);
-        historiaClinicaTrabajador.agregarAntecedentesPatologicos(antecedentesPatologicos);
-        hcDAO.update(historiaClinicaTrabajador, getIdHistoriaBD());
-    }
-    
-    public int getIdHistoriaBD() {
-        return historiaSeleccionada.getIdHistoriaClinica();
-    }
+}
 
-    public HistoriaClinica getHistoriaSeleccionada() {
-        return historiaSeleccionada;
-    }
-
-    public void setHistoriaSeleccionada(HistoriaClinica historiaSeleccionada) {
-        this.historiaSeleccionada = historiaSeleccionada;
-    }
-
-    public HistoriaClinica getHistoriaClinicaEstudiante() {
-        return historiaClinicaEstudiante;
-    }
-
-    public void setHistoriaClinicaEstudiante(HistoriaClinica historiaClinicaEstudiante) {
-        this.historiaClinicaEstudiante = historiaClinicaEstudiante;
-    }
-
-    public HistoriaClinica getHistoriaClinicaTrabajador() {
-        return historiaClinicaTrabajador;
-    }
-
-    public void setHistoriaClinicaTrabajador(HistoriaClinica historiaClinicaTrabajador) {
-        this.historiaClinicaTrabajador = historiaClinicaTrabajador;
-    }
-
+/*
     public Alumno getEstudiante() {
         return estudiante;
     }
@@ -184,5 +140,4 @@ public class ModeloHistoriaClinica {
     
     public void limpiarAntecedentesPatologicos() {
         this.antecedentesPatologicos.clear();
-    }
-}
+    }*/

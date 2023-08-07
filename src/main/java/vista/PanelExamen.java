@@ -403,7 +403,7 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
     }
     
     public void añadirConsultaAHistoria(){
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().agregarConsulta(pGeneral.getpExamen().getModeloConsulta().getConsulta());
+        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaClinica().agregarConsulta(pGeneral.getpExamen().getModeloConsulta().getConsulta());
     }
     
     @Override
@@ -491,10 +491,10 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
                 this.jButtonGuardar.setEnabled(false);
                 int selectedRow = jTableHistorias.getSelectedRow();
                 if (selectedRow != -1) {
-                    pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaSeleccionada((HistoriaClinica) jTableHistorias.getValueAt(selectedRow, 0));
+                    pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaClinica((HistoriaClinica) jTableHistorias.getValueAt(selectedRow, 0));
                     pGeneral.getpExamen().setConsultasAHistoria();
                     //String dni = jTableHistorias.getValueAt(selectedRow, 0).toString();
-                    mostrarConsultas(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getConsultasMedicas());
+                    mostrarConsultas(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaClinica().getConsultasMedicas());
                 }
              }else if(e.getSource() == jTableConsultas.getSelectionModel()){
                 this.jButtonGuardar.setEnabled(false);
@@ -502,7 +502,7 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
                 if (selectedRow != -1){
                     limpiarPanelCompleto();
                     int numConsulta = (Integer) jTableConsultas.getValueAt(selectedRow, 0);
-                    pGeneral.getpExamen().getModeloConsulta().setConsulta(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getConsultasMedicas().get(numConsulta-1));
+                    pGeneral.getpExamen().getModeloConsulta().setConsulta(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaClinica().getConsultasMedicas().get(numConsulta-1));
                     mostrarDatosConsulta();
                     mostrarDatosExamenes(pGeneral.getpExamen().getModeloConsulta().getConsulta());
                 }

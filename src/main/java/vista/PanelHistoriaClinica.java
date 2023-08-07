@@ -9,24 +9,22 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import pacientes.Alumno;
-import pacientes.Trabajador;
 import presentador.PresentadorGeneral;
 
 public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionListener, ListSelectionListener {
 
-    private final PresentadorGeneral pGeneral;
+    private final PresentadorGeneral pg;
     private PanelHistoriaEstudiante pHistoriaEstudiante;
     private PanelHistoriaTrabajador pHistoriaTrabajador;
 
     private DefaultTableModel modelTablaBuscarHistoria = new DefaultTableModel();
     private DefaultComboBoxModel<String> comboBoxNuevaHistoria = new DefaultComboBoxModel<>();
 
-    public PanelHistoriaClinica(PresentadorGeneral pGeneral) {
+    public PanelHistoriaClinica(PresentadorGeneral pg) {
         initComponents();
-        this.pGeneral = pGeneral;
-        pHistoriaEstudiante = new PanelHistoriaEstudiante(pGeneral);
-        pHistoriaTrabajador = new PanelHistoriaTrabajador(pGeneral);
+        this.pg = pg;
+        pHistoriaEstudiante = new PanelHistoriaEstudiante(pg);
+        pHistoriaTrabajador = new PanelHistoriaTrabajador(pg);
         llenarComboBoxNuevaHistoria();
         crearEncabezadoTablaBuscarHistoria();
 
@@ -39,7 +37,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
         bttn_guardar.setEnabled(false);
         bttn_editarHistoria.setEnabled(false);
 
-        mostrarTablaBuscarHistoria(pGeneral.getpHistoriaClinica().buscarHistoriaClinicaCoincidente(getInputText(txtFld_valorBuscado)));
+        mostrarTablaBuscarHistoria(pg.getpHistoriaClinica().buscarHistoriaClinicaCoincidente(getInputText(txtFld_valorBuscado)));
     }
 
     public String getInputText(JTextField txtFld) {
@@ -47,7 +45,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
     }
 
     public void setEnableBotones() {
-        switch (pGeneral.getpHistoriaClinica().getTipoHistoria()) {
+        switch (pg.getpHistoriaClinica().getTipoHistoria()) {
             case "ESTUDIANTE" -> {
                 pHistoriaEstudiante.setEnableBotones();
             }
@@ -102,14 +100,14 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
             case "Buscar" -> {
                 if (isBusquedaDNI()) {
                     modelTablaBuscarHistoria.setRowCount(0);
-                    addHistoriaClinica(pGeneral.getpHistoriaClinica().buscarHistoriaClinicaDNI(getInputText(txtFld_valorBuscado)));
+                    addHistoriaClinica(pg.getpHistoriaClinica().buscarHistoriaClinicaDNI(getInputText(txtFld_valorBuscado)));
                 } else {
-                    mostrarTablaBuscarHistoria(pGeneral.getpHistoriaClinica().buscarHistoriaClinicaCoincidente(getInputText(txtFld_valorBuscado)));
+                    mostrarTablaBuscarHistoria(pg.getpHistoriaClinica().buscarHistoriaClinicaCoincidente(getInputText(txtFld_valorBuscado)));
                 }
             }
             case "Nueva Historia" -> {
                 bttn_guardar.setEnabled(true);
-                pGeneral.getpHistoriaClinica().setTipoGuardado("NUEVO");
+                pg.getpHistoriaClinica().setTipoGuardado("NUEVO");
                 String tipoHistoria = (String) cmbBx_nuevaHistoria.getSelectedItem();
                 switch (tipoHistoria) {
                     case "Nueva Historia" -> {
@@ -118,53 +116,53 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
                         }
                     }
                     case "Estudiante" -> {
-                        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaClinicaEstudiante(new HistoriaClinica());
-                        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().setEstudiante(new Alumno());
+                        pg.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaClinica(new HistoriaClinica());
+                        //pg.getpHistoriaClinica().getModeloHistoriaClinica().setEstudiante(new Alumno());
                         
-                        pGeneral.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
-                        pGeneral.getpHistoriaClinica().setTipoHistoria("ESTUDIANTE");
-                        pGeneral.getpHistoriaClinica().setHistoriaEditable(true);
+                        pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
+                        pg.getpHistoriaClinica().setTipoHistoria("ESTUDIANTE");
+                        pg.getpHistoriaClinica().setHistoriaEditable(true);
                         setEnableBotones();
                     }
                     case "Trabajador" -> {
-                        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaClinicaTrabajador(new HistoriaClinica());
-                        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().setTrabajador(new Trabajador());
+                        pg.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaClinica(new HistoriaClinica());
+                        //pg.getpHistoriaClinica().getModeloHistoriaClinica().setTrabajador(new Trabajador());
                         
-                        pGeneral.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
-                        pGeneral.getpHistoriaClinica().setTipoHistoria("TRABAJADOR");
-                        pGeneral.getpHistoriaClinica().setHistoriaEditable(true);
+                        pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
+                        pg.getpHistoriaClinica().setTipoHistoria("TRABAJADOR");
+                        pg.getpHistoriaClinica().setHistoriaEditable(true);
                         setEnableBotones();
                     }
                 }
             }
             case "Editar Historia" -> {
                 bttn_guardar.setEnabled(true);
-                pGeneral.getpHistoriaClinica().setHistoriaEditable(true);
+                pg.getpHistoriaClinica().setHistoriaEditable(true);
                 setEnableBotones();
-                pGeneral.getpHistoriaClinica().setTipoGuardado("EDITAR");
+                pg.getpHistoriaClinica().setTipoGuardado("EDITAR");
             }
             case "Guardar Historia" -> {
                 guardarDatosPacienteEnfermedades();
-                switch (pGeneral.getpHistoriaClinica().getTipoGuardado()) {
+                switch (pg.getpHistoriaClinica().getTipoGuardado()) {
                     case "NUEVO" -> {
-                        pGeneral.getpHistoriaClinica().registrarHistoriaClinica();
+                        pg.getpHistoriaClinica().registrarHistoriaClinica();
                     }
                     case "EDITAR" -> {
-                        pGeneral.getpHistoriaClinica().editarHistoriaClinica();
+                        pg.getpHistoriaClinica().editarHistoriaClinica();
                     }
                 }
-                pGeneral.getpHistoriaClinica().limpiarAntecedentesPatologicos();
-                pGeneral.getpHistoriaClinica().setHistoriaEditable(false);
+                pg.getpHistoriaClinica().limpiarAntecedentesPatologicos();
+                pg.getpHistoriaClinica().setHistoriaEditable(false);
                 bttn_guardar.setEnabled(false);
                 bttn_editarHistoria.setEnabled(false);
                 setEnableBotones();
-                mostrarTablaBuscarHistoria(pGeneral.getpHistoriaClinica().buscarHistoriaClinicaCoincidente(getInputText(txtFld_valorBuscado)));
+                mostrarTablaBuscarHistoria(pg.getpHistoriaClinica().buscarHistoriaClinicaCoincidente(getInputText(txtFld_valorBuscado)));
             }
         }
     }
 
     public void guardarDatosPacienteEnfermedades() {
-        switch (pGeneral.getpHistoriaClinica().getTipoHistoria()) {
+        switch (pg.getpHistoriaClinica().getTipoHistoria()) {
             case "ESTUDIANTE" -> {
                 pHistoriaEstudiante.guardarEnfermedades();
                 pHistoriaEstudiante.guardarPaciente();
@@ -181,15 +179,15 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
         if (!e.getValueIsAdjusting()) {
             int selectedRow = tbl_busquedaHistoria.getSelectedRow();
             if (selectedRow != -1) {
-                pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaSeleccionada((HistoriaClinica) tbl_busquedaHistoria.getValueAt(selectedRow, 0));
+                pg.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaClinica((HistoriaClinica) tbl_busquedaHistoria.getValueAt(selectedRow, 0));
                 bttn_editarHistoria.setEnabled(true);
                 changeComboBox();
-                pGeneral.getpHistoriaClinica().setTipoHistoria(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getTipoPaciente());
-                if (pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaSeleccionada().getPaciente().getTipoPaciente().equals("ESTUDIANTE")) {
-                    pGeneral.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
+                pg.getpHistoriaClinica().setTipoHistoria(pg.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaClinica().getPaciente().getTipoPaciente());
+                if (pg.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaClinica().getPaciente().getTipoPaciente().equals("ESTUDIANTE")) {
+                    pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
                     pHistoriaEstudiante.mostrarHistoriaClinicaEstudiante();
                 } else {
-                    pGeneral.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
+                    pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
                     pHistoriaTrabajador.mostrarHistoriaClinicaTrabajador();
                 }
             }

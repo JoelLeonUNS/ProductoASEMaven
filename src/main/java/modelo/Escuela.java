@@ -27,9 +27,9 @@ public enum Escuela {
         this.facultad = facultad;
     }
     
-    public static Escuela getPorId(int idEscuela) {
+    public static Escuela getPorId(int id) {
         for (Escuela escuela : Escuela.values()) {
-            if (escuela.getIdEscuela() == idEscuela) {
+            if (escuela.getIdEscuela() == id) {
                 return escuela;
             }
         }

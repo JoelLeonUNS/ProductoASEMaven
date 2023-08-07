@@ -70,7 +70,11 @@ public class HistoriaClinica {
     public ArrayList<Enfermedad> getAntecedentesPatologicos() {
         return antecedentesPatologicos;
     }
-   
+
+    public void setAntecedentesPatologicos(ArrayList<Enfermedad> antecedentesPatologicos) {
+        this.antecedentesPatologicos = antecedentesPatologicos;
+    }
+
     public void agregarAntecedentePatologico(Enfermedad enfermedad) {
         antecedentesPatologicos.add(enfermedad);
     }

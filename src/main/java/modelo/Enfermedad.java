@@ -33,6 +33,15 @@ public enum Enfermedad {
         this.idEnfermedad = idEnfermedad;
         this.nombre = nombre;
     }
+    
+    public static Enfermedad getPorId(int id) {
+        for (Enfermedad enfermedad : Enfermedad.values()) {
+            if (enfermedad.getIdEnfermedad() == id) {
+                return enfermedad;
+            }
+        }
+        return null;
+    }
 
     public int getIdEnfermedad() {
         return idEnfermedad;
