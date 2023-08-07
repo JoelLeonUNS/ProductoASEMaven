@@ -6,7 +6,9 @@ import historias.HistoriaClinica;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -50,6 +52,8 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
         pExamenMedico.jButtonGuardarExamMedico.setEnabled(false);
         pExamenFisico.jButtonGuardarExamFisico.setEnabled(false);
         pExamenClinico.jButtonGuardarExamClinico.setEnabled(false);
+        this.txtFldFecha.setEditable(false);
+        this.txtFldHora.setEditable(false);
         setTxtFldsEditable(false);
         
         llenarComboBoxTipoExamen();
@@ -325,8 +329,6 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
     }
     
     public void setTxtFldsEditable(boolean b){
-        this.txtFldFecha.setEditable(b);
-        this.txtFldHora.setEditable(b);
         this.txtFldEdad.setEditable(b);
         this.txtFldTiempoEferm.setEditable(b);
         this.txtFldEstadoAnimo.setEditable(b);
@@ -391,6 +393,12 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
         resetearPanelClinico();
     }
     
+    public void establecerFechaHora(){
+        this.txtFldFecha.setText(String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        this.txtFldHora.setText(String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))));
+        
+    }
+    
     public void setEditablePanel(boolean b){
         setTxtFldsEditable(b);
         pExamenMedico.setEditableFlds(b);
@@ -403,7 +411,7 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
     }
     
     public void añadirConsultaAHistoria(){
-        pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaClinica().agregarConsulta(pGeneral.getpExamen().getModeloConsulta().getConsulta());
+        pGeneral.getpExamen().añadirConsultaAHistoria(pGeneral.getpLogin().getIdUsuario());
     }
     
     @Override
@@ -436,9 +444,8 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
             case "Añadir consulta"->{
                 pGeneral.getpExamen().getModeloConsulta().setConsulta(new ConsultaMedica());
                 limpiarPanelCompleto();
+                establecerFechaHora();
                 setEditablePanel(true);
-                //limpiarCasillas();
-                //setTxtFldsEditable(true);
                 this.jButtonGuardar.setEnabled(true);
                 pExamenMedico.jButtonGuardarExamMedico.setEnabled(true);
                 pExamenFisico.jButtonGuardarExamFisico.setEnabled(true);

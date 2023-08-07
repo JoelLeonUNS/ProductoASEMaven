@@ -23,6 +23,7 @@ public class ConsultaMedica {
     private ArrayList<Examen> examenes = new ArrayList<>();
 
     public ConsultaMedica() {
+        this.atendidoPor = new Medico();
     }
     
     // solo para los valores por defecto.

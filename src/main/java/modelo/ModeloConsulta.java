@@ -50,6 +50,10 @@ public class ModeloConsulta {
         
     }
     
+    public void añadirConsulta(){
+        dao.getConsulta().create(consulta);
+    }
+    
     public ArrayList<ConsultaMedica> obtenerConsultas(int idHistoria){
         ArrayList<ConsultaMedica> consultas = new ArrayList();
         for(ConsultaMedica consultaBD: (List<ConsultaMedica>)dao.getConsulta().listed()) {

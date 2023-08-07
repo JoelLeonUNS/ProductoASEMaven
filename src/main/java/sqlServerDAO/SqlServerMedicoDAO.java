@@ -154,10 +154,6 @@ public class SqlServerMedicoDAO extends MedicoDAO<Medico> {
             getConector().rollback();
             exito = false;
             System.out.println("Transacciónn NO exitosa");
-            System.out.println("Transacción NO exitosa. Motivo: " + ex.getMessage());
-            System.out.println("Código de error: " + ex.getErrorCode());
-            System.out.println("Causa raíz: " + ex.getCause());
-            ex.printStackTrace();
         } finally {
             if (getPs() != null) {
                 getPs().close();

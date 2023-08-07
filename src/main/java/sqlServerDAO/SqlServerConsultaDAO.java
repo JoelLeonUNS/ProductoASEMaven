@@ -16,21 +16,23 @@ public class SqlServerConsultaDAO extends ConsultaDAO<ConsultaMedica>{
 
     @Override
     public ConsultaMedica create(ConsultaMedica obj) {
+        obj.setIdConsulta(lastId());
         try {
-            setSql("INSERT INTO Consulta (idConsulta, idHistoriaClinica, idMedico, fecha, hora, motivo, tiempoEnfermedad, apetito, "
-                    + "sueño, sed, estadoAnimo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            setSql("INSERT INTO Consulta (idConsulta, idHistoriaClinica, idMedico, fecha, hora, edad, motivo, tiempoEnfermedad, apetito, "
+                    + "sueño, sed, estadoAnimo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             setPs(getConector().prepareStatement(getSql()));
             getPs().setInt(1, obj.getIdConsulta());
             getPs().setInt(2, obj.getIdHistoria());
             getPs().setInt(3, obj.getAtendidoPor().getIdMedico());
             getPs().setDate(4, Date.valueOf(obj.getFecha()));
             getPs().setTime(5, Time.valueOf(obj.getHora()));
-            getPs().setString(6, obj.getMotivo());
-            getPs().setString(7, obj.getTiempoEnfermedad());
-            getPs().setString(8, obj.getApetito());
-            getPs().setString(9, obj.getSueño());
-            getPs().setString(10, obj.getSed());
-            getPs().setString(11, obj.getEstadoAnimo());
+            getPs().setInt(6, obj.getEdad());
+            getPs().setString(7, obj.getMotivo());
+            getPs().setString(8, obj.getTiempoEnfermedad());
+            getPs().setString(9, obj.getApetito());
+            getPs().setString(10, obj.getSueño());
+            getPs().setString(11, obj.getSed());
+            getPs().setString(12, obj.getEstadoAnimo());
 
             if (!exeUpdate()) obj = null;
         } catch (SQLException e) {
@@ -77,6 +79,7 @@ public class SqlServerConsultaDAO extends ConsultaDAO<ConsultaMedica>{
                 consulta.setAtendidoPor((Medico) dao.getMedico().read(getRs().getInt("idMedico")));
                 consulta.setFecha(getRs().getDate("fecha").toLocalDate());
                 consulta.setHora(getRs().getTime("hora").toLocalTime());
+                consulta.setEdad(getRs().getInt("edad"));
                 consulta.setMotivo(getRs().getString("motivo"));
                 consulta.setTiempoEnfermedad(getRs().getString("tiempoEnfermedad"));
                 consulta.setApetito(getRs().getString("apetito"));
@@ -108,6 +111,7 @@ public class SqlServerConsultaDAO extends ConsultaDAO<ConsultaMedica>{
                 consulta.setAtendidoPor((Medico) dao.getMedico().read(getRs().getInt("idMedico")));
                 consulta.setFecha(getRs().getDate("fecha").toLocalDate());
                 consulta.setHora(getRs().getTime("hora").toLocalTime());
+                consulta.setEdad(getRs().getInt("edad"));
                 consulta.setMotivo(getRs().getString("motivo"));
                 consulta.setTiempoEnfermedad(getRs().getString("tiempoEnfermedad"));
                 consulta.setApetito(getRs().getString("apetito"));
@@ -135,7 +139,7 @@ public class SqlServerConsultaDAO extends ConsultaDAO<ConsultaMedica>{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return lastId;
+        return lastId+1;
     }
 
     @Override
@@ -150,6 +154,7 @@ public class SqlServerConsultaDAO extends ConsultaDAO<ConsultaMedica>{
             getConector().rollback();
             exito = false;
             System.out.println("Transacciónn NO exitosa");
+            System.out.println("Error: " + ex.getMessage());//AÑADIDO
         } finally {
             if (getPs() != null) {
                 getPs().close();

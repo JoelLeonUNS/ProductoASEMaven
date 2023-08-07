@@ -70,6 +70,12 @@ public class PresentadorExamen {
         modeloConsulta.setDatosConsulta(fecha, hora, edad, tiempoEnfermedad, apetito, sueño, sed, estadoAnimo, motivo);
     }
     
+    public void añadirConsultaAHistoria(int idMedico){
+        modeloConsulta.getConsulta().setIdHistoria(modeloHistoriaClinica.getHistoriaClinica().getIdHistoriaClinica());
+        modeloConsulta.getConsulta().getAtendidoPor().setIdMedico(idMedico);
+        modeloConsulta.añadirConsulta();
+    }
+    
     public void añadirExamenAConsulta(){
         modeloConsulta.getConsulta().agregarExamen(modeloExamen.getExamen());
     }
@@ -82,4 +88,7 @@ public class PresentadorExamen {
         modeloHistoriaClinica.getHistoriaClinica().setConsultasMedicas(modeloConsulta.obtenerConsultas(modeloHistoriaClinica.getHistoriaClinica().getIdHistoriaClinica()));
     }
     
+    public void setExamenesAConsulta(){
+        modeloConsulta.getConsulta().setExamenes(modeloExamen.obtenerExamenes(modeloConsulta.getConsulta().getIdConsulta()));
+    }
 }

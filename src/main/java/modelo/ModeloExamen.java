@@ -9,9 +9,14 @@ import examenesFisico.ExamenFisico;
 import examenesFisico.ExamenFisicoManager;
 import examenesMedico.ExamenMedico;
 import examenesMedico.ExamenMedicoManager;
+import factoryDAO.DAOFactory;
+import factoryDAO.SqlServerDAOFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ModeloExamen {
+    private DAOFactory dao;
     private ExamenManager examenManager;
     private Examen examen;
     private int idExamen;
@@ -21,7 +26,7 @@ public class ModeloExamen {
     private ExamenClinico examenClinicoTmp;
 
     public ModeloExamen() {
-        //this.examen = new Examen();
+        this.dao = new SqlServerDAOFactory();
     }
 
     public Examen getExamen() {
@@ -103,6 +108,29 @@ public class ModeloExamen {
             examenClinicoTmp = (ExamenClinico) examen;
             examenTmp = "CLINICO";
         }
+    }
+    
+public ArrayList<Examen> obtenerExamenes(int id){
+        ArrayList<Examen> examenes = new ArrayList();
+        for (ExamenMedico examenBD : (List<ExamenMedico>)dao.getExamenMedico().listed()) {
+            if(examenBD.getIdConsulta()==id){
+                examenes.add(examenBD);
+            }
+        }
+        
+        for (ExamenFisico examenBD : (List<ExamenFisico>)dao.getExamenFisico().listed()) {
+            if(examenBD.getIdConsulta()==id){
+                examenes.add(examenBD);
+            }
+        }
+        
+        for (ExamenClinico examenBD : (List<ExamenClinico>)dao.getExamenClinico().listed()) {
+            if(examenBD.getIdConsulta()==id){
+                examenes.add(examenBD);
+            }
+        }
+        
+        return examenes;
     }
     
 }
