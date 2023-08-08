@@ -7,10 +7,11 @@ package modelo;
 import consultas.ConsultaMedica;
 import examenes.Examen;
 import examenesMedico.ExamenMedico;
+import factoryDAO.DAOFactory;
+import factoryDAO.SqlServerDAOFactory;
 import historias.HistoriaClinica;
 import java.util.*;
 import pacientes.Paciente;
-import sqlServerDAO.SqlServerHistoriaClinicaDAO;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -20,51 +21,49 @@ import java.time.LocalDate;
  */
 public class ModeloInforme {
 
-    private SqlServerHistoriaClinicaDAO historiaClinicaDAO;
+    private  DAOFactory dao;
+    private ModeloConsulta mConsulta;
 
     public ModeloInforme() {
-        this.historiaClinicaDAO = new SqlServerHistoriaClinicaDAO();
+        this.dao = new SqlServerDAOFactory();
+        this.mConsulta = new ModeloConsulta();
     }
 
-    public List<Object[]> obtenerInformes() {
-        List<Object[]> listaInformes = new ArrayList<>();
-        try {
-            List<HistoriaClinica> listaHistoriasClinicas = historiaClinicaDAO.listed();
 
-            for (HistoriaClinica historiaClinica : listaHistoriasClinicas) {
-                List<ConsultaMedica> consultas = historiaClinica.getConsultasMedicas();
 
-                for (ConsultaMedica consulta : consultas) {
-                    List<Examen> examenes = consulta.getExamenes();
-                    for (Examen examen : examenes) {
-                        if (examen instanceof ExamenMedico) {
-                            ExamenMedico examenMedico = (ExamenMedico) examen;
+public List<Object[]> obtenerInforme1() {
+    List<Object[]> datosInforme1 = new ArrayList<>();
 
-                            // Obtener los datos del paciente relacionado con la historia clínica
-                            Paciente paciente = historiaClinica.getPaciente();
-                            String apellidoNombres = paciente.getApellido() + ", " + paciente.getNombre();
-                            int edad = consulta.getEdad();
-                            char genero = paciente.getSexo().charAt(0);
-                            LocalDate localDate = consulta.getFecha();
-                            Date fechaConsulta = Date.valueOf(localDate);
+    for (HistoriaClinica historia : (List<HistoriaClinica>) dao.getHistoriaClinica().listed()) {
+        int idPaciente = historia.getPaciente().getIdPaciente();
+        Paciente paciente = (Paciente) dao.getPaciente().read(idPaciente);
+        List<ConsultaMedica> consultas = mConsulta.obtenerConsultas(idPaciente);
+        
+        for (ConsultaMedica consulta : consultas) {
+            List<ExamenMedico> examenes = (List<ExamenMedico>)dao.getExamenMedico().listed();
+            for (Examen examen : examenes) {
+                if (examen instanceof ExamenMedico) {
+                    ExamenMedico examenMedico = (ExamenMedico) examen;
 
-                            // Agregar los datos del informe al array
-                            Object[] informe = new Object[5];
-                            informe[0] = fechaConsulta;
-                            informe[1] = examenMedico.getDiagnostico();
-                            informe[2] = apellidoNombres;
-                            informe[3] = edad;
-                            informe[4] = genero;
+                if (examenMedico.getIdConsulta() == consulta.getIdConsulta()) {
+                    // Obtener los datos que deseas para cada paciente y su consulta/examen
+                    Object[] datos = new Object[6]; // Puedes ajustar el tamaño según la cantidad de datos que quieras obtener
 
-                            listaInformes.add(informe);
-                        }
-                    }
+                    datos[0] = consulta.getFecha();
+                    datos[1] = paciente.getApellido() + " " + paciente.getNombre();
+                    datos[2] = consulta.getEdad();
+                    datos[3] = paciente.getSexo();
+                    datos[4] = examenMedico.getDiagnostico();
+                    
+                    datosInforme1.add(datos);
+                }
                 }
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
-        return listaInformes;
     }
+
+    return datosInforme1;
+}
+
 
 }

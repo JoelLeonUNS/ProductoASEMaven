@@ -52,7 +52,7 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
                 String tipoInforme = (String) CmbBx_tipoInforme.getSelectedItem();
                 switch (tipoInforme) {
                     case "Atenciones Realizadas" -> {
-                        List<Object[]> informes = pGeneral.getpInforme().obtenerInformes();
+                        List<Object[]> informes = pGeneral.getpInforme().obtenerInforme1();
                         pInforme1.cargarInformesEnTabla(informes);
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme1);
                     }

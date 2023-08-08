@@ -3,8 +3,6 @@ package presentador;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import modelo.ModeloInforme;
 
 
@@ -30,8 +28,8 @@ public class PresentadorInforme {
         base.repaint();
     }
 
-    public List<Object[]> obtenerInformes() {
-        return mInforme.obtenerInformes();
+    public List<Object[]> obtenerInforme1() {
+        return mInforme.obtenerInforme1();
     }
 
 }
