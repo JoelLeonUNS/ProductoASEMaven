@@ -13,8 +13,9 @@ public class ExamenFisicoManager extends ExamenManager {
         return new ExamenFisico();
     }
 
-    public ExamenFisico setDatos(Examen exa, double temp, String PA, double FR, double SPO2, double peso, double talla, double IMC, double FC, double perAbdominal) {
+    public ExamenFisico setDatos(Examen exa, String observacion, double temp, String PA, double FR, double SPO2, double peso, double talla, double IMC, double FC, double perAbdominal) {
         ExamenFisico examen = (ExamenFisico) exa;
+        examen.setObservacion(observacion);
         examen.setTemperatura(temp);
         examen.setPA(PA);
         examen.setFR(FR);

@@ -54,7 +54,7 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
         pExamenClinico.jButtonGuardarExamClinico.setEnabled(false);
         this.txtFldFecha.setEditable(false);
         this.txtFldHora.setEditable(false);
-        setTxtFldsEditable(false);
+        setEditablePanel(false);
         
         llenarComboBoxTipoExamen();
     }
@@ -317,7 +317,7 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
     private void addHistoriaClinica(HistoriaClinica historiaClinica) {
         if(historiaClinica!=null){
             modelTablaBuscarHistoria.addRow(new Object[]{
-            historiaClinica, // Guardar el objeto HistoriaClinica
+            historiaClinica, 
             historiaClinica.getPaciente().getNombre(),
             historiaClinica.getPaciente().getApellido(),   
             });
@@ -371,7 +371,7 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
     }
     
     public void setDatosExamenFisico(){
-        pGeneral.getpExamen().setDatosExamenFisico(pExamenFisico.gettxtFldTemperatura(), pExamenFisico.gettxtFldPA(), pExamenFisico.gettxtFldFR(), pExamenFisico.gettxtFldSPO2(), pExamenFisico.gettxtFldPeso(), pExamenFisico.gettxtFldTalla(), pExamenFisico.gettxtFldIMC(), pExamenFisico.gettxtFldFC(), pExamenFisico.gettxtFldPerAbdom());
+        pGeneral.getpExamen().setDatosExamenFisico(pExamenFisico.gettxtFldObservacion(), pExamenFisico.gettxtFldTemperatura(), pExamenFisico.gettxtFldPA(), pExamenFisico.gettxtFldFR(), pExamenFisico.gettxtFldSPO2(), pExamenFisico.gettxtFldPeso(), pExamenFisico.gettxtFldTalla(), pExamenFisico.gettxtFldIMC(), pExamenFisico.gettxtFldFC(), pExamenFisico.gettxtFldPerAbdom());
     }
 
     public void resetearPanelMedico(){
@@ -414,6 +414,10 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
         pGeneral.getpExamen().añadirConsultaAHistoria(pGeneral.getpLogin().getIdUsuario());
     }
     
+    public void añadirExamenAConsulta(){
+        pGeneral.getpExamen().añadirExamenAConsulta();
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -454,39 +458,36 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
             case "Guardar"->{
                 setDatosConsulta();
                 añadirConsultaAHistoria();
+                añadirExamenAConsulta();
                 showMsg("Consulta añadida");
                 limpiarPanelCompleto();
                 setEditablePanel(false);
-                //limpiarCasillas();
                 this.jButtonGuardar.setEnabled(false);
             }
             
             case "Guardar Examen Medico"->{
                 //pGeneral.getpExamen().iniciarExamen();
                 setDatosExamenMedico();
-                pGeneral.getpExamen().añadirExamenAConsulta();
+                pGeneral.getpExamen().añadirExamen();
                 showMsg("Examen añadido");
                 pExamenMedico.setEditableFlds(false);
                 pExamenMedico.jButtonGuardarExamMedico.setEnabled(false);
-                //resetearPanelMedico();
             }
             case "Guardar Examen Fisico"->{
                 //pGeneral.getpExamen().iniciarExamen();
                 setDatosExamenFisico();
-                pGeneral.getpExamen().añadirExamenAConsulta();
+                pGeneral.getpExamen().añadirExamen();
                 showMsg("Examen añadido");
                 pExamenFisico.setEditableFlds(false);
                 pExamenFisico.jButtonGuardarExamFisico.setEnabled(false);
-                //resetearPanelFisico();
             }
             case "Guardar Examen Clinico"->{
                 //pGeneral.getpExamen().iniciarExamen();
                 setDatosExamenClinico();
-                pGeneral.getpExamen().añadirExamenAConsulta();
+                pGeneral.getpExamen().añadirExamen();
                 showMsg("Examen añadido");
                 pExamenClinico.setEditableFlds(false);
                 pExamenClinico.jButtonGuardarExamClinico.setEnabled(false);
-                //resetearPanelClinico();
             }
         }
     }
@@ -500,7 +501,6 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
                 if (selectedRow != -1) {
                     pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaClinica((HistoriaClinica) jTableHistorias.getValueAt(selectedRow, 0));
                     pGeneral.getpExamen().setConsultasAHistoria();
-                    //String dni = jTableHistorias.getValueAt(selectedRow, 0).toString();
                     mostrarConsultas(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaClinica().getConsultasMedicas());
                 }
              }else if(e.getSource() == jTableConsultas.getSelectionModel()){
@@ -510,6 +510,7 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
                     limpiarPanelCompleto();
                     int numConsulta = (Integer) jTableConsultas.getValueAt(selectedRow, 0);
                     pGeneral.getpExamen().getModeloConsulta().setConsulta(pGeneral.getpHistoriaClinica().getModeloHistoriaClinica().getHistoriaClinica().getConsultasMedicas().get(numConsulta-1));
+                    pGeneral.getpExamen().setExamenesAConsulta();
                     mostrarDatosConsulta();
                     mostrarDatosExamenes(pGeneral.getpExamen().getModeloConsulta().getConsulta());
                 }
@@ -548,7 +549,6 @@ public class PanelExamen extends javax.swing.JPanel implements ActionListener, L
     }
     
     public void mostrarDatosExamenes(ConsultaMedica consulta){
-        //pExamenMedico.settxtFldDiagnostico(pGeneral.getpExamen().getModeloConsulta().getConsulta().getExamenes().);
         for (int i = 0; i < consulta.getExamenes().size(); i++) {
             pGeneral.getpExamen().getModeloExamen().getTipoExamen(consulta.getExamenes().get(i));
             if(pGeneral.getpExamen().getModeloExamen().getExamenTmp().equals("MEDICO")){

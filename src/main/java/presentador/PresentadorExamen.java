@@ -62,8 +62,8 @@ public class PresentadorExamen {
         modeloExamen.setDatosExamenClinico(observacion, apCardio, apRespiratorio);
     }
     
-    public void setDatosExamenFisico(double temp, String PA, double FR, double SPO2, double peso, double talla, double IMC, double FC, double perAbdominal){
-        modeloExamen.setDatosExamenFisico(temp, PA, FR, SPO2, peso, talla, IMC, FC, perAbdominal);
+    public void setDatosExamenFisico(String observacion, double temp, String PA, double FR, double SPO2, double peso, double talla, double IMC, double FC, double perAbdominal){
+        modeloExamen.setDatosExamenFisico(observacion, temp, PA, FR, SPO2, peso, talla, IMC, FC, perAbdominal);
     }
     
     public void setDatosConculta(LocalDate fecha, LocalTime hora, int edad, String tiempoEnfermedad, String apetito, String sueño, String sed, String estadoAnimo, String motivo){
@@ -77,6 +77,13 @@ public class PresentadorExamen {
     }
     
     public void añadirExamenAConsulta(){
+        for (Examen examen : modeloConsulta.getConsulta().getExamenes()) {
+            examen.setIdConsulta(modeloConsulta.getConsulta().getIdConsulta());
+            modeloExamen.añadirExamen(examen);
+        }
+    }
+    
+    public void añadirExamen(){
         modeloConsulta.getConsulta().agregarExamen(modeloExamen.getExamen());
     }
     

@@ -93,8 +93,8 @@ public class ModeloExamen {
         this.examen = ((ExamenClinicoManager) examenManager).setDatos(examen, observacion, apCardio, apRespiratorio);
     }
     
-    public void setDatosExamenFisico(double temp, String PA, double FR, double SPO2, double peso, double talla, double IMC, double FC, double perAbdominal){
-        this. examen = ((ExamenFisicoManager) examenManager).setDatos(examen, temp, PA, FR, SPO2, peso, talla, IMC, FC, perAbdominal);
+    public void setDatosExamenFisico(String observacion, double temp, String PA, double FR, double SPO2, double peso, double talla, double IMC, double FC, double perAbdominal){
+        this. examen = ((ExamenFisicoManager) examenManager).setDatos(examen, observacion, temp, PA, FR, SPO2, peso, talla, IMC, FC, perAbdominal);
     }
     
     public void getTipoExamen (Examen examen){
@@ -110,7 +110,22 @@ public class ModeloExamen {
         }
     }
     
-public ArrayList<Examen> obtenerExamenes(int id){
+    public void añadirExamen(Examen exa){
+        getTipoExamen (exa);
+        switch(examenTmp){
+            case "MEDICO" ->{
+                dao.getExamenMedico().create(exa);
+            }
+            case "FISICO" ->{
+                dao.getExamenFisico().create(exa);
+            }
+            case "CLINICO" ->{
+                dao.getExamenClinico().create(exa);
+            }       
+        }
+    }
+    
+    public ArrayList<Examen> obtenerExamenes(int id){
         ArrayList<Examen> examenes = new ArrayList();
         for (ExamenMedico examenBD : (List<ExamenMedico>)dao.getExamenMedico().listed()) {
             if(examenBD.getIdConsulta()==id){
