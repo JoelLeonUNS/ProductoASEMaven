@@ -1,23 +1,11 @@
 package pacientes;
 
-import java.time.LocalDate;
-
 public class Trabajador extends Paciente {
 
     private String areaTrabajo;
     private boolean docente;
-    
-    // Solo para valores por defecto.
 
-    public Trabajador(String areaTrabajo, boolean docente, String dni, String nombre, String apellido, String sexo, LocalDate fechaNac, String lugarNac, String distrito, String departamento, String direccion, String telefono, String estadoCivil) {
-        super(dni, nombre, apellido, sexo, fechaNac, lugarNac, distrito, departamento, direccion, telefono, estadoCivil);
-        this.areaTrabajo = areaTrabajo;
-        this.docente = docente;
-        super.tipoPaciente = "TRABAJADOR";
-    }
-    
     public Trabajador() {
-        super.tipoPaciente = "TRABAJADOR";
     }
 
     public String getAreaTrabajo() {

@@ -2,6 +2,7 @@ package presentador;
 
 import modelo.ModeloConsulta;
 import modelo.ModeloExamen;
+import modelo.ModeloFamiliar;
 import modelo.ModeloHistoriaClinica;
 import modelo.ModeloInforme;
 import modelo.ModeloMedico;
@@ -63,8 +64,9 @@ public class PresentadorGeneral {
         pInterfazAdmin.setModelo(mMedico);
     }
 
-    public void setModeloPresentadorHistoriaClinica(ModeloHistoriaClinica mHistoriClinica) {
+    public void setModeloPresentadorHistoriaClinica(ModeloHistoriaClinica mHistoriClinica, ModeloFamiliar mFamiliar) {
         pHistoriaClinica.setModeloHistoriaClinica(mHistoriClinica);
+        pHistoriaClinica.setModeloFamiliar(mFamiliar);
     }
     
     public void setModeloPresentadorExamen(ModeloExamen mExamen, ModeloConsulta mConsulta, ModeloHistoriaClinica mHistoriClinica) {

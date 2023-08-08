@@ -10,9 +10,9 @@ import pacientes.Paciente;
 public class HistoriaClinicaManagerAlumno extends HistoriaClinicaManager {
 
     @Override
-    public Paciente crearPaciente( ) {
+    public Paciente crearPaciente() {
         try {
-            return FabricaPaciente.crearPaciente("ALUMNO");
+            return FabricaPaciente.crearPaciente("Alumno");
         } catch (Exception ex) {
             Logger.getLogger(HistoriaClinicaManagerAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }

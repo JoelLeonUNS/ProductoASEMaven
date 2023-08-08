@@ -29,8 +29,8 @@ public class PresentadorHistoriaClinica {
         this.modeloHistoriaClinica = mHistoriaClinica;
     }
     
-    public void resetModeloHistoriaClinica() {
-        this.modeloHistoriaClinica.resetModelo();
+    public void resetModeloHistoriaClinica(String tipoPaciente) {
+        this.modeloHistoriaClinica.resetModelo(tipoPaciente);
     }
 
     public ModeloFamiliar getModeloFamiliar() {
@@ -39,6 +39,14 @@ public class PresentadorHistoriaClinica {
     
     public void setModeloFamiliar(ModeloFamiliar mFamiliar) {
         this.modeloFamiliar = mFamiliar;
+    }
+    
+    public HistoriaClinica getHistoriaClinica() {
+        return modeloHistoriaClinica.getHistoriaClinica();
+    }
+
+    public void setHistoriaClinica(HistoriaClinica historiaClinica) {
+        this.modeloHistoriaClinica.setHistoriaClinica(historiaClinica);
     }
     
     public int getIdHistoriaClinica() {
@@ -63,6 +71,16 @@ public class PresentadorHistoriaClinica {
 
     public void setAntecedentesPatologicos(ArrayList<Enfermedad> antecedentesPatologicos) {
         this.modeloHistoriaClinica.getHistoriaClinica().setAntecedentesPatologicos(antecedentesPatologicos);
+    }
+    
+    // Paciente
+    
+    public int getIdPaciente() {
+        return modeloHistoriaClinica.getHistoriaClinica().getPaciente().getIdPaciente();
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        modeloHistoriaClinica.getHistoriaClinica().getPaciente().setIdPaciente(idPaciente);
     }
     
     public String getDni() {
@@ -197,6 +215,14 @@ public class PresentadorHistoriaClinica {
         modeloFamiliar.getFamiliar().setIdFamiliar(idFamiliar);
     }
     
+    public int getIdPacienteFamiliar() {
+        return modeloFamiliar.getFamiliar().getIdPaciente();
+    }
+
+    public void setIdPacienteFamiliar(int idPaciente) {
+        modeloFamiliar.getFamiliar().setIdPaciente(idPaciente);
+    }
+    
     public String getNombreFamiliar() {
         return modeloFamiliar.getFamiliar().getNombreFamiliar();
     }
@@ -237,6 +263,15 @@ public class PresentadorHistoriaClinica {
         modeloFamiliar.getFamiliar().setAntecedentesPatologicos(antecedentesPatologicos);
     }
     
+    //
+    
+    public String getTipoGuardado() {
+        return tipoGuardado;
+    }
+
+    public void setTipoGuardado(String tipoGuardado) {
+        this.tipoGuardado = tipoGuardado;
+    }
         
     public void cambiarTipoHistoriaClinica(JPanel base, JPanel siguiente) {
         siguiente.setSize(775, 495);
@@ -256,14 +291,6 @@ public class PresentadorHistoriaClinica {
         return modeloHistoriaClinica.getHistoriasCoincidentes();
     }
 
-    public String getTipoGuardado() {
-        return tipoGuardado;
-    }
-
-    public void setTipoGuardado(String tipoGuardado) {
-        this.tipoGuardado = tipoGuardado;
-    }
-    
     public void registrarHistoriaClinica() {
         modeloHistoriaClinica.registrarHistoriaClinica();
     }

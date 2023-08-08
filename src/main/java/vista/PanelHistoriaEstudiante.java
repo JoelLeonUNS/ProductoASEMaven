@@ -136,16 +136,18 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         pg.getpHistoriaClinica().setNombre(getInputText(txtFld_nombres));
         pg.getpHistoriaClinica().setTelefono(getInputText(txtFld_telefono));
         pg.getpHistoriaClinica().setSexo(getRadioButtonSexo());
-        pg.getpHistoriaClinica().setFechaNac(LocalDate.parse(getInputText(txtFld_fechaNac), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        pg.getpHistoriaClinica().setFechaNac(LocalDate.parse(getInputText(txtFld_fechaNac)));
         pg.getpHistoriaClinica().setLugarNac(getInputText(txtFld_lugarNac));
         pg.getpHistoriaClinica().setDistrito(getInputText(txtFld_distrito));
         pg.getpHistoriaClinica().setDepartamento(getInputText(txtFld_departamento));
         pg.getpHistoriaClinica().setDireccion(getInputText(txtFld_direccion));
         pg.getpHistoriaClinica().setEscuela((Escuela) cmbBx_escuela.getSelectedItem());
         pg.getpHistoriaClinica().setEstadoCivil(getComboBoxText(cmbBx_estadoCivil));
+        pg.getpHistoriaClinica().setTipoPaciente("Alumno");
     }
 
     public void guardarFamiliar() {
+        pg.getpHistoriaClinica().setIdPacienteFamiliar(pg.getpHistoriaClinica().getIdPaciente());
         pg.getpHistoriaClinica().setNombreFamiliar(getInputText(txtFld_nombreFamiliar));
         pg.getpHistoriaClinica().setParentesco(getComboBoxText(cmbBx_parentesco));
         pg.getpHistoriaClinica().setDireccionFamiliar(getInputText(txtFld_direccionFamiliar));
@@ -188,7 +190,7 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         setInputText(txtFld_direccion, pg.getpHistoriaClinica().getDireccion());
         cmbBx_escuela.setSelectedIndex(pg.getpHistoriaClinica().getEscuela().getIdEscuela() - 1);
         cmbBx_estadoCivil.setSelectedItem(pg.getpHistoriaClinica().getEstadoCivil());
-        setInputTextAr(txtAr_antecedentes, pg.getpHistoriaClinica().getOtrosAntecedentesPatologicos());
+        setInputText(txtFld_otros, pg.getpHistoriaClinica().getOtrosAntecedentesPatologicos());
         
         for (JCheckBox checkBox: checkBoxes) {
             checkBox.setSelected(false);

@@ -144,9 +144,11 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         pg.getpHistoriaClinica().setAreaTrabajo(getInputText(txtFld_areaTrabajo));
         pg.getpHistoriaClinica().setDocente(getRadioButtonDocente());
         pg.getpHistoriaClinica().setEstadoCivil(getComboBoxText(cmbBx_estadoCivil));
+        pg.getpHistoriaClinica().setTipoPaciente("Trabajador");
     }
     
     public void guardarFamiliar() {
+        pg.getpHistoriaClinica().setIdPacienteFamiliar(pg.getpHistoriaClinica().getIdPaciente());
         pg.getpHistoriaClinica().setNombreFamiliar(getInputText(txtFld_nombreFamiliar));
         pg.getpHistoriaClinica().setParentesco(getComboBoxText(cmbBx_parentesco));
         pg.getpHistoriaClinica().setDireccionFamiliar(getInputText(txtFld_direccionFamiliar));
@@ -191,7 +193,7 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         rdBttn_si.setSelected(pg.getpHistoriaClinica().isDocente());
         rdBttn_no.setSelected(!pg.getpHistoriaClinica().isDocente());
         cmbBx_estadoCivil.setSelectedItem(pg.getpHistoriaClinica().getEstadoCivil());
-        setInputTextAr(txtAr_antecedentes, pg.getpHistoriaClinica().getOtrosAntecedentesPatologicos());
+        setInputText(txtFld_otros, pg.getpHistoriaClinica().getOtrosAntecedentesPatologicos());
         
         for (JCheckBox checkBox: checkBoxes) {
             checkBox.setSelected(false);
@@ -495,7 +497,7 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         add(lbl_telefonoFamiliar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 375, -1, -1));
 
         cmbBx_parentesco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmbBx_parentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Padre", "Madre", "Hermano" }));
+        cmbBx_parentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Padre", "Madre", "Hermano", "Hermana" }));
         cmbBx_parentesco.setPreferredSize(new java.awt.Dimension(120, 30));
         add(cmbBx_parentesco, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 275, -1, -1));
 

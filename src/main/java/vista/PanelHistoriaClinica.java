@@ -109,12 +109,12 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
                         }
                     }
                     case "Estudiante" -> {
-                        pg.getpHistoriaClinica().resetModeloHistoriaClinica(); 
+                        pg.getpHistoriaClinica().resetModeloHistoriaClinica("Alumno"); 
                         pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
                         setEnableBotones(true);
                     }
                     case "Trabajador" -> {
-                        pg.getpHistoriaClinica().resetModeloHistoriaClinica();                        
+                        pg.getpHistoriaClinica().resetModeloHistoriaClinica("Trabajador");                        
                         pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
                         setEnableBotones(true);
                     }
@@ -136,6 +136,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
                     }
                 }
                 pg.getpHistoriaClinica().limpiarAntecedentesPatologicos();
+                pg.getpHistoriaClinica().resetModeloHistoriaClinica("Paciente"); 
                 bttn_guardar.setEnabled(false);
                 bttn_editarHistoria.setEnabled(false);
                 setEnableBotones(false);
@@ -145,12 +146,13 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
     }
 
     public void guardarDatosPaciente() {
-        switch (pg.getpHistoriaClinica().getTipoPaciente()) {
-            case "ESTUDIANTE" -> {
+        String tipoHistoria = (String) cmbBx_nuevaHistoria.getSelectedItem();
+        switch (tipoHistoria) {
+            case "Estudiante" -> {
                 pHistoriaEstudiante.guardarEnfermedades();
                 pHistoriaEstudiante.guardarPaciente();
             }
-            case "TRABAJADOR" -> {
+            case "Trabajador" -> {
                 pHistoriaTrabajador.guardarEnfermedades();
                 pHistoriaTrabajador.guardarPaciente();
             }
@@ -162,7 +164,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
         if (!e.getValueIsAdjusting()) {
             int selectedRow = tbl_busquedaHistoria.getSelectedRow();
             if (selectedRow != -1) {
-                pg.getpHistoriaClinica().getModeloHistoriaClinica().setHistoriaClinica((HistoriaClinica) tbl_busquedaHistoria.getValueAt(selectedRow, 0));
+                pg.getpHistoriaClinica().setHistoriaClinica((HistoriaClinica) tbl_busquedaHistoria.getValueAt(selectedRow, 0));
                 bttn_editarHistoria.setEnabled(true);
                 changeComboBox();
                 if (pg.getpHistoriaClinica().getTipoPaciente().equals("Alumno")) {

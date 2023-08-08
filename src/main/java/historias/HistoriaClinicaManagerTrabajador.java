@@ -12,7 +12,7 @@ public class HistoriaClinicaManagerTrabajador extends HistoriaClinicaManager {
     @Override
     public Paciente crearPaciente( ) {
         try {
-            return FabricaPaciente.crearPaciente("TRABAJADOR");
+            return FabricaPaciente.crearPaciente("Trabajador");
         } catch (Exception ex) {
             Logger.getLogger(HistoriaClinicaManagerAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }

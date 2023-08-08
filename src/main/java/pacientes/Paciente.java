@@ -25,20 +25,6 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(String dni, String nombre, String apellido, String sexo, LocalDate fechaNac, String lugarNac, String distrito, String departamento, String direccion, String telefono, String estadoCivil) {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.sexo = sexo;
-        this.fechaNac = fechaNac;
-        this.lugarNac = lugarNac;
-        this.distrito = distrito;
-        this.departamento = departamento;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.estadoCivil = estadoCivil;
-    }
-
     public int getIdPaciente() {
         return idPaciente;
     }

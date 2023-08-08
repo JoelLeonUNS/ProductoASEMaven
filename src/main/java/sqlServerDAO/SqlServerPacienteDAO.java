@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import modelo.Escuela;
 import pacientes.Alumno;
+import pacientes.Familiar;
 import pacientes.Paciente;
 import pacientes.Trabajador;
 
@@ -43,6 +45,12 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
                 getPs().setString(15, trabajador.getAreaTrabajo());
                 getPs().setBoolean(16, trabajador.isDocente());
             }
+            
+            DAOFactory dao = new SqlServerDAOFactory();
+            for (Map.Entry<Integer, Familiar> familiar : obj.getFamiliares().entrySet()) {
+                dao.getFamiliar().create(familiar.getValue());
+            }        
+           
             if (!exeUpdate()) {
                 obj = null;
             }
@@ -73,7 +81,7 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
     public Paciente update(Paciente obj) {
         try {
             setSql("UPDATE Paciente SET dni = ?, nombre = ?, apellido = ?, fechaNacimiento = ?, lugarNacimiento = ?, "
-                    + "distrito = ?, departamento = ?, direccion = ?, telefono = ?, estadoCivil = ?, tipoPaciente = ?, "
+                    + "distrito = ?, departamento = ?, direccion = ?, telefono = ?, sexo = ?, estadoCivil = ?, tipoPaciente = ?, "
                     + "idEscuela = ?, areaTrabajo = ?, docente = ? WHERE idPaciente = ?");
             setPs(getConector().prepareStatement(getSql()));
 
@@ -100,6 +108,11 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
                 getPs().setString(14, trabajador.getAreaTrabajo());
                 getPs().setBoolean(15, trabajador.isDocente());
             }
+            DAOFactory dao = new SqlServerDAOFactory();
+            for (Map.Entry<Integer, Familiar> familiar : obj.getFamiliares().entrySet()) {
+                dao.getFamiliar().update(familiar.getValue());
+            }
+            
             if (!exeUpdate()) {
                 obj = null;
             }
@@ -193,12 +206,31 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
                     paciente.setEstadoCivil(getRs().getString("estadoCivil"));
                     paciente.setTipoPaciente(getRs().getString("tipoPaciente"));
                     listaPacientes.add(paciente);
+                    
+                    DAOFactory dao = new SqlServerDAOFactory();
+                    paciente.setFamiliares(dao.getFamiliar().mapped(getRs().getInt("idPaciente")));
                 }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return listaPacientes;
+    }
+    
+    @Override
+    public int lastId() {
+        int lastId = 0;
+        try {
+            setSql("SELECT TOP 1 idPaciente FROM Paciente ORDER BY idPaciente DESC");
+            setPs(getConector().prepareStatement(getSql()));
+            setRs(getPs().executeQuery());
+            if (getRs().next()) {
+                lastId = getRs().getInt("idPaciente");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lastId;
     }
 
     @Override

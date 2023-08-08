@@ -6,10 +6,10 @@ public class FabricaPaciente {
     public static Paciente crearPaciente (String tipo) throws Exception{
         Paciente paciente = null;
         switch(tipo){
-            case "ALUMNO" -> {
+            case "Alumno" -> {
                 paciente = new Alumno();
             }
-            case "TRABAJADOR" -> {
+            case "Trabajador" -> {
                 paciente = new Trabajador();
             }
         }

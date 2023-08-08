@@ -22,6 +22,8 @@ public abstract class PacienteDAO<T> {
     public abstract T read(int id);
 
     public abstract List<T> listed();
+    
+    public abstract int lastId();
 
     public abstract boolean exeUpdate() throws SQLException;
 

@@ -6,8 +6,10 @@ import historias.HistoriaClinica;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import pacientes.Alumno;
 import pacientes.Familiar;
 import pacientes.Paciente;
+import pacientes.Trabajador;
 
 public class ModeloHistoriaClinica {
 
@@ -16,13 +18,23 @@ public class ModeloHistoriaClinica {
     private ArrayList<Integer> idHistorias;
 
     public ModeloHistoriaClinica() {
-        resetModelo();
+        resetModelo("Paciente");
         this.dao = new SqlServerDAOFactory(); // o MySql
     }
     
-    public final void resetModelo() {
+    public final void resetModelo(String tipoPaciente) {
         this.historiaClinica = new HistoriaClinica();
-        this.historiaClinica.setPaciente(new Paciente());
+        switch (tipoPaciente) {
+            case "Alumno" -> {
+                this.historiaClinica.setPaciente(new Alumno());
+            }
+            case "Trabajador" -> {
+                this.historiaClinica.setPaciente(new Trabajador());
+            }
+            case "Paciente" -> {
+                this.historiaClinica.setPaciente(new Paciente());
+            }
+        }
     }
 
     public HistoriaClinica getHistoriaClinica() {
@@ -61,6 +73,7 @@ public class ModeloHistoriaClinica {
 
     public void registrarHistoriaClinica() {
         historiaClinica.setIdHistoriaClinica(dao.getHistoriaClinica().lastId() + 1);
+        historiaClinica.getPaciente().setIdPaciente(dao.getPaciente().lastId() + 1);
         dao.getHistoriaClinica().create(historiaClinica);
     }
 

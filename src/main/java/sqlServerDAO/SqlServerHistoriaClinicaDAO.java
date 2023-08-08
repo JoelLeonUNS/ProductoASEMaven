@@ -20,6 +20,9 @@ public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClin
             getPs().setInt(1, obj.getIdHistoriaClinica());
             getPs().setInt(2, obj.getPaciente().getIdPaciente());
             getPs().setString(3, obj.getOtrosAntecedentesPatologicos());
+            
+            DAOFactory dao = new SqlServerDAOFactory();
+            dao.getPaciente().create(obj.getPaciente());
 
             if (!exeUpdate()) obj = null;
         } catch (SQLException e) {
@@ -54,6 +57,9 @@ public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClin
             
             DAOFactory dao = new SqlServerDAOFactory();
             dao.getPaciente().update(obj.getPaciente());
+            for (Enfermedad enfermedad : obj.getAntecedentesPatologicos()) {
+                dao.getHistoriaClinicaEnfermedad().update(obj.getIdHistoriaClinica(), enfermedad);
+            }
 
             if (!exeUpdate()) obj = null;
         } catch (SQLException e) {
