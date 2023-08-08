@@ -15,6 +15,7 @@ import sqlServerDAO.SqlServerConsultaDAO;
 import sqlServerDAO.SqlServerExamenClinicoDAO;
 import sqlServerDAO.SqlServerExamenFisicoDAO;
 import sqlServerDAO.SqlServerExamenMedicoDAO;
+import sqlServerDAO.SqlServerFamiliarDAO;
 import sqlServerDAO.SqlServerHistoriaClinicaDAO;
 import sqlServerDAO.SqlServerHistoriaClinicaEnfermedadDAO;
 import sqlServerDAO.SqlServerMedicoDAO;
@@ -46,7 +47,9 @@ public class SqlServerDAOFactory extends DAOFactory {
 
     @Override
     public FamiliarDAO getFamiliar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SqlServerFamiliarDAO familiarDAO = new SqlServerFamiliarDAO();
+        familiarDAO.setConector(SqlServerConexion.getInstance());
+        return familiarDAO;
     }
     
     @Override

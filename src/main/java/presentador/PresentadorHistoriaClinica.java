@@ -16,10 +16,7 @@ import pacientes.Trabajador;
 public class PresentadorHistoriaClinica {
     private ModeloHistoriaClinica modeloHistoriaClinica;
     private ModeloFamiliar modeloFamiliar;
-    private String tipoHistoria;
     private String tipoGuardado;
-    private boolean historiaEstudianteEditable = false;
-    private boolean historiaTrabajadorEditable = false;
     
     public PresentadorHistoriaClinica() {    
     }
@@ -30,6 +27,10 @@ public class PresentadorHistoriaClinica {
     
     public void setModeloHistoriaClinica(ModeloHistoriaClinica mHistoriaClinica) {
         this.modeloHistoriaClinica = mHistoriaClinica;
+    }
+    
+    public void resetModeloHistoriaClinica() {
+        this.modeloHistoriaClinica.resetModelo();
     }
 
     public ModeloFamiliar getModeloFamiliar() {
@@ -152,6 +153,14 @@ public class PresentadorHistoriaClinica {
         modeloHistoriaClinica.getHistoriaClinica().getPaciente().setEstadoCivil(estadoCivil);
     }
     
+    public String getTipoPaciente() {
+        return modeloHistoriaClinica.getHistoriaClinica().getPaciente().getTipoPaciente();
+    }
+
+    public void setTipoPaciente(String tipoPaciente) {
+        modeloHistoriaClinica.getHistoriaClinica().getPaciente().getTipoPaciente();
+    }
+    
     // Estudiante
     
     public Escuela getEscuela() {
@@ -180,6 +189,13 @@ public class PresentadorHistoriaClinica {
     }
     
     // Familiar
+    public int getIdFamiliar() {
+        return modeloFamiliar.getFamiliar().getIdFamiliar();
+    }
+
+    public void setIdFamiliar(int idFamiliar) {
+        modeloFamiliar.getFamiliar().setIdFamiliar(idFamiliar);
+    }
     
     public String getNombreFamiliar() {
         return modeloFamiliar.getFamiliar().getNombreFamiliar();
@@ -240,37 +256,6 @@ public class PresentadorHistoriaClinica {
         return modeloHistoriaClinica.getHistoriasCoincidentes();
     }
 
-    public void setHistoriaEditable(boolean editable) {
-        switch (tipoHistoria) {
-            case "ESTUDIANTE" -> {
-                this.historiaEstudianteEditable = editable;
-            }
-            case "TRABAJADOR" -> {
-                this.historiaTrabajadorEditable = editable;
-            }   
-        }
-    }
-
-    public boolean isHistoriaEditable() {
-        switch (tipoHistoria) {
-            case "ESTUDIANTE" -> {
-                return this.historiaEstudianteEditable;
-            }
-            case "TRABAJADOR" -> {
-                return this.historiaTrabajadorEditable;
-            }   
-        }
-        return false;
-    }
-
-    public String getTipoHistoria() {
-        return tipoHistoria;
-    }
-
-    public void setTipoHistoria(String tipoHistoria) {
-        this.tipoHistoria = tipoHistoria;
-    }
-
     public String getTipoGuardado() {
         return tipoGuardado;
     }
@@ -287,13 +272,12 @@ public class PresentadorHistoriaClinica {
         modeloHistoriaClinica.editarHistoriaClinica();
     }
     
-
     public void agregarFamiliar() {
         modeloHistoriaClinica.agregarFamiliar(modeloFamiliar.getFamiliar());
     }
     
-    public Familiar getFamiliar(int indice) {
-        return modeloHistoriaClinica.getHistoriaClinica().getPaciente().getFamiliares().get(indice);
+    public Familiar getFamiliar(String parentesco) {
+        return modeloHistoriaClinica.getParentescoFamiliar(parentesco);
     }
     
     public void agregarEnfermedad(Enfermedad enfermedad) {

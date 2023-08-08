@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Map;
 
 public abstract class FamiliarDAO<T> {
 
@@ -21,7 +21,7 @@ public abstract class FamiliarDAO<T> {
 
     public abstract T read(int id);
 
-    public abstract List<T> listed();
+    public abstract Map<Integer, T> mapped(int id);
 
     public abstract boolean exeUpdate() throws SQLException;
 

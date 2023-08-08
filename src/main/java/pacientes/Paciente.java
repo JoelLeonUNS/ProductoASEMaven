@@ -3,6 +3,8 @@ package pacientes;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Paciente {
     private int idPaciente;
@@ -18,7 +20,7 @@ public class Paciente {
     private String telefono;
     private String estadoCivil;
     protected String tipoPaciente;
-    private ArrayList<Familiar> familiares = new ArrayList<>();
+    private Map<Integer, Familiar> familiares = new HashMap<>();
 
     public Paciente() {
     }
@@ -132,23 +134,27 @@ public class Paciente {
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-
-    public ArrayList<Familiar> getFamiliares() {
+    
+    public Map<Integer, Familiar> getFamiliares() {
         return familiares;
     }
     
-    public void setFamiliares(ArrayList<Familiar> familiares) {
+    public void setFamiliares(Map<Integer, Familiar> familiares) {
         this.familiares = familiares;
     }
     
-    public void agregarFamiliar(Familiar familiar) {
-        familiares.add(familiar);
+    public void agregarFamiliar(Integer id, Familiar familiar) {
+        familiares.put(id, familiar);
     }
 
     public String getTipoPaciente() {
         return tipoPaciente;
     }
 
+    public void setTipoPaciente(String tipoPaciente) {
+        this.tipoPaciente = tipoPaciente;
+    }
+    
     @Override
     public String toString() {
         return "\nDNI: " + dni + "\nNombre: " + nombre + "\nApellido: " + apellido + "\nSexo: " + sexo + "\nFecha de Nac.: " + fechaNac + "\nLugar de Nac.: " + lugarNac + "\nDistrito: " + distrito + "\nDepartamento: " + departamento + "\nDireccion: " + direccion + "\nTelefono: " + telefono + "\nEstado Civil: " + estadoCivil + "\nNombre Familiar: ";

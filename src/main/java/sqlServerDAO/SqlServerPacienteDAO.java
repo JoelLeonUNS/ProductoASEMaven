@@ -1,6 +1,8 @@
 package sqlServerDAO;
 
 import DAO.PacienteDAO;
+import factoryDAO.DAOFactory;
+import factoryDAO.SqlServerDAOFactory;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -75,7 +77,6 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
                     + "idEscuela = ?, areaTrabajo = ?, docente = ? WHERE idPaciente = ?");
             setPs(getConector().prepareStatement(getSql()));
 
-            // Set the values for the prepared statement
             getPs().setString(1, obj.getDni());
             getPs().setString(2, obj.getNombre());
             getPs().setString(3, obj.getApellido());
@@ -85,20 +86,19 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
             getPs().setString(7, obj.getDepartamento());
             getPs().setString(8, obj.getDireccion());
             getPs().setString(9, obj.getTelefono());
-            getPs().setString(10, obj.getTelefono());
-            getPs().setString(11, obj.getSexo());
-            getPs().setString(12, obj.getEstadoCivil());
-            getPs().setString(13, obj.getTipoPaciente());
+            getPs().setString(10, obj.getSexo());
+            getPs().setString(11, obj.getEstadoCivil());
+            getPs().setString(12, obj.getTipoPaciente());
             
             if (obj instanceof Alumno alumno) {
-                getPs().setInt(14, (alumno.getEscuela().getIdEscuela()));
-                getPs().setNull(15, java.sql.Types.VARCHAR);
-                getPs().setNull(16, java.sql.Types.BOOLEAN);
+                getPs().setInt(13, (alumno.getEscuela().getIdEscuela()));
+                getPs().setNull(14, java.sql.Types.VARCHAR);
+                getPs().setNull(15, java.sql.Types.BOOLEAN);
             }
             if (obj instanceof Trabajador trabajador) {
-                getPs().setNull(14, java.sql.Types.INTEGER);
-                getPs().setString(15, trabajador.getAreaTrabajo());
-                getPs().setBoolean(16, trabajador.isDocente());
+                getPs().setNull(13, java.sql.Types.INTEGER);
+                getPs().setString(14, trabajador.getAreaTrabajo());
+                getPs().setBoolean(15, trabajador.isDocente());
             }
             if (!exeUpdate()) {
                 obj = null;
@@ -143,6 +143,10 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
                     paciente.setTelefono(getRs().getString("telefono"));
                     paciente.setSexo(getRs().getString("sexo"));
                     paciente.setEstadoCivil(getRs().getString("estadoCivil"));
+                    paciente.setTipoPaciente(getRs().getString("tipoPaciente"));
+                    
+                    DAOFactory dao = new SqlServerDAOFactory();
+                    paciente.setFamiliares(dao.getFamiliar().mapped(getRs().getInt("idPaciente")));
                 }
             }
         } catch (SQLException e) {
@@ -187,7 +191,7 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
                     paciente.setTelefono(getRs().getString("telefono"));
                     paciente.setSexo(getRs().getString("sexo"));
                     paciente.setEstadoCivil(getRs().getString("estadoCivil"));
-
+                    paciente.setTipoPaciente(getRs().getString("tipoPaciente"));
                     listaPacientes.add(paciente);
                 }
             }

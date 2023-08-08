@@ -1,15 +1,11 @@
 package vista;
 
-import com.sun.tools.javac.Main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -36,12 +32,10 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         buttonGroupSexo.add(rdBttn_f);
         buttonGroupDocente.add(rdBttn_no);
         buttonGroupDocente.add(rdBttn_si);
-        pg.getpHistoriaClinica().setTipoHistoria("TRABAJADOR");
-        pg.getpHistoriaClinica().setHistoriaEditable(false);
 
         cmbBx_parentesco.addActionListener(this);
         bttn_guardarFamiliar.addActionListener(this);
-        setEnableBotones();
+        setEnableBotones(false);
     }
     
     public String getInputText(JTextField txtFld) {
@@ -101,30 +95,30 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         return listChcBxs;
     }
 
-    public void setEnableBotones() {
-        txtFld_apellidos.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_nombres.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        rdBttn_m.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
-        rdBttn_f.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_fechaNac.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_lugarNac.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_distrito.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_departamento.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_direccion.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_areaTrabajo.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_telefono.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        rdBttn_no.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
-        rdBttn_si.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
-        cmbBx_estadoCivil.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
+    public final void setEnableBotones(boolean b) {
+        txtFld_apellidos.setEditable(b);
+        txtFld_nombres.setEditable(b);
+        rdBttn_m.setEnabled(b);
+        rdBttn_f.setEnabled(b);
+        txtFld_fechaNac.setEditable(b);
+        txtFld_lugarNac.setEditable(b);
+        txtFld_distrito.setEditable(b);
+        txtFld_departamento.setEditable(b);
+        txtFld_direccion.setEditable(b);
+        txtFld_areaTrabajo.setEditable(b);
+        txtFld_telefono.setEditable(b);
+        rdBttn_no.setEnabled(b);
+        rdBttn_si.setEnabled(b);
+        cmbBx_estadoCivil.setEnabled(b);
         for (JCheckBox checkBox : checkBoxes) {
-            checkBox.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
+            checkBox.setEnabled(b);
         }
-        cmbBx_parentesco.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_nombreFamiliar.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_direccionFamiliar.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtAr_antecedentes.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        txtFld_telefonoFamiliar.setEditable(pg.getpHistoriaClinica().isHistoriaEditable());
-        bttn_guardarFamiliar.setEnabled(pg.getpHistoriaClinica().isHistoriaEditable());
+        cmbBx_parentesco.setEnabled(b);
+        txtFld_nombreFamiliar.setEditable(b);
+        txtFld_direccionFamiliar.setEditable(b);
+        txtAr_antecedentes.setEditable(b);
+        txtFld_telefonoFamiliar.setEditable(b);
+        bttn_guardarFamiliar.setEnabled(b);
     }
     
     public void guardarEnfermedades() {
@@ -168,16 +162,16 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
                 pg.getpHistoriaClinica().agregarFamiliar();
             }
             case "Parentesco" -> {
-                mostrarFamiliar(cmbBx_parentesco.getSelectedIndex());
+                mostrarFamiliar();
             }
         }
     }
     
-    public void mostrarFamiliar(int indice) {
-        setInputText(txtFld_nombreFamiliar, pg.getpHistoriaClinica().getFamiliar(indice) == null ? "" : pg.getpHistoriaClinica().getFamiliar(indice).getNombreFamiliar());
-        setInputText(txtFld_direccionFamiliar, pg.getpHistoriaClinica().getFamiliar(indice)  == null ? "" : pg.getpHistoriaClinica().getFamiliar(indice).getDireccionFamiliar());
-        setInputText(txtFld_telefonoFamiliar, pg.getpHistoriaClinica().getFamiliar(indice)  == null ? "" : pg.getpHistoriaClinica().getFamiliar(indice).getTelefonoFamiliar());
-        setInputTextAr(txtAr_antecedentes, pg.getpHistoriaClinica().getFamiliar(indice)  == null ? "" : pg.getpHistoriaClinica().getFamiliar(indice).getAntecedentesPatologicos());
+    public void mostrarFamiliar() {
+        setInputText(txtFld_nombreFamiliar, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()) == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getNombreFamiliar());
+        setInputText(txtFld_direccionFamiliar, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem())  == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getDireccionFamiliar());
+        setInputText(txtFld_telefonoFamiliar, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem())  == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getTelefonoFamiliar());
+        setInputTextAr(txtAr_antecedentes, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem())  == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getAntecedentesPatologicos());
     }
     
     public void mostrarHistoriaClinicaTrabajador() {
@@ -187,7 +181,7 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         setInputText(txtFld_nombres, pg.getpHistoriaClinica().getNombre());
         setInputText(txtFld_telefono, pg.getpHistoriaClinica().getTelefono());
         rdBttn_m.setSelected(pg.getpHistoriaClinica().getSexo().equals("M"));
-        rdBttn_f.setSelected(pg.getpHistoriaClinica().getSexo().equals("M"));
+        rdBttn_f.setSelected(pg.getpHistoriaClinica().getSexo().equals("F"));
         setInputText(txtFld_fechaNac, String.valueOf(pg.getpHistoriaClinica().getFechaNac()));
         setInputText(txtFld_lugarNac, pg.getpHistoriaClinica().getLugarNac());
         setInputText(txtFld_distrito, pg.getpHistoriaClinica().getDistrito());
@@ -197,7 +191,11 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         rdBttn_si.setSelected(pg.getpHistoriaClinica().isDocente());
         rdBttn_no.setSelected(!pg.getpHistoriaClinica().isDocente());
         cmbBx_estadoCivil.setSelectedItem(pg.getpHistoriaClinica().getEstadoCivil());
+        setInputTextAr(txtAr_antecedentes, pg.getpHistoriaClinica().getOtrosAntecedentesPatologicos());
         
+        for (JCheckBox checkBox: checkBoxes) {
+            checkBox.setSelected(false);
+        }
         for (Enfermedad enfermedad : pg.getpHistoriaClinica().getAntecedentesPatologicos()) {
             if (enfermedad.getIdEnfermedad() >= 0 && enfermedad.getIdEnfermedad() < checkBoxes.size()) {
                 checkBoxes.get(enfermedad.getIdEnfermedad()).setSelected(true);

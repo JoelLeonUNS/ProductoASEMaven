@@ -1,25 +1,33 @@
 package pacientes;
 
 public class Familiar {
+    private int idFamiliar;
+    private int idPaciente;
     private String nombreFamiliar;
     private String parentesco;
     private String direccionFamiliar;
     private String telefonoFamiliar;
     private String antecedentesPatologicos;
 
-    
-    // solo para poblar
-    public Familiar(String nombreFamiliar, String parentesco, String direccionFamiliar, String telefonoFamiliar, String antecedentesPatologicos) {
-        this.nombreFamiliar = nombreFamiliar;
-        this.parentesco = parentesco;
-        this.direccionFamiliar = direccionFamiliar;
-        this.telefonoFamiliar = telefonoFamiliar;
-        this.antecedentesPatologicos = antecedentesPatologicos;
-    }
-
     public Familiar() {
     }
 
+    public int getIdFamiliar() {
+        return idFamiliar;
+    }
+
+    public void setIdFamiliar(int idFamiliar) {
+        this.idFamiliar = idFamiliar;
+    }
+
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+    
     public String getNombreFamiliar() {
         return nombreFamiliar;
     }

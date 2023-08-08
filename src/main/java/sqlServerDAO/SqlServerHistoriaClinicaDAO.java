@@ -51,6 +51,9 @@ public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClin
             getPs().setInt(1, obj.getPaciente().getIdPaciente());
             getPs().setString(2, obj.getOtrosAntecedentesPatologicos());
             getPs().setInt(3, obj.getIdHistoriaClinica());
+            
+            DAOFactory dao = new SqlServerDAOFactory();
+            dao.getPaciente().update(obj.getPaciente());
 
             if (!exeUpdate()) obj = null;
         } catch (SQLException e) {
