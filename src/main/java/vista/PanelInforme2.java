@@ -4,7 +4,10 @@
  */
 package vista;
 
+import java.util.List;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import presentador.PresentadorGeneral;
 
 /**
  *
@@ -12,16 +15,22 @@ import javax.swing.JTable;
  */
 public class PanelInforme2 extends javax.swing.JPanel {
 
+    private PresentadorGeneral pGeneral;
+    private DefaultTableModel model;
+
     /**
      * Creates new form PanelInforme2
      */
-    public PanelInforme2() {
+    public PanelInforme2(PresentadorGeneral pGeneral) {
         initComponents();
+        this.pGeneral = pGeneral;
+        model = (DefaultTableModel) jTable1.getModel();
     }
 
-    public JTable getTablaInformes() {
+    public JTable getTablaInformes1() {
         return jTable1;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,6 +61,11 @@ public class PanelInforme2 extends javax.swing.JPanel {
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextField1.setPreferredSize(new java.awt.Dimension(200, 30));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 57, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -65,7 +79,7 @@ public class PanelInforme2 extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Escuela", "Carrera", "Sexo", "Cantidad", "%"
+                "Departamento", "Escuela", "Masculino", "Femenino", "Total"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -73,6 +87,17 @@ public class PanelInforme2 extends javax.swing.JPanel {
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 105, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    public void cargarInformesEnTabla(List<Object[]> informes) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        for (Object[] informe : informes) {
+            model.addRow(informe);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

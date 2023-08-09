@@ -31,5 +31,7 @@ public class PresentadorInforme {
     public List<Object[]> obtenerInforme1() {
         return mInforme.obtenerInforme1();
     }
-
+    public List<Object[]> obtenerInforme2() {
+        return mInforme.obtenerInforme2();
+    }
 }

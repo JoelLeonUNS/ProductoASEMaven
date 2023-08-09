@@ -23,7 +23,7 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
         initComponents();
         this.pGeneral = p;
         pInforme1 = new PanelInforme1(pGeneral);
-        pInforme2 = new PanelInforme2();
+        pInforme2 = new PanelInforme2(pGeneral);
         pInforme3 = new PanelInforme3();
         pInforme4 = new PanelInforme4();
         pInforme5 = new PanelInforme5();
@@ -57,6 +57,8 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme1);
                     }
                     case "Alumnos de Pregraso segun escuela" -> {
+                        List<Object[]> informes = pGeneral.getpInforme().obtenerInforme2();
+                        pInforme2.cargarInformesEnTabla(informes);
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme2);
                     }
                     case "Pacientes segun el sexo" -> {
