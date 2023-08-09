@@ -42,6 +42,21 @@ public class SqlServerHistoriaClinicaEnfermedadDAO extends HistoriaClinicaEnferm
         }
         return obj;
     }
+    
+    @Override
+    public boolean deleteAll(int id) {
+        boolean exito = false;
+        try {
+            setSql("DELETE FROM HistoriaClinicaEnfermedad WHERE idHistoriaClinica = ?");
+            setPs(getConector().prepareStatement(getSql()));
+            getPs().setInt(1, id);
+
+            exito = exeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return exito;
+    }
 
     @Override
     public Enfermedad update(int id, Enfermedad obj) {
@@ -94,11 +109,11 @@ public class SqlServerHistoriaClinicaEnfermedadDAO extends HistoriaClinicaEnferm
             getPs().executeUpdate();
             getConector().commit();
             exito = true;
-            System.out.println("Transacción exitosa");
+            System.out.println("Transacción exitosa - " + this.getClass().getSimpleName());
         } catch (SQLException ex) {
             getConector().rollback();
             exito = false;
-            System.out.println("Transacciónn NO exitosa");
+            System.out.println("Transacciónn NO exitosa - " + this.getClass().getSimpleName() + ":\n" + ex.getMessage());
         } finally {
             if (getPs() != null) {
                 getPs().close();

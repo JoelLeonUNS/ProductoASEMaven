@@ -3,7 +3,6 @@ package vista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
@@ -144,6 +143,8 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         pg.getpHistoriaClinica().setEscuela((Escuela) cmbBx_escuela.getSelectedItem());
         pg.getpHistoriaClinica().setEstadoCivil(getComboBoxText(cmbBx_estadoCivil));
         pg.getpHistoriaClinica().setTipoPaciente("Alumno");
+        
+        pg.getpHistoriaClinica().setOtrosAntecedentesPatologicos(getInputText(txtFld_otros));
     }
 
     public void guardarFamiliar() {
@@ -173,6 +174,10 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         setInputText(txtFld_direccionFamiliar, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()) == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getDireccionFamiliar());
         setInputText(txtFld_telefonoFamiliar, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()) == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getTelefonoFamiliar());
         setInputTextAr(txtAr_antecedentes, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()) == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getAntecedentesPatologicos());
+    }
+    
+    public void mostrarNextIdHistoriaClinica() {
+        lbl_nroHistoriaClinica.setText("Historia Clínica: N° " + pg.getpHistoriaClinica().nextIdHistoriaClinica());
     }
 
     public void mostrarHistoriaClinicaEstudiante() {

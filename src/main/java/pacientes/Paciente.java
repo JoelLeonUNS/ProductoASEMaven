@@ -2,7 +2,6 @@ package pacientes;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +18,7 @@ public class Paciente {
     private String direccion;
     private String telefono;
     private String estadoCivil;
-    protected String tipoPaciente;
+    private String tipoPaciente;
     private Map<Integer, Familiar> familiares = new HashMap<>();
 
     public Paciente() {

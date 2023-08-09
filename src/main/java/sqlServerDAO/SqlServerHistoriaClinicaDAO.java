@@ -49,18 +49,14 @@ public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClin
     @Override
     public HistoriaClinica update(HistoriaClinica obj) {
         try {
-            setSql("UPDATE HistoriaClinica SET idPaciente = ?, otrosAntecedentes = ? WHERE idHistoriaClinica = ?");
+            setSql("UPDATE HistoriaClinica SET otrosAntecedentes = ? WHERE idHistoriaClinica = ?");
             setPs(getConector().prepareStatement(getSql()));
-            getPs().setInt(1, obj.getPaciente().getIdPaciente());
-            getPs().setString(2, obj.getOtrosAntecedentesPatologicos());
-            getPs().setInt(3, obj.getIdHistoriaClinica());
+            getPs().setString(1, obj.getOtrosAntecedentesPatologicos());
+            getPs().setInt(2, obj.getIdHistoriaClinica());
             
             DAOFactory dao = new SqlServerDAOFactory();
             dao.getPaciente().update(obj.getPaciente());
-            for (Enfermedad enfermedad : obj.getAntecedentesPatologicos()) {
-                dao.getHistoriaClinicaEnfermedad().update(obj.getIdHistoriaClinica(), enfermedad);
-            }
-
+            
             if (!exeUpdate()) obj = null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -141,11 +137,11 @@ public class SqlServerHistoriaClinicaDAO extends HistoriaClinicaDAO<HistoriaClin
             getPs().executeUpdate();
             getConector().commit();
             exito = true;
-            System.out.println("Transacción exitosa");
+            System.out.println("Transacción exitosa - " + this.getClass().getSimpleName());
         } catch (SQLException ex) {
             getConector().rollback();
             exito = false;
-            System.out.println("Transacciónn NO exitosa");
+            System.out.println("Transacciónn NO exitosa - " + this.getClass().getSimpleName() + ":\n" + ex.getMessage());
         } finally {
             if (getPs() != null) {
                 getPs().close();

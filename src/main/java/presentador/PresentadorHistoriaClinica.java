@@ -49,6 +49,10 @@ public class PresentadorHistoriaClinica {
         this.modeloHistoriaClinica.setHistoriaClinica(historiaClinica);
     }
     
+    public int nextIdHistoriaClinica() {
+        return modeloHistoriaClinica.nextIdHistoriaClinica();
+    }
+    
     public int getIdHistoriaClinica() {
         return modeloHistoriaClinica.getHistoriaClinica().getIdHistoriaClinica();
     }
@@ -176,7 +180,7 @@ public class PresentadorHistoriaClinica {
     }
 
     public void setTipoPaciente(String tipoPaciente) {
-        modeloHistoriaClinica.getHistoriaClinica().getPaciente().getTipoPaciente();
+        modeloHistoriaClinica.getHistoriaClinica().getPaciente().setTipoPaciente(tipoPaciente);
     }
     
     // Estudiante

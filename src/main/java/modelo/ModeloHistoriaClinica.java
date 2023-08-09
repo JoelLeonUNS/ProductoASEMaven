@@ -70,15 +70,32 @@ public class ModeloHistoriaClinica {
         }
         return historiaClinicas;
     }
+    
+    public int nextIdHistoriaClinica() {
+        return dao.getHistoriaClinica().lastId() + 1;
+    }
+    
+    public int nextIdPaciente() {
+        return dao.getPaciente().lastId() + 1;
+    }
 
     public void registrarHistoriaClinica() {
-        historiaClinica.setIdHistoriaClinica(dao.getHistoriaClinica().lastId() + 1);
-        historiaClinica.getPaciente().setIdPaciente(dao.getPaciente().lastId() + 1);
+        historiaClinica.setIdHistoriaClinica(nextIdHistoriaClinica());
+        historiaClinica.getPaciente().setIdPaciente(nextIdPaciente());
         dao.getHistoriaClinica().create(historiaClinica);
+        
+        for (Enfermedad enfermedad : historiaClinica.getAntecedentesPatologicos()) {
+            dao.getHistoriaClinicaEnfermedad().create(historiaClinica.getIdHistoriaClinica(), enfermedad);
+        }
     }
 
     public void editarHistoriaClinica() {
         dao.getHistoriaClinica().update(historiaClinica);
+        
+        dao.getHistoriaClinicaEnfermedad().deleteAll(historiaClinica.getIdHistoriaClinica());
+        for (Enfermedad enfermedad : historiaClinica.getAntecedentesPatologicos()) {
+            dao.getHistoriaClinicaEnfermedad().create(historiaClinica.getIdHistoriaClinica(), enfermedad);
+        }
     }
 
     public void agregarFamiliar(Familiar familiar) {

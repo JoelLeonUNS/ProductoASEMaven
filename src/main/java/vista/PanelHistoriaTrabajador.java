@@ -124,7 +124,7 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
     public void guardarEnfermedades() {
         for (JCheckBox checkBox : checkBoxes) {
             if (checkBox.isSelected()) {
-                pg.getpHistoriaClinica().agregarEnfermedad(Enfermedad.getPorId(checkBoxes.indexOf(checkBox)));
+                pg.getpHistoriaClinica().agregarEnfermedad(Enfermedad.getPorId(checkBoxes.indexOf(checkBox) + 1));
             }
         }
         pg.getpHistoriaClinica().setOtrosAntecedentesPatologicos(getInputText(txtFld_otros));
@@ -136,7 +136,7 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         pg.getpHistoriaClinica().setNombre(getInputText(txtFld_nombres));
         pg.getpHistoriaClinica().setTelefono(getInputText(txtFld_telefono));
         pg.getpHistoriaClinica().setSexo(getRadioButtonSexo());
-        pg.getpHistoriaClinica().setFechaNac(LocalDate.parse(getInputText(txtFld_fechaNac), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        pg.getpHistoriaClinica().setFechaNac(LocalDate.parse(getInputText(txtFld_fechaNac)));
         pg.getpHistoriaClinica().setLugarNac(getInputText(txtFld_lugarNac));
         pg.getpHistoriaClinica().setDistrito(getInputText(txtFld_distrito));
         pg.getpHistoriaClinica().setDepartamento(getInputText(txtFld_departamento));
@@ -145,6 +145,8 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         pg.getpHistoriaClinica().setDocente(getRadioButtonDocente());
         pg.getpHistoriaClinica().setEstadoCivil(getComboBoxText(cmbBx_estadoCivil));
         pg.getpHistoriaClinica().setTipoPaciente("Trabajador");
+        
+        pg.getpHistoriaClinica().setOtrosAntecedentesPatologicos(getInputText(txtFld_otros));
     }
     
     public void guardarFamiliar() {
@@ -174,6 +176,10 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         setInputText(txtFld_direccionFamiliar, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem())  == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getDireccionFamiliar());
         setInputText(txtFld_telefonoFamiliar, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem())  == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getTelefonoFamiliar());
         setInputTextAr(txtAr_antecedentes, pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem())  == null ? "" : pg.getpHistoriaClinica().getFamiliar((String)cmbBx_parentesco.getSelectedItem()).getAntecedentesPatologicos());
+    }
+    
+    public void mostrarNextIdHistoriaClinica() {
+        lbl_nroHistoriaClinica.setText("Historia Clínica: N° " + pg.getpHistoriaClinica().nextIdHistoriaClinica());
     }
     
     public void mostrarHistoriaClinicaTrabajador() {

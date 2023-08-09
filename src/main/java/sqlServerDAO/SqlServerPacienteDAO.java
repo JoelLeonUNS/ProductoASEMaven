@@ -112,6 +112,7 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
             for (Map.Entry<Integer, Familiar> familiar : obj.getFamiliares().entrySet()) {
                 dao.getFamiliar().update(familiar.getValue());
             }
+            getPs().setInt(16, obj.getIdPaciente());
             
             if (!exeUpdate()) {
                 obj = null;
@@ -240,11 +241,11 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
             getPs().executeUpdate();
             getConector().commit();
             exito = true;
-            System.out.println("Transacción exitosa");
+            System.out.println("Transacción exitosa - " + this.getClass().getSimpleName());
         } catch (SQLException ex) {
             getConector().rollback();
             exito = false;
-            System.out.println("Transacciónn NO exitosa");
+            System.out.println("Transacciónn NO exitosa - " + this.getClass().getSimpleName() + ":\n" + ex.getMessage());
         } finally {
             if (getPs() != null) {
                 getPs().close();
@@ -252,5 +253,4 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
         }
         return exito;
     }
-
 }

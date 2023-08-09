@@ -27,8 +27,9 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
         pHistoriaTrabajador = new PanelHistoriaTrabajador(pg);
         llenarComboBoxNuevaHistoria();
         crearEncabezadoTablaBuscarHistoria();
-
-        cmbBx_nuevaHistoria.addActionListener(this);
+        
+        bttn_nuevaHistoria.addActionListener(this);
+        cmbBx_tipoHistoria.addActionListener(this);
         bttn_buscar.addActionListener(this);
         bttn_editarHistoria.addActionListener(this);
         bttn_guardar.addActionListener(this);
@@ -50,7 +51,6 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
     }
 
     private void llenarComboBoxNuevaHistoria() {
-        comboBoxNuevaHistoria.removeAllElements();
         comboBoxNuevaHistoria.addElement("Nueva Historia");
         comboBoxNuevaHistoria.addElement("Estudiante");
         comboBoxNuevaHistoria.addElement("Trabajador");
@@ -82,11 +82,6 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
         }
     }
 
-    public void changeComboBox() {
-        comboBoxNuevaHistoria.removeElement("Trabajador");
-        comboBoxNuevaHistoria.removeElement("Estudiante");
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -100,25 +95,24 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
             }
             case "Nueva Historia" -> {
                 bttn_guardar.setEnabled(true);
+                setEnableBotones(true);
+                pHistoriaEstudiante.mostrarNextIdHistoriaClinica();
+                pHistoriaTrabajador.mostrarNextIdHistoriaClinica();
                 pg.getpHistoriaClinica().setTipoGuardado("NUEVO");
-                String tipoHistoria = (String) cmbBx_nuevaHistoria.getSelectedItem();
+                String tipoHistoria = (String) cmbBx_tipoHistoria.getSelectedItem();
                 switch (tipoHistoria) {
-                    case "Nueva Historia" -> {
-                        if (comboBoxNuevaHistoria.getSize() == 1) {
-                            llenarComboBoxNuevaHistoria();
-                        }
-                    }
-                    case "Estudiante" -> {
-                        pg.getpHistoriaClinica().resetModeloHistoriaClinica("Alumno"); 
+                    case "Estudiante" -> { 
+                        pg.getpHistoriaClinica().resetModeloHistoriaClinica("Alumno");
                         pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
-                        setEnableBotones(true);
                     }
-                    case "Trabajador" -> {
-                        pg.getpHistoriaClinica().resetModeloHistoriaClinica("Trabajador");                        
+                    case "Trabajador" -> {            
+                        pg.getpHistoriaClinica().resetModeloHistoriaClinica("Trabajador");
                         pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
-                        setEnableBotones(true);
                     }
                 }
+            }
+            case "Tipo Historia" -> {              
+                
             }
             case "Editar Historia" -> {
                 bttn_guardar.setEnabled(true);
@@ -146,7 +140,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
     }
 
     public void guardarDatosPaciente() {
-        String tipoHistoria = (String) cmbBx_nuevaHistoria.getSelectedItem();
+        String tipoHistoria = (String) cmbBx_tipoHistoria.getSelectedItem();
         switch (tipoHistoria) {
             case "Estudiante" -> {
                 pHistoriaEstudiante.guardarEnfermedades();
@@ -166,12 +160,13 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
             if (selectedRow != -1) {
                 pg.getpHistoriaClinica().setHistoriaClinica((HistoriaClinica) tbl_busquedaHistoria.getValueAt(selectedRow, 0));
                 bttn_editarHistoria.setEnabled(true);
-                changeComboBox();
                 if (pg.getpHistoriaClinica().getTipoPaciente().equals("Alumno")) {
+                    cmbBx_tipoHistoria.setSelectedIndex(1);
                     pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
                     pHistoriaEstudiante.mostrarHistoriaClinicaEstudiante();
                     pHistoriaEstudiante.mostrarFamiliar();
                 } else {
+                    cmbBx_tipoHistoria.setSelectedIndex(2);
                     pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
                     pHistoriaTrabajador.mostrarHistoriaClinicaTrabajador();
                     pHistoriaTrabajador.mostrarFamiliar();
@@ -189,11 +184,12 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
         bttn_buscar = new javax.swing.JButton();
         scrll_tablaBusqueda = new javax.swing.JScrollPane();
         tbl_busquedaHistoria = new javax.swing.JTable();
-        cmbBx_nuevaHistoria = new javax.swing.JComboBox<>();
+        cmbBx_tipoHistoria = new javax.swing.JComboBox<>();
         bttn_editarHistoria = new javax.swing.JButton();
         bttn_guardar = new javax.swing.JButton();
         pnl_baseHistoriaClinica = new javax.swing.JPanel();
         lbl_indicacionTipoHistoria = new javax.swing.JLabel();
+        bttn_nuevaHistoria = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1280, 620));
@@ -215,17 +211,17 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
 
         add(scrll_tablaBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 95, 400, 495));
 
-        cmbBx_nuevaHistoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmbBx_nuevaHistoria.setModel(comboBoxNuevaHistoria);
-        cmbBx_nuevaHistoria.setActionCommand("Nueva Historia");
-        cmbBx_nuevaHistoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cmbBx_nuevaHistoria.setPreferredSize(new java.awt.Dimension(215, 35));
-        add(cmbBx_nuevaHistoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 30, -1, -1));
+        cmbBx_tipoHistoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbBx_tipoHistoria.setModel(comboBoxNuevaHistoria);
+        cmbBx_tipoHistoria.setActionCommand("Tipo Historia");
+        cmbBx_tipoHistoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cmbBx_tipoHistoria.setPreferredSize(new java.awt.Dimension(215, 35));
+        add(cmbBx_tipoHistoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 180, -1));
 
         bttn_editarHistoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bttn_editarHistoria.setText("Editar Historia");
         bttn_editarHistoria.setPreferredSize(new java.awt.Dimension(163, 35));
-        add(bttn_editarHistoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(737, 30, 163, -1));
+        add(bttn_editarHistoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 30, 150, -1));
 
         bttn_guardar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bttn_guardar.setText("Guardar");
@@ -254,6 +250,9 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
         );
 
         add(pnl_baseHistoriaClinica, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 95, 775, 495));
+
+        bttn_nuevaHistoria.setText("Nueva Historia");
+        add(bttn_nuevaHistoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 30, 150, 35));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -261,7 +260,8 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
     private javax.swing.JButton bttn_buscar;
     private javax.swing.JButton bttn_editarHistoria;
     private javax.swing.JButton bttn_guardar;
-    private javax.swing.JComboBox<String> cmbBx_nuevaHistoria;
+    public javax.swing.JButton bttn_nuevaHistoria;
+    private javax.swing.JComboBox<String> cmbBx_tipoHistoria;
     private javax.swing.JLabel lbl_indicacionTipoHistoria;
     private javax.swing.JPanel pnl_baseHistoriaClinica;
     private javax.swing.JScrollPane scrll_tablaBusqueda;

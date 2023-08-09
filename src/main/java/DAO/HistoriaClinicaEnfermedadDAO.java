@@ -16,6 +16,8 @@ public abstract class HistoriaClinicaEnfermedadDAO<T> {
     public abstract T create(int id, T obj);
 
     public abstract T delete(int id, T obj);
+    
+    public abstract boolean deleteAll(int id);
 
     public abstract T update(int id, T obj);
 

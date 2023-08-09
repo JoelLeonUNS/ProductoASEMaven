@@ -149,18 +149,16 @@ public class SqlServerConsultaDAO extends ConsultaDAO<ConsultaMedica>{
             getPs().executeUpdate();
             getConector().commit();
             exito = true;
-            System.out.println("Transacción exitosa");
+            System.out.println("Transacción exitosa - " + this.getClass().getSimpleName());
         } catch (SQLException ex) {
             getConector().rollback();
             exito = false;
-            System.out.println("Transacciónn NO exitosa");
-            System.out.println("Error: " + ex.getMessage());//AÑADIDO
+            System.out.println("Transacciónn NO exitosa - " + this.getClass().getSimpleName() + ":\n" + ex.getMessage());
         } finally {
             if (getPs() != null) {
                 getPs().close();
             }
         }
         return exito;
-    }
-    
+    }   
 }
