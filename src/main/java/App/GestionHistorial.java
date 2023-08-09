@@ -24,7 +24,8 @@ public class GestionHistorial {
         PresentadorGeneral.getInstancia().setModeloPresentadorInforme(new ModeloInforme());
         
         //SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "castillo");   
-        SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "sql270399");   
+        //SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "sql270399");
+        SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "02122002");
         VistaLogin vLogin = new VistaLogin(PresentadorGeneral.getInstancia()); 
         vLogin.iniciar();
     }

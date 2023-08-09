@@ -48,6 +48,11 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbl_unsLogo">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="C:\Users\USUARIO\OneDrive\ESTUDIO\UNS\6&#xb0; Ciclo\ARQUITECTURA DE SOFTWARE EMPRESARIAL\Semana 16\ProductoASEMaven\src\main\java\imagenes\Mi proyecto.png"/>
+            </Property>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="30" y="13" width="110" height="45"/>
@@ -91,6 +96,9 @@
         <Component class="javax.swing.JLabel" name="lbl_fotoSesion">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="C:\Users\USUARIO\OneDrive\ESTUDIO\UNS\6&#xb0; Ciclo\ARQUITECTURA DE SOFTWARE EMPRESARIAL\Semana 16\ProductoASEMaven\src\main\java\imagenes\usuario.png"/>
+            </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -183,6 +191,11 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="lbl_foto">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\USUARIO\OneDrive\ESTUDIO\UNS\6&#xb0; Ciclo\ARQUITECTURA DE SOFTWARE EMPRESARIAL\Semana 16\ProductoASEMaven\src\main\java\imagenes\unidadMedica.jpg"/>
+        </Property>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="50" y="130" width="700" height="540"/>

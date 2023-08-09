@@ -66,7 +66,7 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme1);
 
                     }
-                    case "Alumnos de Pregraso segun escuela" -> {
+                    case "Alumnos de Pregrado segun escuela" -> {
                         List<Object[]> informes = pGeneral.getpInforme().obtenerInforme2();
                         pInforme2.cargarInformesEnTabla(informes);
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme2);
