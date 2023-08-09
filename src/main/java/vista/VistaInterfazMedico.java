@@ -9,13 +9,13 @@ import presentador.PresentadorGeneral;
 
 public class VistaInterfazMedico extends javax.swing.JFrame implements ActionListener {
     
-    private PresentadorGeneral pGeneral;
+    private PresentadorGeneral pg;
     private PanelHistoriaClinica pHistorialMedico;
     private PanelExamen pExamen;
     private PanelInforme pInforme;
     
     public VistaInterfazMedico(PresentadorGeneral pGeneral) {
-        this.pGeneral = pGeneral;
+        this.pg = pGeneral;
         pExamen = new PanelExamen(pGeneral);
         pHistorialMedico = new PanelHistoriaClinica(pGeneral);
         pInforme = new PanelInforme(pGeneral);
@@ -30,6 +30,11 @@ public class VistaInterfazMedico extends javax.swing.JFrame implements ActionLis
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);// visualiza la ventana
+        setDatosMedico();
+    }
+    
+    public void setDatosMedico() {
+        lbl_nombreApellido.setText("Bienvenido(a): " + pg.getpLogin().getUsuario());
     }
     
     private void addActionListenerBotones() {
@@ -43,18 +48,18 @@ public class VistaInterfazMedico extends javax.swing.JFrame implements ActionLis
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "HISTORIAS CLINICAS" -> {
-                pGeneral.getpInterfazMedico().cambiarPanel(pnl_medico, pHistorialMedico);
+                pg.getpInterfazMedico().cambiarPanel(pnl_medico, pHistorialMedico);
             }
             case "EXAMENES" -> {
-                pGeneral.getpInterfazMedico().cambiarPanel(pnl_medico, pExamen);
+                pg.getpInterfazMedico().cambiarPanel(pnl_medico, pExamen);
             }
             case "INFORMES" -> {
-                pGeneral.getpInterfazMedico().cambiarPanel(pnl_medico, pInforme);
+                pg.getpInterfazMedico().cambiarPanel(pnl_medico, pInforme);
             }
             case "CERRAR SESIÓN" -> {
-                pGeneral.getpLogin().cerrarSesion();
+                pg.getpLogin().cerrarSesion();
                 this.dispose();
-                pGeneral.mostrarVistaLogin();
+                pg.mostrarVistaLogin();
             }
         }
     }

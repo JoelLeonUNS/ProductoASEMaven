@@ -95,6 +95,7 @@ public class ModeloHistoriaClinica {
         dao.getHistoriaClinica().create(historiaClinica);
 
         for (Map.Entry<Integer, Familiar> familiar : historiaClinica.getPaciente().getFamiliares().entrySet()) {
+            familiar.getValue().setIdPaciente(historiaClinica.getPaciente().getIdPaciente());
             dao.getFamiliar().create(familiar.getValue());
         }
         for (Enfermedad enfermedad : historiaClinica.getAntecedentesPatologicos()) {
