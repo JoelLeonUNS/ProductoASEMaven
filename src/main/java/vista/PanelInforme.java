@@ -1,9 +1,14 @@
 package vista;
 
+import PDFGenerator.PDFGenerator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import presentador.PresentadorGeneral;
 
@@ -15,6 +20,8 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
     private PanelInforme3 pInforme3;
     private PanelInforme4 pInforme4;
     private PanelInforme5 pInforme5;
+    private PDFGenerator pdf;
+    private JPanel panelActivo;
 
     private DefaultTableModel modelTablaInforme = new DefaultTableModel();
     private DefaultComboBoxModel comboBoxTipoInforme = new DefaultComboBoxModel();
@@ -27,8 +34,10 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
         pInforme3 = new PanelInforme3();
         pInforme4 = new PanelInforme4();
         pInforme5 = new PanelInforme5();
+        pdf = new PDFGenerator();
         llenarComboBoxTipoInforme();
         CmbBx_tipoInforme.addActionListener(this);
+        Bttn_descargar.addActionListener(this);
         //pInforme1.cargarDatosEnTabla();
     }
 
@@ -55,6 +64,7 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
                         List<Object[]> informes = pGeneral.getpInforme().obtenerInforme1();
                         pInforme1.cargarInformesEnTabla(informes);
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme1);
+
                     }
                     case "Alumnos de Pregraso segun escuela" -> {
                         List<Object[]> informes = pGeneral.getpInforme().obtenerInforme2();
@@ -79,6 +89,25 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
 
             }
             case "Descargar PDF" -> {
+                if (pInforme1.isDisplayable()) {
+                    List<Object[]> informes = pGeneral.getpInforme().obtenerInforme1();
+                    String[] headers = pInforme1.obtenerEncabezados();
+                    String nombre = pInforme1.obtenerNombreArchivo();
+                    try {
+                        pdf.generarInformePDF(informes, headers, nombre);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PanelInforme.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (pInforme2.isDisplayable()) {
+                    List<Object[]> informes = pGeneral.getpInforme().obtenerInforme2();
+                    String[] headers = pInforme2.obtenerEncabezados();
+                    String nombre = pInforme2.obtenerNombreArchivo();
+                    try {
+                        pdf.generarInformePDF(informes, headers, nombre);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PanelInforme.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
 
             }
         }
@@ -94,7 +123,7 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
         jTable1 = new javax.swing.JTable();
         CmbBx_tipoInforme = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        Bttn_descargar = new javax.swing.JButton();
         Pnl_tipoInforme = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -137,10 +166,10 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
         jComboBox2.setPreferredSize(new java.awt.Dimension(215, 35));
         add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 30, -1, -1));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Descargar PDF");
-        jButton2.setPreferredSize(new java.awt.Dimension(133, 35));
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1117, 30, -1, -1));
+        Bttn_descargar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Bttn_descargar.setText("Descargar PDF");
+        Bttn_descargar.setPreferredSize(new java.awt.Dimension(133, 35));
+        add(Bttn_descargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1117, 30, -1, -1));
 
         Pnl_tipoInforme.setBackground(new java.awt.Color(204, 204, 204));
         Pnl_tipoInforme.setPreferredSize(new java.awt.Dimension(766, 500));
@@ -161,10 +190,10 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bttn_descargar;
     private javax.swing.JComboBox<String> CmbBx_tipoInforme;
     private javax.swing.JPanel Pnl_tipoInforme;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

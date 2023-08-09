@@ -45,7 +45,7 @@ public final class PanelInforme1 extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TxtFld_nombreArchivo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -61,9 +61,9 @@ public final class PanelInforme1 extends javax.swing.JPanel {
         jLabel2.setText("Archivo:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setPreferredSize(new java.awt.Dimension(200, 30));
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 57, -1, -1));
+        TxtFld_nombreArchivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TxtFld_nombreArchivo.setPreferredSize(new java.awt.Dimension(200, 30));
+        add(TxtFld_nombreArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 57, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText(".pdf");
@@ -98,13 +98,29 @@ public final class PanelInforme1 extends javax.swing.JPanel {
             model.addRow(informe);
         }
     }
+    
+    String[] obtenerEncabezados() {
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    int columnCount = model.getColumnCount();
+    String[] headers = new String[columnCount];
+
+    for (int i = 0; i < columnCount; i++) {
+        headers[i] = model.getColumnName(i);
+    }
+
+    return headers;
+}
+
+    public String obtenerNombreArchivo(){
+        return TxtFld_nombreArchivo.getText();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TxtFld_nombreArchivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
 }
