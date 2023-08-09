@@ -31,7 +31,7 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
         this.pGeneral = p;
         pInforme1 = new PanelInforme1(pGeneral);
         pInforme2 = new PanelInforme2(pGeneral);
-        pInforme3 = new PanelInforme3();
+        pInforme3 = new PanelInforme3(pGeneral);
         pInforme4 = new PanelInforme4();
         pInforme5 = new PanelInforme5();
         pdf = new PDFGenerator();
@@ -44,7 +44,7 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
     private void llenarComboBoxTipoInforme() {
         comboBoxTipoInforme.removeAllElements();
         comboBoxTipoInforme.addElement("Atenciones Realizadas");
-        comboBoxTipoInforme.addElement("Alumnos de Pregraso segun escuela");
+        comboBoxTipoInforme.addElement("Alumnos de Pregrado segun escuela");
         comboBoxTipoInforme.addElement("Pacientes segun el sexo");
         comboBoxTipoInforme.addElement("Triaje de signos vitales de los pacientes");
         comboBoxTipoInforme.addElement("Triaje de medida de los pacientes");
@@ -72,6 +72,8 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme2);
                     }
                     case "Pacientes segun el sexo" -> {
+                        List<Object[]> informes = pGeneral.getpInforme().obtenerInforme3();
+                        pInforme3.cargarInformesEnTabla3(informes);
                         pGeneral.getpInforme().cambiarPanel(Pnl_tipoInforme, pInforme3);
                     }
                     case "Triaje de signos vitales de los pacientes" -> {
@@ -102,6 +104,15 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
                     List<Object[]> informes = pGeneral.getpInforme().obtenerInforme2();
                     String[] headers = pInforme2.obtenerEncabezados();
                     String nombre = pInforme2.obtenerNombreArchivo();
+                    try {
+                        pdf.generarInformePDF(informes, headers, nombre);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PanelInforme.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (pInforme3.isDisplayable()) {
+                    List<Object[]> informes = pGeneral.getpInforme().obtenerInforme3();
+                    String[] headers = pInforme3.obtenerEncabezados();
+                    String nombre = pInforme3.obtenerNombreArchivo();
                     try {
                         pdf.generarInformePDF(informes, headers, nombre);
                     } catch (IOException ex) {
