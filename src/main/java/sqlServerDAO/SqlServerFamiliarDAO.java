@@ -45,6 +45,21 @@ public class SqlServerFamiliarDAO extends FamiliarDAO<Familiar> {
         }
         return obj;
     }
+    
+    @Override
+    public boolean deleteAll(int id) {
+        boolean exito = false;
+        try {
+            setSql("DELETE FROM Familiar WHERE idPaciente = ?");
+            setPs(getConector().prepareStatement(getSql()));
+            getPs().setInt(1, id);
+
+            exito = exeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return exito;
+    }
 
     @Override
     public Familiar update(Familiar obj) {
@@ -117,6 +132,22 @@ public class SqlServerFamiliarDAO extends FamiliarDAO<Familiar> {
             System.out.println(e.getMessage());
         }
         return mapaFamiliares;
+    }
+    
+    @Override
+    public int lastId() {
+        int lastId = 0;
+        try {
+            setSql("SELECT TOP 1 idFamiliar FROM Familiar ORDER BY idFamiliar DESC");
+            setPs(getConector().prepareStatement(getSql()));
+            setRs(getPs().executeQuery());
+            if (getRs().next()) {
+                lastId = getRs().getInt("idFamiliar");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lastId;
     }
 
     @Override

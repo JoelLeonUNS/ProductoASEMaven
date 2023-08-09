@@ -57,6 +57,8 @@ public class ModeloUsuario {
                 datosValido = true;
                 usuario = usuarioBD;
                 break;
+            } else {
+                datosValido = false;
             }
         }
         if (!datosValido) numeroIntentos++;  

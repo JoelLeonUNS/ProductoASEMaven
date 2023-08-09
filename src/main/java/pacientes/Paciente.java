@@ -128,8 +128,12 @@ public class Paciente {
         this.familiares = familiares;
     }
     
-    public void agregarFamiliar(Integer id, Familiar familiar) {
+    public void agregarFamiliar(int id, Familiar familiar) {
         familiares.put(id, familiar);
+    }
+    
+    public Integer cantidadFamiliares() {
+        return familiares.size();
     }
 
     public String getTipoPaciente() {

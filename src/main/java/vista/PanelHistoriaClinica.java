@@ -99,6 +99,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
                 setEnableBotones(true);
                 pHistoriaEstudiante.mostrarNextIdHistoriaClinica();
                 pHistoriaTrabajador.mostrarNextIdHistoriaClinica();
+                pg.getpHistoriaClinica().resetIncIdFamiliar();
                 pg.getpHistoriaClinica().setTipoGuardado("NUEVO");
                 String tipoHistoria = (String) cmbBx_tipoHistoria.getSelectedItem();
                 switch (tipoHistoria) {
@@ -118,6 +119,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
             case "Editar Historia" -> {
                 bttn_guardar.setEnabled(true);
                 setEnableBotones(true);
+                pg.getpHistoriaClinica().resetIncIdFamiliar();
                 pg.getpHistoriaClinica().setTipoGuardado("EDITAR");
             }
             case "Guardar Historia" -> {
@@ -168,6 +170,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
                     pg.getpHistoriaClinica().setHistoriaClinica((HistoriaClinica) tbl_busquedaHistoria.getValueAt(selectedRow, 0));
                     bttn_guardar.setEnabled(false);
                     bttn_editarHistoria.setEnabled(true);
+                    setEnableBotones(false);
                     if (pg.getpHistoriaClinica().getTipoPaciente().equals("Alumno")) {
                         cmbBx_tipoHistoria.setSelectedIndex(1);
                         pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
@@ -259,6 +262,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
 
         add(pnl_baseHistoriaClinica, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 95, 775, 495));
 
+        bttn_nuevaHistoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bttn_nuevaHistoria.setText("Nueva Historia");
         add(bttn_nuevaHistoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 30, 150, 35));
     }// </editor-fold>//GEN-END:initComponents

@@ -15,6 +15,7 @@ public class ModeloHistoriaClinica {
 
     private final DAOFactory dao;
     private HistoriaClinica historiaClinica;
+    private int incIdFamiliar;
     private ArrayList<Integer> idHistorias;
 
     public ModeloHistoriaClinica() {
@@ -78,6 +79,15 @@ public class ModeloHistoriaClinica {
     public int nextIdPaciente() {
         return dao.getPaciente().lastId() + 1;
     }
+    
+    public int nextIdFamiliar() {
+        incIdFamiliar++;
+        return dao.getFamiliar().lastId() + incIdFamiliar;
+    }
+
+    public void resetIncIdFamiliar() {
+        this.incIdFamiliar = 0;
+    }
 
     public void registrarHistoriaClinica() {
         historiaClinica.setIdHistoriaClinica(nextIdHistoriaClinica());
@@ -94,7 +104,13 @@ public class ModeloHistoriaClinica {
 
     public void editarHistoriaClinica() {
         dao.getHistoriaClinica().update(historiaClinica);
-
+        for (Map.Entry<Integer, Familiar> familiar : historiaClinica.getPaciente().getFamiliares().entrySet()) {
+            if (dao.getFamiliar().read(familiar.getValue().getIdFamiliar()) != null) {
+                dao.getFamiliar().update(familiar.getValue());
+            } else {
+                dao.getFamiliar().create(familiar.getValue());
+            }    
+        }
         dao.getHistoriaClinicaEnfermedad().deleteAll(historiaClinica.getIdHistoriaClinica());
         for (Enfermedad enfermedad : historiaClinica.getAntecedentesPatologicos()) {
             dao.getHistoriaClinicaEnfermedad().create(historiaClinica.getIdHistoriaClinica(), enfermedad);
@@ -102,15 +118,22 @@ public class ModeloHistoriaClinica {
     }
 
     public void agregarFamiliar(Familiar familiar) {
-        Integer indiceFamiliar = null;
+        Integer indiceFamiliarActualizado = null;
+        int idFamiliarActualizado = 0;
         for (Map.Entry<Integer, Familiar> familiarExiste : historiaClinica.getPaciente().getFamiliares().entrySet()) {
             if (familiarExiste.getValue().getParentesco().equalsIgnoreCase(familiar.getParentesco())) {
-                indiceFamiliar = familiarExiste.getKey();
+                indiceFamiliarActualizado = familiarExiste.getKey();
+                idFamiliarActualizado = familiarExiste.getValue().getIdFamiliar();
                 break;
             }
         }
-
-        historiaClinica.getPaciente().agregarFamiliar(indiceFamiliar, familiar); // actualizar o agregar
+        if (indiceFamiliarActualizado != null) {
+            familiar.setIdFamiliar(idFamiliarActualizado);
+            historiaClinica.getPaciente().agregarFamiliar(indiceFamiliarActualizado, familiar); // actualizar o agregar
+        } else {
+            familiar.setIdFamiliar(nextIdFamiliar());
+            historiaClinica.getPaciente().agregarFamiliar(historiaClinica.getPaciente().cantidadFamiliares() + 1, familiar);
+        }
     }
 
     public Familiar getParentescoFamiliar(String parentesco) {

@@ -17,11 +17,15 @@ public abstract class FamiliarDAO<T> {
 
     public abstract T delete(T obj);
 
+    public abstract boolean deleteAll(int id);
+    
     public abstract T update(T obj);
 
     public abstract T read(int id);
 
     public abstract Map<Integer, T> mapped(int id);
+    
+    public abstract int lastId();
 
     public abstract boolean exeUpdate() throws SQLException;
 
