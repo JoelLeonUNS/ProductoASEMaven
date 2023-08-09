@@ -3,7 +3,6 @@ package vista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
@@ -96,6 +95,7 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
     }
 
     public final void setEnableBotones(boolean b) {
+        txtFld_dni.setEditable(b);
         txtFld_apellidos.setEditable(b);
         txtFld_nombres.setEditable(b);
         rdBttn_m.setEnabled(b);
@@ -113,6 +113,7 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         for (JCheckBox checkBox : checkBoxes) {
             checkBox.setEnabled(b);
         }
+        txtFld_otros.setEditable(b);
         cmbBx_parentesco.setEnabled(b);
         txtFld_nombreFamiliar.setEditable(b);
         txtFld_direccionFamiliar.setEditable(b);
@@ -164,6 +165,7 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
             case "Guardar" -> {
                 guardarFamiliar();
                 pg.getpHistoriaClinica().agregarFamiliar();
+                pg.getpHistoriaClinica().resetModeloFamiliar();
             }
             case "Parentesco" -> {
                 mostrarFamiliar();
@@ -206,7 +208,7 @@ public class PanelHistoriaTrabajador extends javax.swing.JPanel implements Actio
         }
         for (Enfermedad enfermedad : pg.getpHistoriaClinica().getAntecedentesPatologicos()) {
             if (enfermedad.getIdEnfermedad() >= 0 && enfermedad.getIdEnfermedad() < checkBoxes.size()) {
-                checkBoxes.get(enfermedad.getIdEnfermedad()).setSelected(true);
+                checkBoxes.get(enfermedad.getIdEnfermedad() - 1).setSelected(true);
             }
         }
     }

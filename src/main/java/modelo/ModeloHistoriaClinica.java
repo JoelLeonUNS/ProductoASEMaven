@@ -21,7 +21,7 @@ public class ModeloHistoriaClinica {
         resetModelo("Paciente");
         this.dao = new SqlServerDAOFactory(); // o MySql
     }
-    
+
     public final void resetModelo(String tipoPaciente) {
         this.historiaClinica = new HistoriaClinica();
         switch (tipoPaciente) {
@@ -70,11 +70,11 @@ public class ModeloHistoriaClinica {
         }
         return historiaClinicas;
     }
-    
+
     public int nextIdHistoriaClinica() {
         return dao.getHistoriaClinica().lastId() + 1;
     }
-    
+
     public int nextIdPaciente() {
         return dao.getPaciente().lastId() + 1;
     }
@@ -83,7 +83,10 @@ public class ModeloHistoriaClinica {
         historiaClinica.setIdHistoriaClinica(nextIdHistoriaClinica());
         historiaClinica.getPaciente().setIdPaciente(nextIdPaciente());
         dao.getHistoriaClinica().create(historiaClinica);
-        
+
+        for (Map.Entry<Integer, Familiar> familiar : historiaClinica.getPaciente().getFamiliares().entrySet()) {
+            dao.getFamiliar().create(familiar.getValue());
+        }
         for (Enfermedad enfermedad : historiaClinica.getAntecedentesPatologicos()) {
             dao.getHistoriaClinicaEnfermedad().create(historiaClinica.getIdHistoriaClinica(), enfermedad);
         }
@@ -91,7 +94,7 @@ public class ModeloHistoriaClinica {
 
     public void editarHistoriaClinica() {
         dao.getHistoriaClinica().update(historiaClinica);
-        
+
         dao.getHistoriaClinicaEnfermedad().deleteAll(historiaClinica.getIdHistoriaClinica());
         for (Enfermedad enfermedad : historiaClinica.getAntecedentesPatologicos()) {
             dao.getHistoriaClinicaEnfermedad().create(historiaClinica.getIdHistoriaClinica(), enfermedad);
@@ -101,22 +104,22 @@ public class ModeloHistoriaClinica {
     public void agregarFamiliar(Familiar familiar) {
         Integer indiceFamiliar = null;
         for (Map.Entry<Integer, Familiar> familiarExiste : historiaClinica.getPaciente().getFamiliares().entrySet()) {
-           if (familiarExiste.getValue().getParentesco().equalsIgnoreCase(familiar.getParentesco())) {
+            if (familiarExiste.getValue().getParentesco().equalsIgnoreCase(familiar.getParentesco())) {
                 indiceFamiliar = familiarExiste.getKey();
                 break;
-            }          
+            }
         }
-  
+
         historiaClinica.getPaciente().agregarFamiliar(indiceFamiliar, familiar); // actualizar o agregar
     }
-    
+
     public Familiar getParentescoFamiliar(String parentesco) {
         for (Map.Entry<Integer, Familiar> familiarExiste : historiaClinica.getPaciente().getFamiliares().entrySet()) {
-           if (familiarExiste.getValue().getParentesco().equalsIgnoreCase(parentesco)) {
+            if (familiarExiste.getValue().getParentesco().equalsIgnoreCase(parentesco)) {
                 return familiarExiste.getValue();
-            }          
+            }
         }
         return null;
     }
-    
+
 }

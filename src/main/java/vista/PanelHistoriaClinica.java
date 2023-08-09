@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -27,7 +28,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
         pHistoriaTrabajador = new PanelHistoriaTrabajador(pg);
         llenarComboBoxNuevaHistoria();
         crearEncabezadoTablaBuscarHistoria();
-        
+
         bttn_nuevaHistoria.addActionListener(this);
         cmbBx_tipoHistoria.addActionListener(this);
         bttn_buscar.addActionListener(this);
@@ -101,18 +102,18 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
                 pg.getpHistoriaClinica().setTipoGuardado("NUEVO");
                 String tipoHistoria = (String) cmbBx_tipoHistoria.getSelectedItem();
                 switch (tipoHistoria) {
-                    case "Estudiante" -> { 
+                    case "Estudiante" -> {
                         pg.getpHistoriaClinica().resetModeloHistoriaClinica("Alumno");
                         pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
                     }
-                    case "Trabajador" -> {            
+                    case "Trabajador" -> {
                         pg.getpHistoriaClinica().resetModeloHistoriaClinica("Trabajador");
                         pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
                     }
                 }
             }
-            case "Tipo Historia" -> {              
-                
+            case "Tipo Historia" -> {
+
             }
             case "Editar Historia" -> {
                 bttn_guardar.setEnabled(true);
@@ -120,6 +121,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
                 pg.getpHistoriaClinica().setTipoGuardado("EDITAR");
             }
             case "Guardar Historia" -> {
+                pg.getpHistoriaClinica().limpiarAntecedentesPatologicos();
                 guardarDatosPaciente();
                 switch (pg.getpHistoriaClinica().getTipoGuardado()) {
                     case "NUEVO" -> {
@@ -130,7 +132,7 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
                     }
                 }
                 pg.getpHistoriaClinica().limpiarAntecedentesPatologicos();
-                pg.getpHistoriaClinica().resetModeloHistoriaClinica("Paciente"); 
+                pg.getpHistoriaClinica().resetModeloHistoriaClinica("Paciente");
                 bttn_guardar.setEnabled(false);
                 bttn_editarHistoria.setEnabled(false);
                 setEnableBotones(false);
@@ -155,26 +157,32 @@ public class PanelHistoriaClinica extends javax.swing.JPanel implements ActionLi
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
+        boolean descarte = true;
         if (!e.getValueIsAdjusting()) {
             int selectedRow = tbl_busquedaHistoria.getSelectedRow();
             if (selectedRow != -1) {
-                pg.getpHistoriaClinica().setHistoriaClinica((HistoriaClinica) tbl_busquedaHistoria.getValueAt(selectedRow, 0));
-                bttn_editarHistoria.setEnabled(true);
-                if (pg.getpHistoriaClinica().getTipoPaciente().equals("Alumno")) {
-                    cmbBx_tipoHistoria.setSelectedIndex(1);
-                    pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
-                    pHistoriaEstudiante.mostrarHistoriaClinicaEstudiante();
-                    pHistoriaEstudiante.mostrarFamiliar();
-                } else {
-                    cmbBx_tipoHistoria.setSelectedIndex(2);
-                    pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
-                    pHistoriaTrabajador.mostrarHistoriaClinicaTrabajador();
-                    pHistoriaTrabajador.mostrarFamiliar();
+                if ((bttn_editarHistoria.isEnabled() && bttn_guardar.isEnabled()) || (bttn_nuevaHistoria.isEnabled() && bttn_guardar.isEnabled())) {
+                    descarte = (0 == JOptionPane.showConfirmDialog(null, "¿Desea descartar la edición?"));
+                }
+                if (descarte) {
+                    pg.getpHistoriaClinica().setHistoriaClinica((HistoriaClinica) tbl_busquedaHistoria.getValueAt(selectedRow, 0));
+                    bttn_guardar.setEnabled(false);
+                    bttn_editarHistoria.setEnabled(true);
+                    if (pg.getpHistoriaClinica().getTipoPaciente().equals("Alumno")) {
+                        cmbBx_tipoHistoria.setSelectedIndex(1);
+                        pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaEstudiante);
+                        pHistoriaEstudiante.mostrarHistoriaClinicaEstudiante();
+                        pHistoriaEstudiante.mostrarFamiliar();
+                    } else {
+                        cmbBx_tipoHistoria.setSelectedIndex(2);
+                        pg.getpHistoriaClinica().cambiarTipoHistoriaClinica(pnl_baseHistoriaClinica, pHistoriaTrabajador);
+                        pHistoriaTrabajador.mostrarHistoriaClinicaTrabajador();
+                        pHistoriaTrabajador.mostrarFamiliar();
+                    }
                 }
             }
         }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

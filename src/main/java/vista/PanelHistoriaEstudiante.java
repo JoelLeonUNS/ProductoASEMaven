@@ -97,6 +97,7 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
     }
 
     public final void setEnableBotones(boolean b) {
+        txtFld_dni.setEditable(b);
         txtFld_apellidos.setEditable(b);
         txtFld_nombres.setEditable(b);
         rdBttn_m.setEnabled(b);
@@ -106,12 +107,13 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         txtFld_distrito.setEditable(b);
         txtFld_departamento.setEditable(b);
         txtFld_direccion.setEditable(b);
-        cmbBx_escuela.setEditable(b);
+        cmbBx_escuela.setEnabled(b);
         txtFld_telefono.setEditable(b);
         cmbBx_estadoCivil.setEnabled(b);
         for (JCheckBox checkBox : checkBoxes) {
             checkBox.setEnabled(b);
         }
+        txtFld_otros.setEditable(b);
         cmbBx_parentesco.setEnabled(b);
         txtFld_nombreFamiliar.setEditable(b);
         txtFld_direccionFamiliar.setEditable(b);
@@ -123,7 +125,7 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
     public void guardarEnfermedades() {
         for (JCheckBox checkBox : checkBoxes) {
             if (checkBox.isSelected()) {
-                pg.getpHistoriaClinica().agregarEnfermedad(Enfermedad.getPorId(checkBoxes.indexOf(checkBox)));
+                pg.getpHistoriaClinica().agregarEnfermedad(Enfermedad.getPorId(checkBoxes.indexOf(checkBox)+1));
             }
         }
         pg.getpHistoriaClinica().setOtrosAntecedentesPatologicos(getInputText(txtFld_otros));
@@ -162,6 +164,7 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
             case "Guardar" -> {
                 guardarFamiliar();
                 pg.getpHistoriaClinica().agregarFamiliar();
+                pg.getpHistoriaClinica().resetModeloFamiliar();
             }
             case "Parentesco" -> {
                 mostrarFamiliar();
@@ -202,7 +205,7 @@ public class PanelHistoriaEstudiante extends javax.swing.JPanel implements Actio
         }
         for (Enfermedad enfermedad : pg.getpHistoriaClinica().getAntecedentesPatologicos()) {
             if (enfermedad.getIdEnfermedad() >= 0 && enfermedad.getIdEnfermedad() < checkBoxes.size()) {
-                checkBoxes.get(enfermedad.getIdEnfermedad()).setSelected(true);
+                checkBoxes.get(enfermedad.getIdEnfermedad() -  1).setSelected(true);
             }
         }
     }

@@ -46,10 +46,7 @@ public class SqlServerPacienteDAO extends PacienteDAO<Paciente> {
                 getPs().setBoolean(16, trabajador.isDocente());
             }
             
-            DAOFactory dao = new SqlServerDAOFactory();
-            for (Map.Entry<Integer, Familiar> familiar : obj.getFamiliares().entrySet()) {
-                dao.getFamiliar().create(familiar.getValue());
-            }        
+            // se crea los familiares a parte, despues que exista el paciente.     
            
             if (!exeUpdate()) {
                 obj = null;

@@ -41,6 +41,10 @@ public class PresentadorHistoriaClinica {
         this.modeloFamiliar = mFamiliar;
     }
     
+    public void resetModeloFamiliar() {
+        this.modeloFamiliar.resetModeloFamiliar();
+    }
+    
     public HistoriaClinica getHistoriaClinica() {
         return modeloHistoriaClinica.getHistoriaClinica();
     }

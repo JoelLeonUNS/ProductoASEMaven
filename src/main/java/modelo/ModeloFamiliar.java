@@ -9,8 +9,12 @@ public class ModeloFamiliar {
     private Familiar familiar;
 
     public ModeloFamiliar() {
-        this.familiar = new Familiar();
+        resetModeloFamiliar();
         this.dao = new SqlServerDAOFactory(); // o MySql
+    }
+    
+    public final void resetModeloFamiliar() {
+        this.familiar = new Familiar();
     }
 
     public Familiar getFamiliar() {
