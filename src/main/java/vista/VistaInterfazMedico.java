@@ -173,5 +173,4 @@ public class VistaInterfazMedico extends javax.swing.JFrame implements ActionLis
     private javax.swing.JPanel pnl_medico;
     // End of variables declaration//GEN-END:variables
 
-    
 }
