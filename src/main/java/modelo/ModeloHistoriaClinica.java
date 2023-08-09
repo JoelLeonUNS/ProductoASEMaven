@@ -144,5 +144,4 @@ public class ModeloHistoriaClinica {
         }
         return null;
     }
-
 }
