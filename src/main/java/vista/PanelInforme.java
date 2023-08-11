@@ -128,27 +128,21 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         CmbBx_tipoInforme = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
         Bttn_descargar = new javax.swing.JButton();
         Pnl_tipoInforme = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1280, 620));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setPreferredSize(new java.awt.Dimension(250, 35));
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Buscar");
-        jButton1.setPreferredSize(new java.awt.Dimension(150, 35));
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 30, -1, -1));
+        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ultimas 24 horas", "Último mes", "Último semestre", "Último año", "Personalizado" }));
+        jComboBox2.setActionCommand("Filtrar Tiempo");
+        jComboBox2.setPreferredSize(new java.awt.Dimension(215, 35));
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(404, 500));
 
@@ -163,19 +157,22 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 95, -1, -1));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextField1.setPreferredSize(new java.awt.Dimension(250, 35));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setText("Buscar");
+        jButton1.setPreferredSize(new java.awt.Dimension(150, 35));
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1280, 620));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         CmbBx_tipoInforme.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CmbBx_tipoInforme.setModel(comboBoxTipoInforme);
         CmbBx_tipoInforme.setActionCommand("Generar Informe");
         CmbBx_tipoInforme.setPreferredSize(new java.awt.Dimension(215, 35));
         add(CmbBx_tipoInforme, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 30, 300, -1));
-
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ultimas 24 horas", "Último mes", "Último semestre", "Último año", "Personalizado" }));
-        jComboBox2.setActionCommand("Filtrar Tiempo");
-        jComboBox2.setPreferredSize(new java.awt.Dimension(215, 35));
-        add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 30, -1, -1));
 
         Bttn_descargar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Bttn_descargar.setText("Descargar PDF");
@@ -197,6 +194,14 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
         );
 
         add(Pnl_tipoInforme, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 95, 766, 500));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\OneDrive\\ESTUDIO\\UNS\\6° Ciclo\\ARQUITECTURA DE SOFTWARE EMPRESARIAL\\Semana 16\\ProductoASEMaven\\src\\main\\java\\imagenes\\pdf.png")); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 106, 390, 270));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("<html>En esta sección se puede descargar infórmenes en base a las<br>consultas de los pacientes a través del tiempo.</html>");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 390, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -206,6 +211,8 @@ public class PanelInforme extends javax.swing.JPanel implements ActionListener {
     private javax.swing.JPanel Pnl_tipoInforme;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

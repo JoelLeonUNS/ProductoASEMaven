@@ -1,8 +1,11 @@
 package vista;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import presentador.PresentadorGeneral;
@@ -48,12 +51,15 @@ public class VistaInterfazMedico extends javax.swing.JFrame implements ActionLis
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "HISTORIAS CLINICAS" -> {
+                resaltarVentanas(bttn_historiasClinicas);
                 pg.getpInterfazMedico().cambiarPanel(pnl_medico, pHistorialMedico);
             }
             case "EXAMENES" -> {
+                resaltarVentanas(bttn_examenes);
                 pg.getpInterfazMedico().cambiarPanel(pnl_medico, pExamen);
             }
             case "INFORMES" -> {
+                resaltarVentanas(bttn_informes);
                 pg.getpInterfazMedico().cambiarPanel(pnl_medico, pInforme);
             }
             case "CERRAR SESIÓN" -> {
@@ -61,6 +67,28 @@ public class VistaInterfazMedico extends javax.swing.JFrame implements ActionLis
                 this.dispose();
                 pg.mostrarVistaLogin();
             }
+        }
+    }
+    
+    public void resaltarVentanas(JButton button) {
+        resaltar(button, pHistorialMedico);
+        resaltar(button, pExamen);
+        resaltar(button, pInforme);
+    }
+    
+    public void resaltar(JButton button, JPanel panel) {
+        if (panel.isDisplayable()) {
+            button.setBackground(Color.WHITE);
+        } else {
+            if (!button.equals( bttn_historiasClinicas)) {
+                bttn_historiasClinicas.setBackground(new Color(230, 230, 230));
+            }
+            if (!button.equals(bttn_examenes)) {
+                bttn_examenes.setBackground(new Color(230, 230, 230));
+            }
+            if (!button.equals(bttn_informes)) {
+                bttn_informes.setBackground(new Color(230, 230, 230));
+            }           
         }
     }
     
@@ -104,7 +132,7 @@ public class VistaInterfazMedico extends javax.swing.JFrame implements ActionLis
         pnl_headerTop.setBackground(new java.awt.Color(255, 255, 255));
         pnl_headerTop.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnl_header.setBackground(new java.awt.Color(217, 217, 217));
+        pnl_header.setBackground(new java.awt.Color(230, 230, 230));
         pnl_header.setPreferredSize(new java.awt.Dimension(265, 70));
         pnl_header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -112,30 +140,34 @@ public class VistaInterfazMedico extends javax.swing.JFrame implements ActionLis
         lbl_nombreApellido.setText("Bienvenido:");
         pnl_header.add(lbl_nombreApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        bttn_historiasClinicas.setBackground(new java.awt.Color(230, 230, 230));
         bttn_historiasClinicas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bttn_historiasClinicas.setText("Historias Clínicas");
         bttn_historiasClinicas.setActionCommand("HISTORIAS CLINICAS");
+        bttn_historiasClinicas.setBorder(null);
         bttn_historiasClinicas.setBorderPainted(false);
-        bttn_historiasClinicas.setContentAreaFilled(false);
         bttn_historiasClinicas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttn_historiasClinicas.setOpaque(true);
         bttn_historiasClinicas.setPreferredSize(new java.awt.Dimension(185, 70));
         pnl_header.add(bttn_historiasClinicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 0, -1, -1));
 
+        bttn_examenes.setBackground(new java.awt.Color(230, 230, 230));
         bttn_examenes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bttn_examenes.setText("Exámenes");
         bttn_examenes.setActionCommand("EXAMENES");
         bttn_examenes.setBorderPainted(false);
-        bttn_examenes.setContentAreaFilled(false);
         bttn_examenes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttn_examenes.setOpaque(true);
         bttn_examenes.setPreferredSize(new java.awt.Dimension(185, 70));
         pnl_header.add(bttn_examenes, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, -1, -1));
 
+        bttn_informes.setBackground(new java.awt.Color(230, 230, 230));
         bttn_informes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bttn_informes.setText("Informes");
         bttn_informes.setActionCommand("INFORMES");
         bttn_informes.setBorderPainted(false);
-        bttn_informes.setContentAreaFilled(false);
         bttn_informes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bttn_informes.setOpaque(true);
         bttn_informes.setPreferredSize(new java.awt.Dimension(185, 70));
         pnl_header.add(bttn_informes, new org.netbeans.lib.awtextra.AbsoluteConstraints(665, 0, -1, -1));
 

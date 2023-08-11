@@ -1,5 +1,6 @@
 package App;
 
+import conexiones.MySqlConexion;
 import conexiones.SqlServerConexion;
 import modelo.ModeloConsulta;
 import modelo.ModeloExamen;
@@ -26,6 +27,8 @@ public class GestionHistorial {
         //SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "castillo");   
         //SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "sql270399");
         SqlServerConexion.setDatos("localhost", "1433", "UnidadMedica", "sa", "02122002");
+        
+        MySqlConexion.setDatos("localhost", "3306", "UnidadMedica", "root", "02122002");
         VistaLogin vLogin = new VistaLogin(PresentadorGeneral.getInstancia()); 
         vLogin.iniciar();
     }

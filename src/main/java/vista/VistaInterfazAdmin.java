@@ -20,14 +20,14 @@ import presentador.PresentadorGeneral;
  */
 public class VistaInterfazAdmin extends javax.swing.JFrame implements ActionListener, ListSelectionListener {
 
-    private PresentadorGeneral pGeneral;
+    private PresentadorGeneral pg;
     private DefaultTableModel modelTablaCuentas = new DefaultTableModel();
 
     public VistaInterfazAdmin(PresentadorGeneral p) {
         lookAndFeel();
         initComponents();
         crearEncabezadoTablaCuenta();
-        this.pGeneral = p;
+        this.pg = p;
         this.jButton1.addActionListener(this);
         this.jButton2.addActionListener(this);
         this.jButton3.addActionListener(this);
@@ -50,6 +50,11 @@ public class VistaInterfazAdmin extends javax.swing.JFrame implements ActionList
         setResizable(false);
         setSize(1280, 720);
         setVisible(true);// visualiza la ventana
+        setDatosMedico();
+    }
+    
+    public void setDatosMedico() {
+        lbl_nombreAdmin.setText("Bienvenido(a): " + pg.getpLogin().getUsuario());
     }
 
     @SuppressWarnings("unchecked")
@@ -58,7 +63,7 @@ public class VistaInterfazAdmin extends javax.swing.JFrame implements ActionList
 
         pnl_header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_nombreAdmin = new javax.swing.JLabel();
         bttn_cerrarSesion = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -86,7 +91,6 @@ public class VistaInterfazAdmin extends javax.swing.JFrame implements ActionList
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnl_header.setBackground(new java.awt.Color(255, 255, 255));
@@ -97,9 +101,9 @@ public class VistaInterfazAdmin extends javax.swing.JFrame implements ActionList
         jLabel1.setText("Administrar Cuentas");
         pnl_header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 23, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        jLabel2.setText("Bienvenido:");
-        pnl_header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 23, -1, -1));
+        lbl_nombreAdmin.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lbl_nombreAdmin.setText("Bienvenido:");
+        pnl_header.add(lbl_nombreAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 23, -1, -1));
 
         bttn_cerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bttn_cerrarSesion.setText("Cerrar Sesión");
@@ -268,7 +272,6 @@ public class VistaInterfazAdmin extends javax.swing.JFrame implements ActionList
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -285,6 +288,7 @@ public class VistaInterfazAdmin extends javax.swing.JFrame implements ActionList
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JLabel lbl_nombreAdmin;
     private javax.swing.JPanel pnl_header;
     private javax.swing.JTextField txtFld_valorBuscado;
     // End of variables declaration//GEN-END:variables
@@ -348,49 +352,49 @@ public class VistaInterfazAdmin extends javax.swing.JFrame implements ActionList
             case "Buscar" -> {
                 if (isBusquedaDNI()) {
                     modelTablaCuentas.setRowCount(0);
-                    addMedico(pGeneral.getpInterfazAdmin().buscarMedicoDNI(getInput(txtFld_valorBuscado)));
+                    addMedico(pg.getpInterfazAdmin().buscarMedicoDNI(getInput(txtFld_valorBuscado)));
                 } else {
-                    mostrarTablaCuentas(pGeneral.getpInterfazAdmin().buscarMedicoCoincidente(getInput(txtFld_valorBuscado)));
+                    mostrarTablaCuentas(pg.getpInterfazAdmin().buscarMedicoCoincidente(getInput(txtFld_valorBuscado)));
                 }
             }
             case "Crear Cuenta" -> {
                 limpiarCasillas();
                 setTxtFldsEditable(true);
                 this.jButton5.setEnabled(true);
-                pGeneral.getpInterfazAdmin().setTipoGuardado("CREAR");
+                pg.getpInterfazAdmin().setTipoGuardado("CREAR");
             }
             case "Editar Cuenta" -> {
                 setTxtFldsEditable(true);
                 this.jButton5.setEnabled(true);
-                pGeneral.getpInterfazAdmin().setTipoGuardado("EDITAR");
+                pg.getpInterfazAdmin().setTipoGuardado("EDITAR");
             }
             case "Desactivar Cuenta" -> {
-                pGeneral.getpInterfazAdmin().desactivarCuenta();
+                pg.getpInterfazAdmin().desactivarCuenta();
                 this.jButton4.setEnabled(false);
                 JOptionPane.showMessageDialog(null, "Cuenta Deshabilitada");
             }
             case "Guardar" -> {
-                pGeneral.getpInterfazAdmin().setDatosMedico(getInput(jTextField2), getInput(jTextField3), getInput(jTextField4), getInput(jTextField5));
-                pGeneral.getpInterfazAdmin().setDatosUsuario(getInput(jTextField6), getInput(jTextField7));
-                if (pGeneral.getpInterfazAdmin().getTipoGuardado().equals("CREAR")) {
+                pg.getpInterfazAdmin().setDatosMedico(getInput(jTextField2), getInput(jTextField3), getInput(jTextField4), getInput(jTextField5));
+                pg.getpInterfazAdmin().setDatosUsuario(getInput(jTextField6), getInput(jTextField7));
+                if (pg.getpInterfazAdmin().getTipoGuardado().equals("CREAR")) {
                     if (camposllenos()) {
-                        //pGeneral.getpInterfazAdmin().nuevoMedico();
-                        pGeneral.getpInterfazAdmin().registrar();
+                        //pg.getpInterfazAdmin().nuevoMedico();
+                        pg.getpInterfazAdmin().registrar();
                         JOptionPane.showMessageDialog(null, "Usuario creado con exito..");
                     } else {
                         JOptionPane.showMessageDialog(null, "Debe completar todos los campos.");
                     }
 
-                } else if (pGeneral.getpInterfazAdmin().getTipoGuardado().equals("EDITAR")) {
-                    pGeneral.getpInterfazAdmin().editar();
+                } else if (pg.getpInterfazAdmin().getTipoGuardado().equals("EDITAR")) {
+                    pg.getpInterfazAdmin().editar();
                 }
                 this.jButton5.setEnabled(false);
                 setTxtFldsEditable(false);
             }
             case "Cerrar Sesión" -> {
-                pGeneral.getpLogin().cerrarSesion(); //
+                pg.getpLogin().cerrarSesion(); //
                 this.dispose();
-                pGeneral.mostrarVistaLogin();
+                pg.mostrarVistaLogin();
             }
         }
     }
@@ -403,12 +407,12 @@ public class VistaInterfazAdmin extends javax.swing.JFrame implements ActionList
             int selectedRow = jTable1.getSelectedRow();
             if (selectedRow != -1) {
                 String dni = jTable1.getValueAt(selectedRow, 0).toString();
-                jTextField2.setText(pGeneral.getpInterfazAdmin().buscarMedicoDNI(dni).getDNI());
-                jTextField3.setText(pGeneral.getpInterfazAdmin().buscarMedicoDNI(dni).getNombreMedico());
-                jTextField4.setText(pGeneral.getpInterfazAdmin().buscarMedicoDNI(dni).getApellidoMedico());
-                jTextField5.setText(pGeneral.getpInterfazAdmin().buscarMedicoDNI(dni).getTelefonoMedico());
-                jTextField6.setText(pGeneral.getpInterfazAdmin().buscarMedicoDNI(dni).getUsuario().getUsuario());
-                jTextField7.setText(pGeneral.getpInterfazAdmin().buscarMedicoDNI(dni).getUsuario().getClave());
+                jTextField2.setText(pg.getpInterfazAdmin().buscarMedicoDNI(dni).getDNI());
+                jTextField3.setText(pg.getpInterfazAdmin().buscarMedicoDNI(dni).getNombreMedico());
+                jTextField4.setText(pg.getpInterfazAdmin().buscarMedicoDNI(dni).getApellidoMedico());
+                jTextField5.setText(pg.getpInterfazAdmin().buscarMedicoDNI(dni).getTelefonoMedico());
+                jTextField6.setText(pg.getpInterfazAdmin().buscarMedicoDNI(dni).getUsuario().getUsuario());
+                jTextField7.setText(pg.getpInterfazAdmin().buscarMedicoDNI(dni).getUsuario().getClave());
             }
         }
 
